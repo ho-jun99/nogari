@@ -6,9 +6,9 @@ import MainNavigator from "./components/common/MainNavigator";
 function App() {
   return (
     <div>
-      <div>
-        <MainNavigator />
-      </div>
+      {/*<div>*/}
+      {/*  <MainNavigator />*/}
+      {/*</div>*/}
       <div>
         <Route exact path="/" component={MainView}/>
         <Route path="/liar" component={LiarGameView}/>
