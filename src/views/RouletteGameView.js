@@ -1,10 +1,11 @@
 import React from 'react';
+import MyInput from '../components/MyInput';
 
 export default function RouletteGameView() {
   return (
     <>
       <div>
-        벌칙 게임 메인 페이지
+        <MyInput/>
       </div>
     </>
   );
