@@ -1,4 +1,5 @@
 import React from 'react';
+import MainNavigator from "../components/common/MainNavigator";
 
 export default function MainView() {
 
@@ -59,6 +60,7 @@ export default function MainView() {
             <div style={styles.mainContainer}>
                 {people_list}
             </div>
+            <MainNavigator/>
         </>
     );
 }
