@@ -59,7 +59,7 @@ const RouletteCard = (props) => {
 
     // 실행 함수
     let cnt = 0;
-    const renderData = shuffleCard(props.cardAmount,props.passAmount).map((item,index)=> {
+    const renderData = shuffleCard(props.cardAmount, props.passAmount).map((item,index)=> {
         return (
             <li key={cnt++} className="inCardWrap">
                 <h1>{item.id}</h1>
