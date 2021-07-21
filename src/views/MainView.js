@@ -1,8 +1,10 @@
 import React from 'react';
 import MainNavigator from "../components/common/MainNavigator";
+import {getRoomInfo} from "../firebase/waiting-room";
+
+
 
 export default function MainView() {
-
     const participants = [
         {
             nickname: "이종휘",
@@ -51,6 +53,8 @@ export default function MainView() {
             <span>{people.nickname}</span>
         </li>
     ))
+
+    getRoomInfo();
 
     return (
         <>
