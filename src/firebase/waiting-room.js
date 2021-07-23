@@ -1,10 +1,8 @@
-import {database} from './firebase-manager';
-import { child, get } from "firebase/database";
-
+import firebase from './firebase-manager';
 
 export function getRoomInfo() {
 
-  get(child(database, `rooms/0`)).then((snapshot) => {
+  const getData = firebase.database().ref('rooms').child('0').get().then((snapshot) => {
     if (snapshot.exists()) {
       console.log(snapshot.val());
     } else {
