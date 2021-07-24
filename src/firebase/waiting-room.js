@@ -1,10 +1,10 @@
 import firebase from './firebase-manager';
 
-export function getRoomInfo() {
+export function getRoomInfo(roomNumber, callback) {
 
-  const getData = firebase.database().ref('rooms').child('0').get().then((snapshot) => {
+  const getData = firebase.database().ref('rooms').child(String(roomNumber)).get().then((snapshot) => {
     if (snapshot.exists()) {
-      console.log(snapshot.val());
+      callback(snapshot.val());
     } else {
       console.log("No data available");
     }

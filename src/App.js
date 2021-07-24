@@ -1,17 +1,15 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { LiarGameView, MainView, RouletteGameView, WordGameView } from './views';
+import { LiarGameView, WaitingRoomView, RouletteGameView, WordGameView, MainView } from './views';
 import MainNavigator from "./components/common/MainNavigator";
 import AlcoholMarble from "./views/AlcoholMarble";
 
 function App() {
   return (
     <div>
-      {/*<div>*/}
-      {/*  <MainNavigator />*/}
-      {/*</div>*/}
       <div>
-        <Route exact path="/" component={MainView}/>
+        <Route path="/" component={MainView} />
+        <Route exact path="/rooms/:roomId" component={WaitingRoomView}/>
         <Route path="/liar" component={LiarGameView}/>
         <Route path="/roulette" component={RouletteGameView}/>
         <Route path="/word" component={WordGameView}/>
