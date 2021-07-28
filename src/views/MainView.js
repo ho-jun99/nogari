@@ -4,7 +4,9 @@ import MainNavigator from "../components/common/MainNavigator";
 export default function MainView() {
   return (
     <>
-      <MainNavigator/>
+      <div>
+          게임 메인 페이지
+      </div>
     </>
   );
 }
