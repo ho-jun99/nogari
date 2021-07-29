@@ -1,0 +1,127 @@
+.navi {
+  border-bottom: 3px dotted;
+  margin: 10px;
+}
+
+.navi .modal {
+  display: inline-block;
+  background-color: aqua;
+  margin: 10px;
+  border: 3px solid black;
+}
+
+.Main .character {
+  width: 224px;
+  height: 216.04px;
+  border: 2px black solid;
+  border-radius: 50%;
+}
+
+.Main .character .userName {
+  position: absolute;
+  left: 40%;
+  right: 0%;
+  bottom: -45%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16.6079px;
+  line-height: 19px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: #323232;
+}
+
+.Main .selectGameBtn {
+  position: absolute;
+  width: 187.33px;
+  height: 45.69px;
+  left: 750px;
+  top: 751px;
+  border: 2px black solid;
+  text-align: center;
+  font-size: 30px;
+}
+
+.Main .startBtn {
+  position: absolute;
+  width: 187.33px;
+  height: 45.69px;
+  left: 983px;
+  top: 751px;
+  text-align: center;
+  border: 2px black solid;
+  font-size: 30px;
+}
+
+.Main .selectedGame {
+  position: absolute;
+  width: 580px;
+  height: 359px;
+  left: 670px;
+  top: 358px;
+  border: 3px black solid;
+}
+
+.Main .selectedGame .selecteMessage {
+  position: absolute;
+  font-size: 30px;
+  width: 250px;
+  left: 170px;
+}
+
+.Main .selectedGame .infoBtn {
+  position: absolute;
+  left: 88.86%;
+  right: 4.55%;
+  top: 5.49%;
+  bottom: 83.88%;
+  background: #737171;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 30px;
+  color: aliceblue;
+}
+
+.Main :nth-child(1) {
+  position: absolute;
+  left: 389px;
+  top: 183px;
+}
+
+.Main :nth-child(2) {
+  position: absolute;
+  left: 389px;
+  top: 490px;
+}
+
+.Main :nth-child(3) {
+  position: absolute;
+  left: 389px;
+  top: 797px;
+}
+
+.Main :nth-child(4) {
+  position: absolute;
+  left: 1296px;
+  top: 183px;
+}
+
+.Main :nth-child(5) {
+  position: absolute;
+  left: 1296px;
+  top: 490px;
+}
+
+.Main :nth-child(6) {
+  position: absolute;
+  left: 1296px;
+  top: 797px;
+}
+/*# sourceMappingURL=WatingRoom.css.map */

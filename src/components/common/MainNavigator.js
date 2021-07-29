@@ -23,7 +23,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-around',
     listStyle: 'none'
-
   },
   gameBtn: {
     width: '15%',
