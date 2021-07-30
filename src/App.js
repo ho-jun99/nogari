@@ -3,7 +3,6 @@ import './components/WatingRoom'
 import WatingRoom from './components/WatingRoom';
 
 
-
 function App() {
   return (
     <div>

@@ -1,3 +1,73 @@
+#menuModal #backBtn {
+  text-align: center;
+  font-size: 30px;
+  border: 1px black solid;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 94%;
+  top: 10px;
+  background-color: #726d6d7c;
+}
+
+#menuModal .menuWraper {
+  bottom: 100px;
+}
+
+#menuModal .menuWraper div {
+  border: 3px black solid;
+  position: absolute;
+  text-align: center;
+  font-size: 50px;
+}
+
+#menuModal .menuWraper :nth-child(1) {
+  width: 405px;
+  height: 650px;
+}
+
+#menuModal .menuWraper :nth-child(1) img {
+  position: absolute;
+  width: 230px;
+  height: auto;
+  top: 30%;
+  left: 25%;
+}
+
+#menuModal .menuWraper :nth-child(2) {
+  left: 48%;
+  width: 405px;
+  height: 200px;
+}
+
+#menuModal .menuWraper :nth-child(3) {
+  left: 48%;
+  top: 35%;
+  width: 195px;
+  height: 250px;
+}
+
+#menuModal .menuWraper :nth-child(4) {
+  left: 71%;
+  top: 35%;
+  width: 195px;
+  height: 250px;
+}
+
+#menuModal .menuWraper :nth-child(5) {
+  left: 48%;
+  top: 74%;
+  width: 195px;
+  height: 160px;
+}
+
+#menuModal .menuWraper :nth-child(6) {
+  left: 71%;
+  top: 74%;
+  width: 195px;
+  height: 160px;
+}
+
 .navi {
   border-bottom: 3px dotted;
   margin: 10px;
