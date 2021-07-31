@@ -1,6 +1,8 @@
 import react , {useState} from 'react';
 import './css/WatingRoom.css'
 import Modal from 'react-modal';
+import Exit from '../components/modal/exit'
+import CopyLink from '../components/modal/copylink'
 
 const makeSixArray = (temp) => {
   const arr = Array(6).fill('empty');
@@ -49,13 +51,30 @@ const WatingRoom = () => {
   const [isMenuOpen,setIsMenuOpen] = useState(false);
   const [selectedGame,SetSelectedGame] = useState(0);
 
+  // 다른 방 찾기, 링크로 초대하기 버튼에 관한 변수, 함수
+  const [exitModalOpen, setExitModalOpen] = useState(false);
+  const [linkCopyModalOpen, setLinkCopyModalOpen] = useState(false);
+  const exitOpenModal = () => {
+    setExitModalOpen(true);
+  }
+  const exitCloseModal = () => {
+    setExitModalOpen(false);
+  }
+  const linkCopyOpenModal = () => {
+    setLinkCopyModalOpen(true);
+    navigator.clipboard.writeText("https://www.naver.com/");
+  }
+  const linkCopyCloseModal = () => {
+    setLinkCopyModalOpen(false);
+  }
+
   const onClickSelectGameBtn = () => {
     if (isSelected) {
       setIsSelected(false);
     }else {
       setIsSelected(true);
     }
-    
+
   }
 
   const isMenuOpenFun = () => {
@@ -74,8 +93,10 @@ const WatingRoom = () => {
     <>
       <section className="navi">
         <button className="modal" onClick={isMenuOpenFun}>메뉴판 일러스트</button>
-        <button className="modal">링크로 초대하기</button>
-        <button className="modal">다른방 찾기</button>
+        <button className="modal" onClick={linkCopyOpenModal}>링크로 초대하기</button>
+        <button className="modal" onClick={exitOpenModal}>다른방 찾기</button>
+        <Exit open={exitModalOpen} close={exitCloseModal}></Exit>
+        <CopyLink open={linkCopyModalOpen} close={linkCopyCloseModal}></CopyLink>
         <Modal id="menuModal" isOpen={isMenuOpen} onRequestClose={()=>setIsMenuOpen(false)} style={
           {
             overlay: {
