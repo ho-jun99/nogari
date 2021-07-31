@@ -50,18 +50,18 @@ export default function WaitingRoomView({ match }) {
     // ]
 
 
-    const changedRoomInfo = (roomInfo) => {
-        // TODO : getRoomInfo에서 유저 정보를 조인해서 내려줄 것.
-        const members = roomInfo.members.map((user) => ({
-            nickname: user,
-            is_staff: false,
-            profileImg: null,
-        }));
-        setParticipants(members);
-    };
+    // const changedRoomInfo = (roomInfo) => {
+    //     // TODO : getRoomInfo에서 유저 정보를 조인해서 내려줄 것.
+    //     const members = roomInfo.members.map((user) => ({
+    //         nickname: user,
+    //         is_staff: false,
+    //         profileImg: null,
+    //     }));
+    //     setParticipants(members);
+    // };
 
     useEffect(() => {
-        getRoomInfo(match.params.roomId, changedRoomInfo);
+        getRoomInfo();
     }, []);
 
 
