@@ -38,7 +38,7 @@ const SelectGame = (props) => {
     const game_info = gameList.map((idx) => (
         <li style={styles.listStyle} onClick={() => {
             for (let i=0; i<gameList.length; i++) {
-                if (gameList[i].id == idx.id) {
+                if (gameList[i].id === idx.id) {
                     setSelectedGame(gameList[i].gameName);
                     setIsSelected(true);
                 }
@@ -47,6 +47,16 @@ const SelectGame = (props) => {
             <span>{idx.gameName}</span>
         </li>
     ))
+
+    const sendToParent = () => {
+        for (let i=0; i<gameList.length; i++) {
+            if (gameList[i].gameName === selectedGame) {
+                props.parentFunction(gameList[i]);
+            }
+        }
+        props.close();
+    }
+
     return (
         <>
             {props.open ? (
@@ -54,7 +64,7 @@ const SelectGame = (props) => {
                     <h2 style={styles.title}>게임 선택</h2>
                     <div style={styles.listContainer}>{game_info}</div>
                     <div style={styles.btnContainer}>
-                        {isSelected ? <button style={styles.btnStyle}>선택하기</button> :
+                        {isSelected ? <button style={styles.btnStyle} onClick={sendToParent}>선택하기</button> :
                             <button style={styles.btnStyle} disabled>선택하기</button>}
                         <button style={styles.btnStyle} onClick={exitMenu}>나가기</button>
                         <span>선택된 게임 : {selectedGame}</span>

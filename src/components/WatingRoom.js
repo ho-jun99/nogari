@@ -14,36 +14,36 @@ const makeSixArray = (temp) => {
     return arr;
 }
 const userList = ['김호준', '임성원', '이종휘', '김지성'];
-const gameList = {
-    0: {
-        id: 0,
-        info: "게임을 선택해주세요"
-    },
-    1: {
-        id: 1,
-        info: "이게임은 첫번째 재밌는 게임입니다."
-    },
-    2: {
-        id: 2,
-        info: "이게임은 두번째 재밌는 게임입니다."
-    },
-    3: {
-        id: 3,
-        info: "이게임은 세번째 재밌는 게임입니다."
-    },
-    4: {
-        id: 4,
-        info: "이게임은 네번째 재밌는 게임입니다."
-    },
-    5: {
-        id: 5,
-        info: "이게임은 다섯번째 재밌는 게임입니다."
-    },
-    6: {
-        id: 6,
-        info: "이게임은 여섯번째 재밌는 게임입니다."
-    }
-}
+// const gameList = {
+//     0: {
+//         id: 0,
+//         info: "게임을 선택해주세요"
+//     },
+//     1: {
+//         id: 1,
+//         info: "이게임은 첫번째 재밌는 게임입니다."
+//     },
+//     2: {
+//         id: 2,
+//         info: "이게임은 두번째 재밌는 게임입니다."
+//     },
+//     3: {
+//         id: 3,
+//         info: "이게임은 세번째 재밌는 게임입니다."
+//     },
+//     4: {
+//         id: 4,
+//         info: "이게임은 네번째 재밌는 게임입니다."
+//     },
+//     5: {
+//         id: 5,
+//         info: "이게임은 다섯번째 재밌는 게임입니다."
+//     },
+//     6: {
+//         id: 6,
+//         info: "이게임은 여섯번째 재밌는 게임입니다."
+//     }
+// }
 
 Modal.setAppElement('#root');
 const WatingRoom = () => {
@@ -51,7 +51,9 @@ const WatingRoom = () => {
     const [isSelected, setIsSelected] = useState(false);
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [selectedGame, SetSelectedGame] = useState(0);
+
+    const [selectedGameName, setSelectedGameName] = useState(null);
+    const [selectedGameRule, setSelectedGameRule] = useState(null);
 
     // 다른 방 찾기, 링크로 초대하기 버튼에 관한 변수, 함수
     const [exitModalOpen, setExitModalOpen] = useState(false);
@@ -79,14 +81,6 @@ const WatingRoom = () => {
         setSelectGame(false);
     }
 
-    const onClickSelectGameBtn = () => {
-        if (isSelected) {
-            setIsSelected(false);
-        } else {
-            setIsSelected(true);
-        }
-
-    }
 
     const isMenuOpenFun = () => {
         setIsMenuOpen((prev) => {
@@ -98,6 +92,13 @@ const WatingRoom = () => {
         setIsInfoOpen((prev) => {
             return !prev;
         });
+    }
+
+    const getFromSelectMenu = (data) => {
+        console.log(data);
+        setSelectedGameName(data.gameName);
+        setSelectedGameRule(data.description);
+        setIsSelected(true);
     }
 
 
@@ -153,7 +154,7 @@ const WatingRoom = () => {
                 {userId.map((item, index) => {
                     return <div className="character"><p className="userName">{userId[index]}</p></div>
                 })}
-                <div className="selectedGame">{isSelected ? null :
+                <div className="selectedGame">{isSelected ? selectedGameName :
                     <div className="selecteMessage">게임을 선택해주세요</div>
                 }
                     <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
@@ -172,14 +173,14 @@ const WatingRoom = () => {
                             }
                         }
                     }>
-                        {gameList[selectedGame].info}
+                        {selectedGameRule ? <div>{selectedGameRule}</div> : <div>게임을 먼저 선택해 주세요.</div>}
                     </Modal>
                 </div>
                 <button className="selectGameBtn" onClick={selectGameOpenModal}>게임 선택</button>
                 {isSelected ? <button className="startBtn">시작</button> :
                     <button className="startBtn" disabled>시작</button>}
             </section>
-            <SelectGame open={selectGameModal} close={selectGameCloseModal}></SelectGame>
+            <SelectGame open={selectGameModal} close={selectGameCloseModal} parentFunction={getFromSelectMenu}></SelectGame>
         </>
     )
 }
