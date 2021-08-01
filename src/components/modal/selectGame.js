@@ -1,30 +1,51 @@
 import React, {useState} from 'react'
+import GameInfo from "./gameInfo";
+import Exit from "./exit";
+import {bindReporter} from "web-vitals/dist/modules/lib/bindReporter";
 
 const gameList = [
     {
         id: 0,
         gameName: "주루마블",
-        description: "주사위를 굴리고 술을 마시는 게임",
+        description: "주사위를 굴리고 술을 마시는 게임..(스토리 생략)",
+        story: "주루마블 규칙..(생략)",
     },
     {
         id: 1,
         gameName: "라이어게임",
-        description: "거짓말을 하고 있는 사람을 찾아내는 게임",
+        description: "거짓말을 하고 있는 사람을 찾아내는 게임..(스토리 생략)",
+        story: "라이어게임 규칙..(생략)",
     },
     {
         id: 2,
         gameName: "벌칙룰렛",
-        description: "룰렛 돌려서 벌칙을 수행하는 게임",
+        description: "룰렛 돌려서 벌칙을 수행하는 게임..(스토리 생략)",
+        story: "벌칙룰렛 규칙..(생략)",
     },
     {
         id: 3,
         gameName: "초성게임",
-        description: "초성을 보고 맞추는 게임",
+        description: "초성을 보고 맞추는 게임..(스토리 생략)",
+        story: "초성게임 규칙..(생략)",
     },
 
 ]
 
 const SelectGame = (props) => {
+
+    const [infoModal, setInfoModal] = useState(false);
+    const [gameInfo, setGameInfo] = useState({});
+    const infoOpenModal = () => {
+        setInfoModal(true);
+        for (let i = 0; i < gameList.length; i++) {
+            if (gameList[i].gameName === selectedGame) {
+                setGameInfo(gameList[i]);
+            }
+        }
+    }
+    const infoCloseModal = () => {
+        setInfoModal(false);
+    }
 
     // 게임 선택 '나가기' 버튼 클릭 시 팝업창 종료 및 '선택하기' 버튼 비활성화
     const exitMenu = () => {
@@ -37,19 +58,22 @@ const SelectGame = (props) => {
 
     const game_info = gameList.map((idx) => (
         <li style={styles.listStyle} onClick={() => {
-            for (let i=0; i<gameList.length; i++) {
+            for (let i = 0; i < gameList.length; i++) {
                 if (gameList[i].id === idx.id) {
                     setSelectedGame(gameList[i].gameName);
                     setIsSelected(true);
                 }
             }
         }}>
-            <span>{idx.gameName}</span>
+            <div style={styles.contentContainer}>
+                <span>{idx.gameName}</span>
+                <div style={styles.infoIcon} onClick={infoOpenModal}>i</div>
+            </div>
         </li>
-    ))
+    ));
 
     const sendToParent = () => {
-        for (let i=0; i<gameList.length; i++) {
+        for (let i = 0; i < gameList.length; i++) {
             if (gameList[i].gameName === selectedGame) {
                 props.parentFunction(gameList[i]);
             }
@@ -71,6 +95,7 @@ const SelectGame = (props) => {
                     </div>
                 </div>
             ) : null}
+            <GameInfo open={infoModal} close={infoCloseModal} gameInfo={gameInfo}/>
         </>
     );
 }
@@ -93,7 +118,7 @@ const styles = {
         boxSizing: 'border-box',
         height: 180,
         padding: 10,
-        cursor: 'pointer',
+        // cursor: 'pointer',
     },
     listContainer: {
         width: '100%', textAlign: 'center',
@@ -103,5 +128,12 @@ const styles = {
     },
     btnStyle: {
         width: 120, height: 40, margin: '0 30px 0 30px',
-    }
+    },
+    contentContainer: {
+      position: 'relative',
+    },
+    infoIcon: {
+        position: 'absolute', display: 'inline-block', width: 22, height: 22, lineHeight: '22px',
+        backgroundColor: '#575757', borderRadius: 100, right: 0, color: '#fff', zIndex: 99,
+    },
 }
