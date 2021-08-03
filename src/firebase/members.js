@@ -2,19 +2,19 @@ import firebase from './firebase-manager';
 import React, {useState} from "react";
 
 export default function UserInfo() {
-    const [nickname, setNickname] = useState('');
-    const[count,setCount] =useState(0);
+    const [nickname, setNickname] = useState(''); // 닉네임
+    const[count,setCount] =useState(0); // 프로필
 
-    const handleOnChange = (e) => {
+    const handleOnChange = (e) => { // 닉네임 변화 감지
         setNickname(e.target.value);
     }
 
     const createID = () => {
-        if (count == 0) {
+        if (count == 0) { // 프로필 설정 안 했을 때 에러
             alert("error")
         }
         else {
-            const res = firebase.firestore().collection('users').add({
+            const res = firebase.firestore().collection('users').add({ // 닉네임+프로필 데이터 추가
             nickname: nickname,
             profile: count
             })
