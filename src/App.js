@@ -3,14 +3,13 @@ import { Route } from 'react-router-dom';
 import { LiarGameView, WaitingRoomView, RouletteGameView, WordGameView, MainView } from './views';
 import MainNavigator from "./components/common/MainNavigator";
 import AlcoholMarble from "./views/AlcoholMarble";
-import FindRoomView from "./views/FindRoomView";
+//import FindRoomView from "./views/FindRoomView";
 
 function App() {
   return (
     <div>
       <div>
         <Route path="/" component={MainView} />
-        <Route path="/find" component={FindRoomView} />
         <Route exact path="/rooms/:roomId" component={WaitingRoomView}/>
         <Route path="/liar" component={LiarGameView}/>
         <Route path="/roulette" component={RouletteGameView}/>
