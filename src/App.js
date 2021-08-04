@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { LiarGameView, WaitingRoomView, RouletteGameView, WordGameView, MainView } from './views';
+import { LiarGameView, WaitingRoomView, RouletteGameView, WordGameView, MainView, CreateUserView } from './views';
 import MainNavigator from "./components/common/MainNavigator";
 import AlcoholMarble from "./views/AlcoholMarble";
 //import FindRoomView from "./views/FindRoomView";
-
+import CreateRoomView from "./views/CreateRoomView"
 function App() {
   return (
     <div>
@@ -14,7 +14,9 @@ function App() {
         <Route path="/liar" component={LiarGameView}/>
         <Route path="/roulette" component={RouletteGameView}/>
         <Route path="/word" component={WordGameView}/>
-          <Route path="/marble" component={AlcoholMarble}/>
+        <Route path="/marble" component={AlcoholMarble}/>
+        <Route path="/createUser" component={CreateUserView}/>
+        <Route path="/createRoom" component={CreateRoomView}/>
       </div>
     </div>
   );
