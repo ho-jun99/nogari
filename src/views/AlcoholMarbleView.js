@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function AlcoholMarble() {
+export default function AlcoholMarbleView() {
     const user = {
         name : "임성원",
         location: 0,
