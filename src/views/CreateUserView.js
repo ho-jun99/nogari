@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import * as members from "../firebase/users"
 import {Link} from "react-router-dom";
+import firebase from "firebase";
 
 export default function CreateUserView() {
     const [nickname, setNickname] = useState(''); // 닉네임
-    const[character,setCharacter] =useState(0); // 프로필
+    const [character,setCharacter] = useState(0); // 프로필
 
     const handleOnChange = (e) => { // 닉네임 변화 감지
         setNickname(e.target.value);
@@ -22,6 +23,14 @@ export default function CreateUserView() {
 
             setCharacter(0);
 
+            setInterval(async () => {
+                const user = localStorage.getItem('myId')
+                const time = new Date().getTime()
+                localStorage.setItem('connection',time)
+                const res = await firebase.firestore().collection('users').doc(`${user}`).update({
+                    lastConnection : time
+                }, {merge:true})
+            }, 6000);
         }
     }
 
