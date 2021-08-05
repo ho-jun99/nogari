@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import * as rooms from "../firebase/rooms";
 import firebase from "firebase";
+import {Link} from "react-router-dom";
 
 export default function CreateRoomView() {
     const makeRoom = async () => {
@@ -13,6 +14,9 @@ export default function CreateRoomView() {
         firebase.firestore().collection("rooms").doc(`${roomNumber}`).collection("members").doc(`${newUser}`).set(
             {nickname:userNickname, profile: userCharacter, badges: {alcohol:0, roulette:0, liar:0}}
         )
+        firebase.firestore().collection("rooms").doc(`${roomNumber}`).set({
+            game:""
+        }, {merge:true});
     }
 
     // 닉네임 변화 감지
@@ -56,12 +60,15 @@ export default function CreateRoomView() {
         }, {merge:true});
     }
 
+
+    const roomId = localStorage.getItem('roomNumber');
     return (
         <>
             <div>
                 <>
                     <div>
                         <button onClick={makeRoom}>방 만들기</button>
+                        <Link to={'/rooms/'+`${roomId}`}>방 입장</Link>
                     </div>
                     <div>
                         <input onChange={handleOnChange}/>
