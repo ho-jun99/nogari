@@ -41,22 +41,18 @@ export default function CreateRoomView() {
         setGoRoom(e.target.value);
     }
 
-    const inRoom = async () => {
-        firebase.firestore().collection("rooms").doc(`${goRoom}`).collection("members").doc(`${getUserID()}`).set(
-            {nickname:getUserNickname(), profile:getUserCharacter(), badges: {alcohol:0, roulette:0, liar:0}}
-        )
-
+    const inRoom = () => {
         const checkRoomNumber = firebase.firestore().collection('rooms').get().then((snapshot) => {
             snapshot.forEach(doc => {
                 if (doc.id == goRoom) { // 이미 생성된 룸넘버 입력 시에만 웹스토리지 생성
                     localStorage.setItem('roomNumber', goRoom);
-                    return true;
+                    firebase.firestore().collection("rooms").doc(`${goRoom}`).collection("members").doc(`${getUserID()}`).set(
+                        {nickname:getUserNickname(), profile:getUserCharacter(), badges: {alcohol:0, roulette:0, liar:0}})
                 }
             })
-        }).then(()=>{
-            if (checkRoomNumber != true) { // 존재하지 않는 룸넘버 입력시 에러
-                alert("잘못된 방 정보")
-            }
+            if (getRoomNumber()!=goRoom) {
+                alert('에러')
+           }
         })
     }
 
@@ -78,8 +74,12 @@ export default function CreateRoomView() {
     }
 
     const resetInfo = () => {
-       // 웹에서는 컬렉션 삭제 지원 안 한대여. 그래서 일단 웹스토리지만 초기화 함
+       // 웹에서는 컬렉션 삭제 지원 안 한대여. 그래서 일단 웹스토리지만 초기화
         localStorage.setItem('roomNumber','')
+    }
+
+    const getget = () => {
+        firebase.firestore().collection("rooms").doc( `${getRoomNumber()}`)
     }
 
     return (
@@ -101,6 +101,7 @@ export default function CreateRoomView() {
                     </div>
                     <div>
                         <button onClick={resetInfo}>exit</button>
+                        <button onClick={getget}>get</button>
                     </div>
                 </>
             </div>
