@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import MainNavigator from "../components/common/MainNavigator";
-import {getRoomInfo} from "../firebase/waiting-room";
+import {getRoomInfo, getUserInfo} from "../firebase/waiting-room";
 
 
 
@@ -50,13 +50,23 @@ export default function WaitingRoomView({ match }) {
     // ]
 
 
-    const changedRoomInfo = (roomInfo) => {
+    const changedRoomInfo = async (roomInfo) => {
         // TODO : getRoomInfo에서 유저 정보를 조인해서 내려줄 것.
-        const members = roomInfo.members.map((user) => ({
-            nickname: user,
-            is_staff: false,
-            profileImg: null,
-        }));
+        // const members = roomInfo.members.map((user) => ({
+        //     nickname: user,
+        //     is_staff: false,
+        //     profileImg: null,
+        // }));
+
+        let members = [];
+
+        for (const member of roomInfo.members) {
+            const memberInfo = await getUserInfo(member);
+            members.push(memberInfo);
+        }
+
+        console.log(members);
+
         setParticipants(members);
     };
 
