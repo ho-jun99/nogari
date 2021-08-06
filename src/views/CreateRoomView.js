@@ -101,6 +101,19 @@ export default function CreateRoomView() {
         localStorage.setItem('roomNumber','')
     }
 
+    const [newNickname,setNewNickname] = useState('')
+    const nicknameHandleOnChange = (e) => {
+        setNewNickname(e.target.value);
+    }
+    const reCharacter = async () => {
+        await firebase.firestore().collection('rooms').doc(`${getRoomNumber()}`).collection('members').doc(`${getUserID()}`).update({
+            nickname : newNickname
+        }, {merge:true})
+        await firebase.firestore().collection('users').doc(`${getUserID()}`).update({
+            nickname : newNickname
+        }, {merge:true})
+    }
+
     return (
         <>
             <div>
@@ -119,6 +132,8 @@ export default function CreateRoomView() {
                         <button onClick={badges3}>라이어</button>
                     </div>
                     <div>
+                        <input type="text" onChange={nicknameHandleOnChange} value={newNickname} />
+                        <button onClick={reCharacter}>캐릭터 재설정</button>
                         <button onClick={resetInfo}>exit</button>
                     </div>
                 </>

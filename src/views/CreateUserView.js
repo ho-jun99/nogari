@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import * as members from "../firebase/users"
 import {Link} from "react-router-dom";
-import firebase from "firebase";
 
 export default function CreateUserView() {
     const [nickname, setNickname] = useState(''); // 닉네임
