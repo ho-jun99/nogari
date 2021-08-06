@@ -58,6 +58,11 @@
             <PaintGroupHighlightMap />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/views/ChangeCharacterView.js">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/views/CreateRoomView.js">
           <value>
             <PaintGroupHighlightMap />
