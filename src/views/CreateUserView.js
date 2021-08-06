@@ -23,14 +23,16 @@ export default function CreateUserView() {
 
             setCharacter(0);
 
+            /*  유저 문서에서 주기적으로 접속 시간 받을 필요가 있나? 룸에서만 확인하면 되는 거 아닌가요?
             setInterval(async () => {
                 const user = localStorage.getItem('myId')
                 const time = new Date().getTime()
                 localStorage.setItem('connection',time)
-                const res = await firebase.firestore().collection('users').doc(`${user}`).update({
+                await firebase.firestore().collection('users').doc(`${user}`).update({
                     lastConnection : time
                 }, {merge:true})
             }, 6000);
+            */
         }
     }
 

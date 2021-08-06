@@ -8,15 +8,6 @@ export default function CreateRoomView() {
         const userID = localStorage.getItem('myId'); // 방을 만드는 유저의 아이디
         return userID;
     }
-    function getUserNickname() {
-        const userNickname = localStorage.getItem('nickname');
-        return userNickname;
-    }
-
-    function getUserCharacter() {
-        const userCharacter = localStorage.getItem('character');
-        return userCharacter;
-    }
 
     function getRoomNumber() {
         const userRoomNumber = localStorage.getItem('roomNumber');
@@ -27,9 +18,25 @@ export default function CreateRoomView() {
         const roomNumber = await rooms.createRoom(); // 방만들기
         localStorage.setItem('roomNumber', roomNumber); // 룸 넘버 웹에 저장
 
-        firebase.firestore().collection("rooms").doc(`${roomNumber}`).collection("members").doc(`${getUserID()}`).set(
-            {nickname:getUserNickname(), profile: getUserCharacter(), badges: {alcohol:0, roulette:0, liar:0}}
-        )
+        firebase.firestore().collection("users").doc(`${getUserID()}`).get().then((doc) => {
+            if (doc.exists) {
+                firebase.firestore().collection("rooms").doc(`${roomNumber}`).collection("members").doc(`${getUserID()}`).set(
+                    doc.data()
+                )
+                setInterval(async () => { // 유저 접속 시간 주기적으로 받기
+                    const time = new Date().getTime()
+                    localStorage.setItem('connection',time)
+                    await firebase.firestore().collection('rooms').doc(`${roomNumber}`).collection('members').doc(`${getUserID()}`).update({
+                        lastConnection : time
+                    }, {merge:true})
+                }, 6000);
+            } else {
+                console.log("No user data");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
         firebase.firestore().collection("rooms").doc(`${roomNumber}`).set({
             game:""
         }, {merge:true});
@@ -42,12 +49,28 @@ export default function CreateRoomView() {
     }
 
     const inRoom = () => {
-        const checkRoomNumber = firebase.firestore().collection('rooms').get().then((snapshot) => {
+        firebase.firestore().collection('rooms').get().then((snapshot) => {
             snapshot.forEach(doc => {
-                if (doc.id == goRoom) { // 이미 생성된 룸넘버 입력 시에만 웹스토리지 생성
+                if (doc.id == goRoom) { // 이미 생성된 룸넘버 입력 시에만 유저 정보 추가
                     localStorage.setItem('roomNumber', goRoom);
-                    firebase.firestore().collection("rooms").doc(`${goRoom}`).collection("members").doc(`${getUserID()}`).set(
-                        {nickname:getUserNickname(), profile:getUserCharacter(), badges: {alcohol:0, roulette:0, liar:0}})
+                    firebase.firestore().collection("users").doc(`${getUserID()}`).get().then((doc) => {
+                        if (doc.exists) {  // 현재 웹스토리지에 있는 유저아이디로 된 문서가 있는지 확인
+                            firebase.firestore().collection("rooms").doc(`${goRoom}`).collection("members").doc(`${getUserID()}`).set(
+                                doc.data()
+                            )
+                            setInterval(async () => { // 유저 접속 시간 주기적으로 받기
+                                const time = new Date().getTime()
+                                localStorage.setItem('connection',time)
+                                await firebase.firestore().collection('rooms').doc(`${goRoom}`).collection('members').doc(`${getUserID()}`).update({
+                                    lastConnection : time
+                                }, {merge:true})
+                            }, 6000);
+                        } else {
+                            console.log("No user data");
+                        }
+                    }).catch((error) => {
+                        console.log("Error getting document:", error);
+                    });
                 }
             })
             if (getRoomNumber()!=goRoom) {
@@ -78,10 +101,6 @@ export default function CreateRoomView() {
         localStorage.setItem('roomNumber','')
     }
 
-    const getget = () => {
-        firebase.firestore().collection("rooms").doc( `${getRoomNumber()}`)
-    }
-
     return (
         <>
             <div>
@@ -101,7 +120,6 @@ export default function CreateRoomView() {
                     </div>
                     <div>
                         <button onClick={resetInfo}>exit</button>
-                        <button onClick={getget}>get</button>
                     </div>
                 </>
             </div>
