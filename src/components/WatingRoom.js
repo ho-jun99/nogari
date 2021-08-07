@@ -6,19 +6,34 @@ import CopyLink from '../components/modal/copylink'
 import SelectGame from "./modal/selectGame";
 import React from "react";
 
+const userList = ['김호준', '임성원', '이종휘', '김지성','user5','user6'];
+
 const makeSixArray = (temp) => {
-    const arr = Array(6).fill('empty');
-    for (let i = 0; i < temp.length; ++i) {
-        arr[i] = temp[i];
+    // const arr = Array(userList.length/2).fill('empty');
+    const arr = [];
+    for (let i = 0; i < temp.length/2; ++i) {
+        arr.push(temp[i]);
     }
     return arr;
 }
-const userList = ['김호준', '임성원', '이종휘', '김지성'];
+
+const makeSixArray2 = (temp) => {
+    // const arr2 = Array(userList.length/2).fill('empty');
+    const arr2 = [];
+    for (let i = (temp.length)/2; i < temp.length; ++i) {
+        arr2.push(temp[i]);
+    }
+    return arr2;
+}
+
+
+
 
 
 Modal.setAppElement('#root');
 const WatingRoom = () => {
     const [userId, setUserID] = useState(makeSixArray(userList));
+    const [userId2, setUserID2] = useState(makeSixArray2(userList));
     const [isSelected, setIsSelected] = useState(false);
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,6 +90,7 @@ const WatingRoom = () => {
 
     return (
         <>
+        <div id="mainWrap">
             <section className="navi">
                 <button className="modal" onClick={isMenuOpenFun}>메뉴판 일러스트</button>
                 <button className="modal" onClick={linkCopyOpenModal}>링크로 초대하기</button>
@@ -122,13 +138,18 @@ const WatingRoom = () => {
             </section>
 
             <section className="Main">
-                {userId.map((item, index) => {
+
+                <div className="char1">
+                    {userId.map((item, index) => {
                     return <div className="character"><p className="userName">{userId[index]}</p></div>
-                })}
-                <div className="selectedGame">{isSelected ? selectedGameName :
+                    })}
+                </div>
+                
+                <div className="gameMain">
+                    <div className="selectedGame">{isSelected ? selectedGameName :
                     <div className="selecteMessage">게임을 선택해주세요</div>
                 }
-                    <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
+                    {/* <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
                     <Modal id="infoModal" isOpen={isInfoOpen} onRequestClose={() => setIsInfoOpen(false)} style={
                         {
                             overlay: {
@@ -145,13 +166,24 @@ const WatingRoom = () => {
                         }
                     }>
                         {selectedGameRule ? <div>{selectedGameRule}</div> : <div>게임을 먼저 선택해 주세요.</div>}
-                    </Modal>
-                </div>
-                <button className="selectGameBtn" onClick={selectGameOpenModal}>게임 선택</button>
-                {isSelected ? <button className="startBtn">시작</button> :
+                    </Modal> */}
+                    </div>
+                    <button className="selectGameBtn" onClick={selectGameOpenModal}>게임 선택</button>
+                    {isSelected ? <button className="startBtn">시작</button> :
                     <button className="startBtn" disabled>시작</button>}
+                </div>
+
+                <div className="char2">
+                    {userId2.map((item, index) => {
+                    return <div className="character"><p className="userName">{userId[index]}</p></div>
+                    })}
+                </div>
+                    
+
             </section>
             <SelectGame open={selectGameModal} close={selectGameCloseModal} parentFunction={getFromSelectMenu}></SelectGame>
+        </div>
+            
         </>
     )
 }

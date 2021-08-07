@@ -1,4 +1,19 @@
+#mainWrap {
+  // display: flex;
+  // justify-content: space-around;
+  width: 960px;
+  height: 864px;
+  border: solid blue 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  margin: 0;
+}
+
+
 #menuModal {
+
   #backBtn {
     text-align: center;
     font-size: 30px;
@@ -9,6 +24,8 @@
     left : 94%;
     top : 10px;
     background-color: #726d6d7c;
+
+    
   }
   .menuWraper {
     bottom: 100px;
@@ -77,17 +94,45 @@
 
 
 .Main {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction:row;
+  width: 960px;
+  height: 817px;
+
+  .char1 {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+  }
+
+  .gameMain {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+  }
+
+  .char2 {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+  }
+  
+  
   .character {
-    width: 224px;
-    height: 216.04px;
+    position : relative;
+    // display: inline-block;
+    width: 167.09px;
+    height: 195px;
     border: 2px black solid;
-    border-radius: 50%;
+    border-radius: 5%;
 
     .userName{
-      position: absolute;
-      left: 40%;
-      right: 0%;
-      bottom: -45%;
+      position: relative;
+      // left: 40%;
+      // right: 0%;
+      // bottom: -45%;
 
       font-family: Roboto;
       font-style: normal;
@@ -104,46 +149,46 @@
   }
   
   .selectGameBtn{
-    position: absolute;
-    width: 187.33px;
-    height: 45.69px;
-    left: 750px;
-    top: 751px;
+    position: relative;
+    width: 200px;
+    height: 40px;
+    // left: 750px;
+    // top: 751px;
     border: 2px black solid;
     text-align: center;
     font-size: 30px;
   }
 
   .startBtn {
-    position: absolute;
-    width: 187.33px;
-    height: 45.69px;
-    left: 983px;
-    top: 751px;
+    position: relative;
+    width: 320px;
+    height: 70px;
+    // left: 983px;
+    // top: 751px;
     text-align: center;
     border: 2px black solid;
     font-size: 30px;
   }
 
   .selectedGame {
-    position: absolute;
-    width: 580px;
-    height: 359px;
-    left: 670px;
-    top: 358px;
+    position: relative;
+    width: 485px;
+    height: 340px;
+    // left: 670px;
+    // top: 358px;
     border: 3px black solid;
 
     .selecteMessage{
-      position: absolute;
+      position: relative;
       font-size: 30px;
       width: 250px;
       left: 170px;
     }
 
     .infoBtn {
-      position: absolute;
-      left: 88.86%;
-      right: 4.55%;
+      position: relative;
+      // left: 88.86%;
+      // right: 4.55%;
       top: 5.49%;
       bottom: 83.88%;
       background: #737171;
@@ -156,38 +201,38 @@
 
 
   :nth-child(1){
-    position: absolute;
-    left : 389px;
-    top : 183px;
+    // position: relative;
+    // left : 11px;
+    // top : 152px;
   }
   :nth-child(2) {
-    position: absolute;
-    left: 389px;
-    top: 490px;
+    // position: relative;
+    // left: 11px;
+    // top: 375px;
   }
 
   :nth-child(3) {
-    position: absolute;
-    left: 389px;
-    top: 797px;
+    // position: relative;
+    // left: 11px;
+    // top: 598px;
   }
 
   :nth-child(4) {
-    position: absolute;
-    left: 1296px;
-    top: 183px;
+    // position: relative;
+    // left: 1296px;
+    // top: 183px;
   }
 
   :nth-child(5) {
-    position: absolute;
-    left: 1296px;
-    top: 490px;
+    // position: relative;
+    // left: 1296px;
+    // top: 490px;
   }
 
   :nth-child(6) {
-    position: absolute;
-    left: 1296px;
-    top: 797px;
+    // position: relative;
+    // left: 1296px;
+    // top: 797px;
   }
 
   

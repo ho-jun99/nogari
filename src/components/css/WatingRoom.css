@@ -1,3 +1,15 @@
+#mainWrap {
+  width: 960px;
+  height: 864px;
+  border: solid blue 2px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  padding: 0;
+  margin: 0;
+}
+
 #menuModal #backBtn {
   text-align: center;
   font-size: 30px;
@@ -80,18 +92,68 @@
   border: 3px solid black;
 }
 
+.Main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 960px;
+  height: 817px;
+}
+
+.Main .char1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.Main .gameMain {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.Main .char2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
 .Main .character {
-  width: 224px;
-  height: 216.04px;
+  position: relative;
+  width: 167.09px;
+  height: 195px;
   border: 2px black solid;
-  border-radius: 50%;
+  border-radius: 5%;
 }
 
 .Main .character .userName {
-  position: absolute;
-  left: 40%;
-  right: 0%;
-  bottom: -45%;
+  position: relative;
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -109,47 +171,39 @@
 }
 
 .Main .selectGameBtn {
-  position: absolute;
-  width: 187.33px;
-  height: 45.69px;
-  left: 750px;
-  top: 751px;
+  position: relative;
+  width: 200px;
+  height: 40px;
   border: 2px black solid;
   text-align: center;
   font-size: 30px;
 }
 
 .Main .startBtn {
-  position: absolute;
-  width: 187.33px;
-  height: 45.69px;
-  left: 983px;
-  top: 751px;
+  position: relative;
+  width: 320px;
+  height: 70px;
   text-align: center;
   border: 2px black solid;
   font-size: 30px;
 }
 
 .Main .selectedGame {
-  position: absolute;
-  width: 580px;
-  height: 359px;
-  left: 670px;
-  top: 358px;
+  position: relative;
+  width: 485px;
+  height: 340px;
   border: 3px black solid;
 }
 
 .Main .selectedGame .selecteMessage {
-  position: absolute;
+  position: relative;
   font-size: 30px;
   width: 250px;
   left: 170px;
 }
 
 .Main .selectedGame .infoBtn {
-  position: absolute;
-  left: 88.86%;
-  right: 4.55%;
+  position: relative;
   top: 5.49%;
   bottom: 83.88%;
   background: #737171;
@@ -157,41 +211,5 @@
   text-align: center;
   font-size: 30px;
   color: aliceblue;
-}
-
-.Main :nth-child(1) {
-  position: absolute;
-  left: 389px;
-  top: 183px;
-}
-
-.Main :nth-child(2) {
-  position: absolute;
-  left: 389px;
-  top: 490px;
-}
-
-.Main :nth-child(3) {
-  position: absolute;
-  left: 389px;
-  top: 797px;
-}
-
-.Main :nth-child(4) {
-  position: absolute;
-  left: 1296px;
-  top: 183px;
-}
-
-.Main :nth-child(5) {
-  position: absolute;
-  left: 1296px;
-  top: 490px;
-}
-
-.Main :nth-child(6) {
-  position: absolute;
-  left: 1296px;
-  top: 797px;
 }
 /*# sourceMappingURL=WatingRoom.css.map */
