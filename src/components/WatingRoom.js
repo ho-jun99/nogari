@@ -101,14 +101,17 @@ const WatingRoom = () => {
                         {
                             overlay: {
                                 position: 'absolute',
-                                top: '150px',
-                                left: '470px',
+                                // top: '150px',
+                                // left: '470px',
                                 right: 0,
                                 bottom: 0,
                                 width: '1000px',
                                 height: '770px',
                                 backgroundColor: 'rgba(0, 0, 0, 0)',
-                                zIndex: 100
+                                zIndex: 100,
+        												left: '50%',
+        												top: '10%',
+        												transform: 'translateX(-50%)',
                             },
                             content: {
                                 position: 'absolute',
