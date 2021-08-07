@@ -3,9 +3,9 @@ import React from 'react';
 function Exit(props) {
     const {open, close} = props;
     return (
-        <>
+        <div style={styles.container}>
             {open ? (
-                <div style={styles.container}>
+                <div style={styles.innerContainer}>
                     <span style={styles.title}>다른방 찾기</span>
                     <span style={styles.content}>다른방을 찾으러 나가시겠습니까?</span>
                     <div style={styles.btnContainer}>
@@ -15,7 +15,7 @@ function Exit(props) {
 
                 </div>
             ) : null}
-        </>
+        </div>
     )
 }
 
@@ -23,6 +23,14 @@ export default Exit
 
 const styles = {
     container: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%,-50%)',
+        zIndex: 999,
+
+    },
+    innerContainer: {
         position: 'relative', width: 440, height: 220, border: '3px solid black', backgroundColor: '#eee',
     },
     title: {

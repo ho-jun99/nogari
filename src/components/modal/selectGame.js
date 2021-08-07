@@ -82,9 +82,9 @@ const SelectGame = (props) => {
     }
 
     return (
-        <>
+        <div style={styles.container}>
             {props.open ? (
-                <div style={styles.container}>
+                <div style={styles.innerContainer}>
                     <h2 style={styles.title}>게임 선택</h2>
                     <div style={styles.listContainer}>{game_info}</div>
                     <div style={styles.btnContainer}>
@@ -96,7 +96,7 @@ const SelectGame = (props) => {
                 </div>
             ) : null}
             <GameInfo open={infoModal} close={infoCloseModal} gameInfo={gameInfo}/>
-        </>
+        </div>
     );
 }
 
@@ -104,6 +104,13 @@ export default SelectGame
 
 const styles = {
     container: {
+      position: 'absolute',
+        left: '50%',
+        top: '15%',
+        transform: 'translateX(-50%)',
+
+    },
+    innerContainer: {
         width: 768, height: 576, border: '1px solid black', backgroundColor: '#eee'
     },
     title: {

@@ -1,215 +1,227 @@
 #mainWrap {
-  width: 960px;
-  height: 864px;
-  border: solid blue 2px;
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  padding: 0;
-  margin: 0;
+    width: 960px;
+    height: 864px;
+    border: solid blue 2px;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    padding: 0;
+    margin: 0;
 }
 
 #menuModal #backBtn {
-  text-align: center;
-  font-size: 30px;
-  border: 1px black solid;
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  left: 94%;
-  top: 10px;
-  background-color: #726d6d7c;
+    text-align: center;
+    font-size: 30px;
+    border: 1px black solid;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 94%;
+    top: 10px;
+    background-color: #726d6d7c;
 }
 
 #menuModal .menuWraper {
-  bottom: 100px;
+    bottom: 100px;
 }
 
 #menuModal .menuWraper div {
-  border: 3px black solid;
-  position: absolute;
-  text-align: center;
-  font-size: 50px;
+    border: 3px black solid;
+    position: absolute;
+    text-align: center;
+    font-size: 50px;
 }
 
 #menuModal .menuWraper :nth-child(1) {
-  width: 405px;
-  height: 650px;
+    width: 405px;
+    height: 650px;
 }
 
 #menuModal .menuWraper :nth-child(1) img {
-  position: absolute;
-  width: 230px;
-  height: auto;
-  top: 30%;
-  left: 25%;
+    position: absolute;
+    width: 230px;
+    height: auto;
+    top: 30%;
+    left: 25%;
 }
 
 #menuModal .menuWraper :nth-child(2) {
-  left: 48%;
-  width: 405px;
-  height: 200px;
+    left: 48%;
+    width: 405px;
+    height: 200px;
 }
 
 #menuModal .menuWraper :nth-child(3) {
-  left: 48%;
-  top: 35%;
-  width: 195px;
-  height: 250px;
+    left: 48%;
+    top: 35%;
+    width: 195px;
+    height: 250px;
 }
 
 #menuModal .menuWraper :nth-child(4) {
-  left: 71%;
-  top: 35%;
-  width: 195px;
-  height: 250px;
+    left: 71%;
+    top: 35%;
+    width: 195px;
+    height: 250px;
 }
 
 #menuModal .menuWraper :nth-child(5) {
-  left: 48%;
-  top: 74%;
-  width: 195px;
-  height: 160px;
+    left: 48%;
+    top: 74%;
+    width: 195px;
+    height: 160px;
 }
 
 #menuModal .menuWraper :nth-child(6) {
-  left: 71%;
-  top: 74%;
-  width: 195px;
-  height: 160px;
+    left: 71%;
+    top: 74%;
+    width: 195px;
+    height: 160px;
 }
 
 .navi {
-  border-bottom: 3px dotted;
-  margin: 10px;
+    border-bottom: 1px solid;
+}
+.navi .btnContainer {
+  text-align: right;
 }
 
 .navi .modal {
-  display: inline-block;
-  background-color: aqua;
-  margin: 10px;
-  border: 3px solid black;
+    display: inline-block;
+    background-color: aqua;
+    margin: 10px;
+    border: 3px solid black;
 }
 
 .Main {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  width: 960px;
-  height: 817px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    width: 960px;
+    height: 817px;
 }
 
 .Main .char1 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
 }
 
 .Main .gameMain {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: distribute;
+    justify-content: center;
+    align-items: center;
 }
 
+
 .Main .char2 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
 }
 
 .Main .character {
-  position: relative;
-  width: 167.09px;
-  height: 195px;
-  border: 2px black solid;
-  border-radius: 5%;
+    position: relative;
+    width: 167.09px;
+    height: 195px;
+    border: 2px black solid;
+    border-radius: 5%;
 }
 
 .Main .character .userName {
-  position: relative;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16.6079px;
-  line-height: 19px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
-  letter-spacing: 0.01em;
-  color: #323232;
+    position: absolute;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16.6079px;
+    line-height: 19px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #323232;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .Main .selectGameBtn {
-  position: relative;
-  width: 200px;
-  height: 40px;
-  border: 2px black solid;
-  text-align: center;
-  font-size: 30px;
+    position: relative;
+    width: 200px;
+    height: 40px;
+    border: 2px black solid;
+    text-align: center;
+    font-size: 30px;
 }
 
 .Main .startBtn {
-  position: relative;
-  width: 320px;
-  height: 70px;
-  text-align: center;
-  border: 2px black solid;
-  font-size: 30px;
+    position: relative;
+    width: 320px;
+    height: 70px;
+    text-align: center;
+    border: 2px black solid;
+    font-size: 30px;
 }
 
 .Main .selectedGame {
-  position: relative;
-  width: 485px;
-  height: 340px;
-  border: 3px black solid;
+    position: relative;
+    width: 485px;
+    height: 340px;
+    border: 3px black solid;
+    margin: 33px 0 69px 0;
+    text-align: center;
+
 }
 
 .Main .selectedGame .selecteMessage {
-  position: relative;
-  font-size: 30px;
-  width: 250px;
-  left: 170px;
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .Main .selectedGame .infoBtn {
-  position: relative;
-  top: 5.49%;
-  bottom: 83.88%;
-  background: #737171;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 30px;
-  color: aliceblue;
+    position: relative;
+    top: 5.49%;
+    bottom: 83.88%;
+    background: #737171;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    color: aliceblue;
 }
+
 /*# sourceMappingURL=WatingRoom.css.map */
