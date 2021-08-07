@@ -10,6 +10,8 @@ export default function MainNavigator() {
           <li><Link to="/liar">라이어게임</Link></li>
           <li><Link to="/roulette">룰렛게임</Link></li>
           <li><Link to="/word">초성 게임</Link></li>
+          <li><Link to="/Choose_Char">캐릭터 선택</Link></li>
+          <li><Link to="/find">방찾기</Link></li>
         </ul>
       </div>
     </>
