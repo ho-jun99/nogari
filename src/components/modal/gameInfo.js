@@ -4,9 +4,9 @@ function GameInfo(props) {
     const {open, close, gameInfo} = props;
 
     return (
-        <>
+        <div style={styles.container}>
             {open ? (
-                <div style={styles.container}>
+                <div style={styles.innerContainer}>
                     <div style={styles.title}>{gameInfo.gameName}</div>
                     <div style={styles.content}>{gameInfo.description}</div>
                     <h2>규칙</h2>
@@ -14,7 +14,7 @@ function GameInfo(props) {
                     <button onClick={close} style={styles.btn}>확인</button>
                 </div>
             ) : null}
-        </>
+        </div>
     )
 }
 
@@ -22,6 +22,13 @@ export default GameInfo
 
 const styles = {
     container: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%,-50%)',
+        zIndex: 999,
+    },
+    innerContainer: {
         position: 'relative',
         width: 576,
         height: 768,
