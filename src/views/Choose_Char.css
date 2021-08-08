@@ -9,6 +9,8 @@ body{
     width: 960px;
     height: 864px;
     overflow: hidden;
+    top: 20%;
+    left: 30%;
     font-family: DungGeunMo;
     float: left;
 }
@@ -16,16 +18,15 @@ body{
     justify-content: space-between;
     margin-left: 50px;
     margin-right: 50px;
-    margin-top: -40px;
     display: flex;
     flex-direction: row;
+    margin-top: -35px;
 }
 .sel_hero{
     text-align: center;
     font-size: 70px;
     position: relative;
     float: left;
-    margin-top: 70px;
     font-weight: bolder;
 }
 
@@ -58,7 +59,6 @@ body{
     margin-left: 26.83px;
     font-size: 70px;
     position: relative;
-    margin-top: 65px;
     font-weight: bolder;
 }
 .image_chosen{
@@ -134,6 +134,7 @@ body{
     border-color: #dee2e6;
     background: #FCCE39;
     border-radius: 5px;
+    margin-top: -70px;
 }
 .complete_button2{
     position: absolute;
@@ -146,6 +147,7 @@ body{
     border-color: #DDDDDD;
     background: #DDDDDD;
     border-radius: 5px;
+    margin-top: -70px;
 }
 .dimmed_layer_wrapper .full_layer {
     overflow:hidden;
