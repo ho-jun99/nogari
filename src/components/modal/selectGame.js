@@ -108,7 +108,6 @@ const styles = {
         left: '50%',
         top: '15%',
         transform: 'translateX(-50%)',
-
     },
     innerContainer: {
         width: 768, height: 576, border: '1px solid black', backgroundColor: '#eee'

@@ -2,7 +2,7 @@
   // display: flex;
   // justify-content: space-around;
   width: 960px;
-  height: 864px;
+  height: 740px;
   border: solid blue 2px;
   position: absolute;
   left: 50%;
@@ -83,7 +83,7 @@
 
 .navi {
   border-bottom: 3px dotted;
-  margin: 10px;
+  // margin: 10px;
   .modal{
   display: inline-block;
   background-color: aqua;
@@ -99,7 +99,7 @@
   flex-wrap: wrap;
   flex-direction:row;
   width: 960px;
-  height: 817px;
+  height: 693px;
 
   .char1 {
     display: flex;
@@ -111,6 +111,8 @@
     display: flex;
     flex-direction:column;
     justify-content: space-around;
+    align-items: center;
+    text-align: center;
   }
 
   .char2 {
@@ -123,29 +125,33 @@
   .character {
     position : relative;
     // display: inline-block;
-    width: 167.09px;
-    height: 195px;
+    width: 137px;
+    height: 141.34px;
     border: 2px black solid;
     border-radius: 5%;
+    margin: 0px;
+    // text-align: center;
+    // align-items: center;
+    
+  }
 
-    .userName{
-      position: relative;
-      // left: 40%;
-      // right: 0%;
-      // bottom: -45%;
+  .userName {
+    position: relative;
+    // left: 40%;
+    // right: 0%;
+    // bottom: -45%;
 
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 16.6079px;
-      line-height: 19px;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      letter-spacing: 0.01em;
-
-      color: #323232;
-    }
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16.6079px;
+    line-height: 19px;
+    // display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-top: 10px;
+    color: #323232;
   }
   
   .selectGameBtn{
@@ -179,8 +185,10 @@
     border: 3px black solid;
 
     .selecteMessage{
-      position: relative;
+      display: inline-block;
+      // position: relative;
       font-size: 30px;
+      text-align: center;
       width: 250px;
       left: 170px;
     }

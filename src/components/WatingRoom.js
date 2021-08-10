@@ -109,9 +109,9 @@ const WatingRoom = () => {
                                 height: '770px',
                                 backgroundColor: 'rgba(0, 0, 0, 0)',
                                 zIndex: 100,
-        												left: '50%',
-        												top: '10%',
-        												transform: 'translateX(-50%)',
+        						left: '50%',
+        						// top: '5%',
+        						transform: 'translateX(-50%)',
                             },
                             content: {
                                 position: 'absolute',
@@ -141,10 +141,9 @@ const WatingRoom = () => {
                 </section>
 
                 <section className="Main">
-
                     <div className="char1">
                         {userId.map((item, index) => {
-                            return <div className="character"><p className="userName">{userId[index]}</p></div>
+                            return <div><div className="character"></div><div className="userName">{userId[index]}</div></div>
                         })}
                     </div>
 
@@ -178,7 +177,7 @@ const WatingRoom = () => {
 
                     <div className="char2">
                         {userId2.map((item, index) => {
-                            return <div className="character"><p className="userName">{userId[index]}</p></div>
+                            return <div><div className="character"></div><div className="userName">{userId2[index]}</div></div>
                         })}
                     </div>
 
