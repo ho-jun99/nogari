@@ -30,8 +30,8 @@ const styles = {
     },
     innerContainer: {
         position: 'relative',
-        width: 576,
-        height: 768,
+        width: 480,
+        height: 520,
         border: '1px solid black',
         backgroundColor: '#bbbbbb',
         color: '#111',
