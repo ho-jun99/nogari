@@ -60,14 +60,12 @@ export default function WaitingRoomView({ match }) {
 
         let members = [];
 
-        for (const member of roomInfo.members) {
+        for await (const member of roomInfo.members) {
             const memberInfo = await getUserInfo(member);
             members.push(memberInfo);
         }
-
-        console.log(members);
-
-        setParticipants(members);
+        const memberProps = members.map((member) => ({ ...member, is_staff: false }));
+        setParticipants(memberProps);
     };
 
     useEffect(() => {
