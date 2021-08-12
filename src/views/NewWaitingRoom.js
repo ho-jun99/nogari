@@ -1,10 +1,9 @@
-import react, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../components/css/WatingRoom.css'
 import Modal from 'react-modal';
 import Exit from '../components/modal/exit'
 import CopyLink from '../components/modal/copylink'
 import SelectGame from "../components/modal/selectGame";
-import React from "react";
 import {getRoomInfo, getUserInfo} from "../firebase/waiting-room";
 
 const menuModalStyle = {
@@ -46,8 +45,8 @@ export default function NewWaitingRoom({ match }) {
         isSelected: false,
         isInfoOpen: false,
         isMenuOpen: false,
-        selectedGameName: null,
-        selectedGameRule: null,
+        selectedGameName: '',
+        selectedGameRule: '',
         exitModalOpen: false,
         linkCopyModalOpen: false,
         selectGameModal: false,
@@ -70,9 +69,17 @@ export default function NewWaitingRoom({ match }) {
     const isInfoOpenFun = () => setRoomState('isInfoOpen', !room.isInfoOpen);
 
     const getFromSelectMenu = (data) => {
-        setRoomState('selectedGameName', data.gameName);
-        setRoomState('selectedGameRule', data.description);
-        setRoomState('isSelected', true);
+      console.log(data.gameName);
+      console.log(data.description);
+      const roomData = {
+        ...room,
+        selectedGameName: data.gameName,
+        selectedGameRule: data.description,
+        isSelected: true,
+      };
+      setRoom(roomData);
+      console.log(room);
+
     }
 
     // 새로운 참여자가 발생하거나 룸 정보가 바뀔때 실행되는 함수
@@ -128,7 +135,7 @@ export default function NewWaitingRoom({ match }) {
                         {
                             users.filter((item, index) => index < 3)
                               .map((item, index) => {
-                                  return <div>
+                                  return <div key={index}>
                                       <div className="character"></div>
                                       <div className="userName">{item}</div>
                                   </div>;
@@ -139,7 +146,10 @@ export default function NewWaitingRoom({ match }) {
                     <div className="gameMain">
                         <button className="selectGameBtn" onClick={() => selectGameModal(true)}>게임 선택</button>
                         <div className="selectedGame">{room.isSelected ? room.selectedGameName :
-                            <div className="selecteMessage">게임을 선택해주세요</div>
+                            <div className="selecteMessage">
+                              {room.selectedGameName}
+                              게임을 선택해주세요
+                            </div>
                         }
                             {/* <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
                     <Modal id="infoModal" isOpen={isInfoOpen} onRequestClose={() => setIsInfoOpen(false)} style={
@@ -168,7 +178,7 @@ export default function NewWaitingRoom({ match }) {
                         {
                             users.filter((item, index) => index >= 3)
                               .map((item, index) => {
-                                  return <div>
+                                  return <div key={index}>
                                       <div className="character"></div>
                                       <div className="userName">{item}</div>
                                   </div>;

@@ -23,7 +23,7 @@ export default function MainView() {
   return (
     <>
       <div>
-        {categories.map((cate) => <button onClick={() => getCategoryData(cate)}>{cate}</button>)}
+        {categories.map((cate, index) => <button onClick={() => getCategoryData(cate)} key={index}>{cate}</button>)}
           게임 메인 페이지
       </div>
     </>

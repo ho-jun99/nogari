@@ -2,7 +2,6 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import {
   LiarGameView,
-  WaitingRoomView,
   RouletteGameView,
   WordGameView,
   MainView,
@@ -27,7 +26,7 @@ function App() {
         <Route path="/Choose_Char" component={Choose_Char}/>
         <Route path="/" component={MainView} />
         <Route exact path="/rooms/:roomId" component={NewWaitingRoom}/>
-        <Route path="/marble" component={AlcoholMarbleView}/>
+        <Route path="/rooms/:roomId/marble" component={AlcoholMarbleView}/>
         <Route path="/createUser" component={CreateUserView}/>
         <Route path="/createRoom" component={CreateRoomView}/>
         <Route path="/changeCharacter" component={ChangeCharacterView}/>
