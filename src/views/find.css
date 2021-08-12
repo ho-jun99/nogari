@@ -1,5 +1,9 @@
 .main{
+
     display: flex;
+    width: 960px;
+    height: 740px;
+    overflow-y: hidden;
 }
 .make_wrapper{
     margin-top: 83px;

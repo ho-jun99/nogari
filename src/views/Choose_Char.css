@@ -7,7 +7,7 @@ body{
 .main{
     display: flex;
     width: 960px;
-    height: 864px;
+    height: 740px;
     overflow: hidden;
     top: 20%;
     left: 30%;
@@ -62,7 +62,7 @@ body{
     font-weight: bolder;
 }
 .image_chosen{
-    position: absolute;
+    position: relative;
     width: 413px;
     height: 639px;
     object-fit:cover;
