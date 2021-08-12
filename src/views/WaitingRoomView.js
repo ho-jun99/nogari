@@ -5,59 +5,11 @@ import {getRoomInfo, getUserInfo} from "../firebase/waiting-room";
 
 
 export default function WaitingRoomView({ match }) {
+    const [captain, setCaptain] = useState('');
     const [participants, setParticipants] = useState([]);
-    // const participants = [
-    //     {
-    //         nickname: "이종휘",
-    //         is_staff: true,
-    //         profileImg: null,
-    //     },
-    //     {
-    //         nickname: "정나영",
-    //         is_staff: false,
-    //         profileImg: null,
-    //     },
-    //     {
-    //         nickname: "임성원",
-    //         is_staff: false,
-    //         profileImg: null,
-    //     },
-    //     {
-    //         nickname: "김호준",
-    //         is_staff: false,
-    //         profileImg: null,
-    //     },
-    //     {
-    //         nickname: "박정민",
-    //         is_staff: false,
-    //         profileImg: null,
-    //     },
-    //     {
-    //         nickname: "신재혁",
-    //         is_staff: false,
-    //         profileImg: null,
-    //     },
-    //     {
-    //         nickname: "김지성",
-    //         is_staff: false,
-    //         profileImg: null,
-    //     },
-    //     {
-    //         nickname: "차영호",
-    //         is_staff: false,
-    //         profileImg: null,
-    //     },
-    // ]
-
-
     const changedRoomInfo = async (roomInfo) => {
-        // TODO : getRoomInfo에서 유저 정보를 조인해서 내려줄 것.
-        // const members = roomInfo.members.map((user) => ({
-        //     nickname: user,
-        //     is_staff: false,
-        //     profileImg: null,
-        // }));
-
+        const captainInfo = await getUserInfo(roomInfo.captain);
+        setCaptain(captainInfo);
         let members = [];
 
         for await (const member of roomInfo.members) {
@@ -66,6 +18,8 @@ export default function WaitingRoomView({ match }) {
         }
         const memberProps = members.map((member) => ({ ...member, is_staff: false }));
         setParticipants(memberProps);
+
+
     };
 
     useEffect(() => {
@@ -84,6 +38,9 @@ export default function WaitingRoomView({ match }) {
         <>
             <div style={{textAlign:'center',margin: '50px 0 50px 0',}}>
                 게임 참여 인원
+                <div>
+                    방장 : {captain.nickname}
+                </div>
             </div>
             <div style={styles.mainContainer}>
                 {people_list}

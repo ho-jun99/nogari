@@ -1,12 +1,12 @@
-import react, {useState} from 'react';
-import './css/WatingRoom.css'
+import react, {useState, useEffect} from 'react';
+import '../components/css/WatingRoom.css'
 import Modal from 'react-modal';
 import Exit from '../components/modal/exit'
 import CopyLink from '../components/modal/copylink'
-import SelectGame from "./modal/selectGame";
+import SelectGame from "../components/modal/selectGame";
 import React from "react";
+import {getRoomInfo, getUserInfo} from "../firebase/waiting-room";
 
-const userList = ['김호준', '임성원', '이종휘', '김지성', 'user5', 'user6'];
 
 const makeSixArray = (temp) => {
     // const arr = Array(userList.length/2).fill('empty');
@@ -28,9 +28,8 @@ const makeSixArray2 = (temp) => {
 
 
 Modal.setAppElement('#root');
-const WatingRoom = () => {
-    const [userId, setUserID] = useState(makeSixArray(userList));
-    const [userId2, setUserID2] = useState(makeSixArray2(userList));
+export default function NewWaitingRoom({ match }) {
+    const [users, setUsers] = useState([]);
     const [isSelected, setIsSelected] = useState(false);
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -84,6 +83,23 @@ const WatingRoom = () => {
         setIsSelected(true);
     }
 
+    const changedRoomInfo = async (roomInfo) => {
+        const captainInfo = await getUserInfo(roomInfo.captain);
+        // setCaptain(captainInfo);
+        let members = [];
+        // console.log(roomInfo);
+        for await (const member of roomInfo.members) {
+            const memberInfo = await getUserInfo(member);
+            members.push(memberInfo);
+        }
+        const memberProps = members.map((member) => member.nickname);
+        setUsers(memberProps);
+    };
+
+    useEffect(() => {
+        console.log(match.params.roomId);
+        getRoomInfo(match.params.roomId, changedRoomInfo);
+    }, []);
 
     return (
         <>
@@ -142,9 +158,15 @@ const WatingRoom = () => {
 
                 <section className="Main">
                     <div className="char1">
-                        {userId.map((item, index) => {
-                            return <div><div className="character"></div><div className="userName">{userId[index]}</div></div>
-                        })}
+                        {
+                            users.filter((item, index) => index < 3)
+                              .map((item, index) => {
+                                  return <div>
+                                      <div className="character"></div>
+                                      <div className="userName">{item}</div>
+                                  </div>;
+                              })
+                        }
                     </div>
 
                     <div className="gameMain">
@@ -176,9 +198,15 @@ const WatingRoom = () => {
                     </div>
 
                     <div className="char2">
-                        {userId2.map((item, index) => {
-                            return <div><div className="character"></div><div className="userName">{userId2[index]}</div></div>
-                        })}
+                        {
+                            users.filter((item, index) => index >= 3)
+                              .map((item, index) => {
+                                  return <div>
+                                      <div className="character"></div>
+                                      <div className="userName">{item}</div>
+                                  </div>;
+                              })
+                        }
                     </div>
 
 
@@ -190,5 +218,3 @@ const WatingRoom = () => {
         </>
     )
 }
-
-export default WatingRoom;

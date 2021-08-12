@@ -1,6 +1,6 @@
 import React from 'react';
 import './find.css'
-export default function Find() {
+export default function FindView() {
     const title={
         fontSize:"24px",
         fontFamily: "DungGeunMo",
