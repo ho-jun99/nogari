@@ -7,82 +7,75 @@ import SelectGame from "../components/modal/selectGame";
 import React from "react";
 import {getRoomInfo, getUserInfo} from "../firebase/waiting-room";
 
-
-const makeSixArray = (temp) => {
-    // const arr = Array(userList.length/2).fill('empty');
-    const arr = [];
-    for (let i = 0; i < temp.length / 2; ++i) {
-        arr.push(temp[i]);
+const menuModalStyle = {
+    overlay: {
+        position: 'absolute',
+          // top: '150px',
+          // left: '470px',
+          right: 0,
+          bottom: 0,
+          width: '1000px',
+          height: '770px',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          zIndex: 100,
+          left: '50%',
+          // top: '5%',
+          transform: 'translateX(-50%)',
+    },
+    content: {
+        position: 'absolute',
+          top: '40px',
+          left: '40px',
+          right: '40px',
+          bottom: '40px',
+          border: '1px solid #ccc',
+          background: '#fff',
+          overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          borderRadius: '4px',
+          outline: 'none',
+          padding: '20px'
     }
-    return arr;
-}
-
-const makeSixArray2 = (temp) => {
-    // const arr2 = Array(userList.length/2).fill('empty');
-    const arr2 = [];
-    for (let i = (temp.length) / 2; i < temp.length; ++i) {
-        arr2.push(temp[i]);
-    }
-    return arr2;
-}
-
+};
 
 Modal.setAppElement('#root');
 export default function NewWaitingRoom({ match }) {
     const [users, setUsers] = useState([]);
-    const [isSelected, setIsSelected] = useState(false);
-    const [isInfoOpen, setIsInfoOpen] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const [selectedGameName, setSelectedGameName] = useState(null);
-    const [selectedGameRule, setSelectedGameRule] = useState(null);
+    const [room, setRoom] = useState({
+        isSelected: false,
+        isInfoOpen: false,
+        isMenuOpen: false,
+        selectedGameName: null,
+        selectedGameRule: null,
+        exitModalOpen: false,
+        linkCopyModalOpen: false,
+        selectGameModal: false,
+    });
+    const setRoomState = (key, value) => setRoom({ ...room, [key]: value });
 
     // 다른 방 찾기, 링크로 초대하기 버튼에 관한 변수, 함수
-    const [exitModalOpen, setExitModalOpen] = useState(false);
-    const [linkCopyModalOpen, setLinkCopyModalOpen] = useState(false);
-    const exitOpenModal = () => {
-        setExitModalOpen(true);
-    }
-    const exitCloseModal = () => {
-        setExitModalOpen(false);
-    }
-    const linkCopyOpenModal = () => {
-        setLinkCopyModalOpen(true);
-        navigator.clipboard.writeText("https://www.naver.com/");
-    }
-    const linkCopyCloseModal = () => {
-        setLinkCopyModalOpen(false);
+    const exitModal = (isOpen) => setRoomState('exitModalOpen', isOpen);
+    const linkCopyModal = (isOpen) => {
+        setRoomState('linkCopyModalOpen', isOpen)
+        if (isOpen) {
+            navigator.clipboard.writeText("https://www.naver.com/");
+        }
     }
 
     // 게임 선택 버튼에 관한 변수, 함수
-    const [selectGameModal, setSelectGame] = useState(false);
-    const selectGameOpenModal = () => {
-        setSelectGame(true);
-    }
-    const selectGameCloseModal = () => {
-        setSelectGame(false);
-    }
+    const selectGameModal = (isOpen) => setRoomState('selectGameModal', isOpen);
 
-
-    const isMenuOpenFun = () => {
-        setIsMenuOpen((prev) => {
-            console.log(!prev);
-            return !prev;
-        });
-    }
-    const isInfoOpenFun = () => {
-        setIsInfoOpen((prev) => {
-            return !prev;
-        });
-    }
+    const isMenuOpenFun = () => setRoomState('isMenuOpen', !room.isMenuOpen);
+    const isInfoOpenFun = () => setRoomState('isInfoOpen', !room.isInfoOpen);
 
     const getFromSelectMenu = (data) => {
-        console.log(data);
-        setSelectedGameName(data.gameName);
-        setSelectedGameRule(data.description);
-        setIsSelected(true);
+        setRoomState('selectedGameName', data.gameName);
+        setRoomState('selectedGameRule', data.description);
+        setRoomState('isSelected', true);
     }
 
+    // 새로운 참여자가 발생하거나 룸 정보가 바뀔때 실행되는 함수
     const changedRoomInfo = async (roomInfo) => {
         const captainInfo = await getUserInfo(roomInfo.captain);
         // setCaptain(captainInfo);
@@ -107,43 +100,17 @@ export default function NewWaitingRoom({ match }) {
                 <section className="navi">
                     <div className="btnContainer">
                         <button className="modal" onClick={isMenuOpenFun}>메뉴판 일러스트</button>
-                        <button className="modal" onClick={linkCopyOpenModal}>링크로 초대하기</button>
-                        <button className="modal" onClick={exitOpenModal}>다른방 찾기</button>
+                        <button className="modal" onClick={() => linkCopyModal(true)}>링크로 초대하기</button>
+                        <button className="modal" onClick={() => exitModal(true)}>다른방 찾기</button>
                     </div>
 
-                    <Exit open={exitModalOpen} close={exitCloseModal}></Exit>
-                    <CopyLink open={linkCopyModalOpen} close={linkCopyCloseModal}></CopyLink>
-                    <Modal id="menuModal" isOpen={isMenuOpen} onRequestClose={() => setIsMenuOpen(false)} style={
-                        {
-                            overlay: {
-                                position: 'absolute',
-                                // top: '150px',
-                                // left: '470px',
-                                right: 0,
-                                bottom: 0,
-                                width: '1000px',
-                                height: '770px',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                zIndex: 100,
-        						left: '50%',
-        						// top: '5%',
-        						transform: 'translateX(-50%)',
-                            },
-                            content: {
-                                position: 'absolute',
-                                top: '40px',
-                                left: '40px',
-                                right: '40px',
-                                bottom: '40px',
-                                border: '1px solid #ccc',
-                                background: '#fff',
-                                overflow: 'auto',
-                                WebkitOverflowScrolling: 'touch',
-                                borderRadius: '4px',
-                                outline: 'none',
-                                padding: '20px'
-                            }
-                        }}>
+                    <Exit open={room.exitModalOpen} close={() => exitModal(false)}></Exit>
+                    <CopyLink open={room.linkCopyModalOpen} close={() => linkCopyModal(false)}></CopyLink>
+                    <Modal
+                      id="menuModal"
+                      isOpen={room.isMenuOpen}
+                      onRequestClose={() => setRoomState('isMenuOpen', false)}
+                      style={menuModalStyle}>
                         <div id="backBtn" onClick={isMenuOpenFun}>X</div>
                         <div className="menuWraper">
                             <div>베스트메뉴 <img src={require("../images/bestMenu.png").default} alt=""/></div>
@@ -170,8 +137,8 @@ export default function NewWaitingRoom({ match }) {
                     </div>
 
                     <div className="gameMain">
-                        <button className="selectGameBtn" onClick={selectGameOpenModal}>게임 선택</button>
-                        <div className="selectedGame">{isSelected ? selectedGameName :
+                        <button className="selectGameBtn" onClick={() => selectGameModal(true)}>게임 선택</button>
+                        <div className="selectedGame">{room.isSelected ? room.selectedGameName :
                             <div className="selecteMessage">게임을 선택해주세요</div>
                         }
                             {/* <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
@@ -193,7 +160,7 @@ export default function NewWaitingRoom({ match }) {
                         {selectedGameRule ? <div>{selectedGameRule}</div> : <div>게임을 먼저 선택해 주세요.</div>}
                     </Modal> */}
                         </div>
-                        {isSelected ? <button className="startBtn">시작</button> :
+                        {room.isSelected ? <button className="startBtn">시작</button> :
                             <button className="startBtn" disabled>시작</button>}
                     </div>
 
@@ -211,7 +178,7 @@ export default function NewWaitingRoom({ match }) {
 
 
                 </section>
-                <SelectGame open={selectGameModal} close={selectGameCloseModal}
+                <SelectGame open={room.selectGameModal} close={() => selectGameModal(false)}
                             parentFunction={getFromSelectMenu}></SelectGame>
             </div>
 
