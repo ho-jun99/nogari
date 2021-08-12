@@ -1,0 +1,29 @@
+.main {
+    background-color: aliceblue;
+    display: flex;
+    width: 960px;
+    height: 740px;
+}
+
+.countDown > label {
+    display: block;
+    text-align: center;
+}
+
+.wordQuizBox {
+    background-color: #c4bdbd;
+    width: 580px;
+    height: 120px;
+    text-align: center;
+}
+
+.wordQuizBox > label {
+    display: block;
+    margin-top: 8px;
+}
+
+.wordQuizBox > .wordQuiz {
+    margin-top: 0px;
+    font-size: 50px;
+    font-weight: bold;
+}
