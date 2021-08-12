@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { LiarGameView, WaitingRoomView, RouletteGameView, WordGameView, MainView, CreateUserView } from './views';
-import MainNavigator from "./components/common/MainNavigator";
 import AlcoholMarbleView from "./views/AlcoholMarbleView";
 import CreateRoomView from "./views/CreateRoomView"
 import ChangeCharacterView from "./views/ChangeCharacterView";
