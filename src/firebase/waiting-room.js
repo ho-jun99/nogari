@@ -1,29 +1,20 @@
 import firebase from './firebase-manager';
+import { doc } from 'firebase/firestore';
 
-export function getRoomInfo() {
+const db = firebase.firestore();
 
-  firebase.firestore().collection("user-name").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-    });
+
+export async function getUserInfo(userId) {
+  const user = await db.collection("users").doc(userId).get();
+  return user.data();
+}
+
+export async function getRoomInfo(roomNumber, callback) {
+  db.collection("rooms").doc(roomNumber).onSnapshot((doc) => {
+    callback(doc.data());
   });
+}
 
-  firebase.firestore().collection("user-name")
-  // firebase.database().ref('rooms').child(String(roomNumber)).on('value', (snapshot) => {
-  //   if (snapshot.exists()) {
-  //     callback(snapshot.val());
-  //   } else {
-  //     console.log("No data available");
-  //   }
-  // });
+export function joinRoom() {
 
-  // const getData = firebase.database().ref('rooms').child(String(roomNumber)).get().then((snapshot) => {
-  //   if (snapshot.exists()) {
-  //     callback(snapshot.val());
-  //   } else {
-  //     console.log("No data available");
-  //   }
-  // }).catch((error) => {
-  //   console.error(error);
-  // });
 }
