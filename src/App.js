@@ -1,9 +1,19 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { LiarGameView, WaitingRoomView, RouletteGameView, WordGameView, MainView, CreateUserView } from './views';
-import AlcoholMarbleView from "./views/AlcoholMarbleView";
-import CreateRoomView from "./views/CreateRoomView"
-import ChangeCharacterView from "./views/ChangeCharacterView";
+import {
+  LiarGameView,
+  WaitingRoomView,
+  RouletteGameView,
+  WordGameView,
+  MainView,
+  CreateUserView,
+  AlcoholMarbleView,
+  CreateRoomView,
+  ChangeCharacterView,
+  Choose_Char,
+  FindView,
+  NewWaitingRoom,
+} from './views';
 
 function App() {
   return (
@@ -13,11 +23,10 @@ function App() {
         <Route path="/liar" component={LiarGameView}/>
         <Route path="/roulette" component={RouletteGameView}/>
         <Route path="/word" component={WordGameView}/>
+        <Route path="/find" component={FindView}/>
+        <Route path="/Choose_Char" component={Choose_Char}/>
         <Route path="/" component={MainView} />
-        <Route exact path="/rooms/:roomId" component={WaitingRoomView}/>
-        <Route path="/liar" component={LiarGameView}/>
-        <Route path="/roulette" component={RouletteGameView}/>
-        <Route path="/word" component={WordGameView}/>
+        <Route exact path="/rooms/:roomId" component={NewWaitingRoom}/>
         <Route path="/marble" component={AlcoholMarbleView}/>
         <Route path="/createUser" component={CreateUserView}/>
         <Route path="/createRoom" component={CreateRoomView}/>

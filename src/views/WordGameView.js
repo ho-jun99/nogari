@@ -1,35 +1,20 @@
 import React from 'react';
-import {useState, useEffect} from "react";
-import './WordGameView.css';
+import {useState} from "react";
 
 export default function WordGameView() {
-    const [category, setCategory] = useState('인물');
-    const [seconds, setSeconds] = useState(30);
 
-    useEffect(() => {
-        const countdown = setInterval(() => {
-            if (parseInt(seconds) > 0) {
-                setSeconds(parseInt(seconds) - 1);
-            } else {
-                setSeconds(parseInt(30));
-            }
-        }, 1000);
-        return () => clearInterval(countdown);
-    }, [seconds]);
-
-    const idx = 0;
+    var idx=0;
     const array= {
         quiz:['ㅌㅊ', 'ㄱㅊ', 'ㅈㄱ', 'ㅇㄴㅇ', 'ㅎㄱ','ㅋㅍ','ㅇㅋ','ㄱㅁㄷ','ㄷㅌㅇ','ㅁㅅㅋ','ㅋㄹㄴ','ㅈㄹ','ㅈㄹㅅㅈ'],
         ans:['탈출','김치','제기','윷놀이','한글','커피','윙크','국민대','도티오','마스크','코로나','정릉','정릉시장'],
     }
+    var rand_Qz=[];
+    var quizAns = [];
 
-    const rand_Qz = [];
-    const quizAns = [];
-
-    const total = array.quiz.length;
-    let num, cur;
+    var total=array.quiz.length;
+    var num,cur;
     const Random=()=>{
-        for(let i=total; i>0; i--){
+        for(var i=total; i>0; i--){
             num = Math.random();
             cur = Math.floor(num*(i));
 
@@ -46,7 +31,7 @@ export default function WordGameView() {
 
     }
     Random();
-    for(let i=0; i<rand_Qz.length; i++){
+    for(var i=0;i<rand_Qz.length;i++){
         console.log(rand_Qz[i]);
         console.log(quizAns[i]);
     }
@@ -77,28 +62,18 @@ export default function WordGameView() {
     }
     return (
         <>
-            <div className="main">
-                <div className="categoryBox">
-                    <label>카테고리 : {category}</label>
+            <div>
+                초성 게임 메인 페이지
+                <div className="quizBox">
+                    <label>{state.value}</label>
                 </div>
-                <div className="countDown">
-                    <label>남은시간</label>
-                    <label>{seconds}</label>
-                </div>
-                <div className="wordQuizBox">
-                    <label>제시어</label>
-                    <label className="wordQuiz">{state.value}</label>
-                </div>
-                {/*초성 게임 메인 페이지*/}
-                {/*<div className="quizBox">*/}
-                {/*    <label>{state.value}</label>*/}
-                {/*</div>*/}
                 <div className="inputBox">
                     <input type="text" value={value} onChange={e=>setValue(e.target.value)} />
                     <button type="button" onClick={handleSearch}>
                         save
                     </button>
                 </div>
+
             </div>
         </>
     );
