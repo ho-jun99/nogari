@@ -17,18 +17,19 @@ export default function WordGameView() {
         return () => clearInterval(countdown);
     }, [seconds]);
 
-    var idx=0;
+    const idx = 0;
     const array= {
         quiz:['ㅌㅊ', 'ㄱㅊ', 'ㅈㄱ', 'ㅇㄴㅇ', 'ㅎㄱ','ㅋㅍ','ㅇㅋ','ㄱㅁㄷ','ㄷㅌㅇ','ㅁㅅㅋ','ㅋㄹㄴ','ㅈㄹ','ㅈㄹㅅㅈ'],
         ans:['탈출','김치','제기','윷놀이','한글','커피','윙크','국민대','도티오','마스크','코로나','정릉','정릉시장'],
     }
-    var rand_Qz=[];
-    var quizAns = [];
 
-    var total=array.quiz.length;
-    var num,cur;
+    const rand_Qz = [];
+    const quizAns = [];
+
+    const total = array.quiz.length;
+    let num, cur;
     const Random=()=>{
-        for(var i=total; i>0; i--){
+        for(let i=total; i>0; i--){
             num = Math.random();
             cur = Math.floor(num*(i));
 
@@ -45,7 +46,7 @@ export default function WordGameView() {
 
     }
     Random();
-    for(var i=0;i<rand_Qz.length;i++){
+    for(let i=0; i<rand_Qz.length; i++){
         console.log(rand_Qz[i]);
         console.log(quizAns[i]);
     }

@@ -1,12 +1,14 @@
 import firebase from './firebase-manager';
 
-export function getRoomInfo() {
+  export function getRoomInfo() {
 
-  firebase.firestore().collection("user-name").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
+    firebase.firestore().collection("user-name").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+      });
     });
-  });
+
+  firebase.firestore().collection("user-name")
   // firebase.database().ref('rooms').child(String(roomNumber)).on('value', (snapshot) => {
   //   if (snapshot.exists()) {
   //     callback(snapshot.val());
@@ -24,8 +26,4 @@ export function getRoomInfo() {
   // }).catch((error) => {
   //   console.error(error);
   // });
-}
-
-export function joinRoom() {
-
 }
