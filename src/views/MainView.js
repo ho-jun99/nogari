@@ -4,7 +4,7 @@ export default function MainView() {
   return (
     <>
       <div>
-        메인페이지
+          게임 메인 페이지
       </div>
     </>
   );
