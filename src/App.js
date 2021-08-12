@@ -8,8 +8,12 @@ import ChangeCharacterView from "./views/ChangeCharacterView";
 
 function App() {
   return (
+  <div>
     <div>
-      <div>
+        <Route exact path="/" component={MainView}/>
+        <Route path="/liar" component={LiarGameView}/>
+        <Route path="/roulette" component={RouletteGameView}/>
+        <Route path="/word" component={WordGameView}/>
         <Route path="/" component={MainView} />
         <Route exact path="/rooms/:roomId" component={WaitingRoomView}/>
         <Route path="/liar" component={LiarGameView}/>
