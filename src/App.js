@@ -13,9 +13,9 @@ function App() {
         <Route path="/liar" component={LiarGameView}/>
         <Route path="/roulette" component={RouletteGameView}/>
         <Route path="/word" component={WordGameView}/>
-          <Route path="/marble" component={AlcoholMarble}/>
+        <Route path="/marble" component={AlcoholMarble}/>
       </div>
-    </div>
+  </div>
   );
 }
 
