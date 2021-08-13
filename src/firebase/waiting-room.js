@@ -1,5 +1,4 @@
 import firebase from './firebase-manager';
-import { doc } from 'firebase/firestore';
 
 const db = firebase.firestore();
 

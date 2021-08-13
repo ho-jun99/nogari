@@ -38,7 +38,7 @@ export default function CreateRoomView({ history }) {
     const inRoom = () => {
         firebase.firestore().collection('rooms').get().then((snapshot) => {
             snapshot.forEach(doc => {
-                if (doc.id == goRoom) { // 이미 생성된 룸넘버 입력 시에만 유저 정보 추가
+                if (doc.id === goRoom) { // 이미 생성된 룸넘버 입력 시에만 유저 정보 추가
                     localStorage.setItem('roomNumber', goRoom);
                     firebase.firestore().collection("users").doc(`${getUserID()}`).get().then((doc) => {
                         if (doc.exists) {  // 현재 웹스토리지에 있는 유저아이디로 된 문서가 있는지 확인
@@ -60,7 +60,7 @@ export default function CreateRoomView({ history }) {
                     });
                 }
             })
-            if (getRoomNumber()!=goRoom) {
+            if (getRoomNumber() !== goRoom) {
                 alert('에러')
            }
         })

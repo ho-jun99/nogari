@@ -47,7 +47,7 @@ const RouletteCard = (props) => {
         // 이미 뽑은 카드에 pass 덮어 씌우기
         while(pass > 0 ){
             myRandom = Math.floor(Math.random()*(card)); // card 미만의 랜덤 정수 뽑기
-            if(dummy[myRandom].id == 0){
+            if(dummy[myRandom].id === 0){
                 continue;
             }else {
                 dummy[myRandom] = data[0];
