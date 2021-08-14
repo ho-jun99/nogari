@@ -1,4 +1,4 @@
-.main {
+.wordGameContainer {
     background-color: aliceblue;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@
     text-align: center;
 }
 
-.wordQuizBox {
+.quizBox {
     background-color: #c4bdbd;
     width: 580px;
     height: 120px;
@@ -23,12 +23,12 @@
     align-self: center;
 }
 
-.wordQuizBox > label {
+.quizBox > label {
     display: block;
     margin-top: 8px;
 }
 
-.wordQuizBox > .wordQuiz {
+.quizBox > .wordQuiz {
     margin-top: 0px;
     font-size: 50px;
     font-weight: bold;
