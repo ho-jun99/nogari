@@ -48,6 +48,11 @@
             <PaintGroupHighlightMap />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/components/css/AlcoholMarbleView.css">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/firebase/create-user.js">
           <value>
             <PaintGroupHighlightMap />

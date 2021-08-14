@@ -1,7 +1,7 @@
-.first {
+.edge {
     width: 50px;
     height: 50px;
-    background-color: #030303;
+    background-color: #FCCE39;
     align-items: stretch;
     display: inline-block;
 
@@ -10,7 +10,7 @@
 .left {
     width: 50px;
     height: 50px;
-    background-color: #FCCE39;
+    background-color: #0C8247;
     justify-items: left;
     align-items: stretch;
     display: inline-block;
@@ -20,7 +20,7 @@
 
     width: 50px;
     height: 50px;
-    background-color: #FCCE39;
+    background-color: #0C8247;
     justify-items: right;
     align-items: stretch;
     display: inline-block;
@@ -29,7 +29,7 @@
 .center {
     width: 50px;
     height: 50px;
-    background-color: #FCCE39;
+    background-color: #f1f1f1;
     justify-items: right;
     align-items: stretch;
     display: inline-block;
@@ -44,3 +44,8 @@
     display: inline-block;
  }
 
+/*body {*/
+/*    display: inline-block;*/
+/*    background-color: #030303;*/
+/*    text-align: center;*/
+/*}*/
