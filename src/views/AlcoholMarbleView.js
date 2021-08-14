@@ -1,5 +1,6 @@
 import React from 'react';
 import AlcoholMarbleField from "../components/AlcoholMarbleField";
+import AlcoholField from "../components/AlcoholField";
 
 export default function AlcoholMarbleView() {
     const user = {
@@ -19,7 +20,7 @@ export default function AlcoholMarbleView() {
             <div>
                 주루마블 메인 페이지
                 <input type="button" onClick={startGame} value="주사위 굴리기"/>
-                <AlcoholMarbleField/>
+                <AlcoholField/>
             </div>
         </>
     );
