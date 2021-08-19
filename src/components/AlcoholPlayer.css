@@ -1,13 +1,7 @@
-.player-marble {
-    background-color: #ff0000;
-    display: inline-block;
-    width: 70px;
-    height: 70px;
-    margin: 3px;
-}
+
 
 .mainDiv {
-    display: table;
+    visibility: hidden;
     text-align: center;
     justify-content: center;
     position: relative;
