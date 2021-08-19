@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { LiarGameView, MainView, RouletteGameView, WordGameView, } from './views';
+// import { LiarGameView, MainView, RouletteGameView, WordGameView, } from './views';
 import MainNavigator from "./components/common/MainNavigator";
 import Choose_Char from "./views/Choose_Char";
 import find from "./views/find";
@@ -19,7 +19,7 @@ function App() {
         <Route path="/word" component={WordGameView}/>
         <Route path="/find" component={find}/>
         <Route path="/Choose_Char" component={Choose_Char}/>
-        <Route path="/" component={MainView} />
+        {/*<Route path="/" component={MainView} />*/}
         <Route exact path="/rooms/:roomId" component={WaitingRoomView}/>
         <Route path="/marble" component={AlcoholMarbleView}/>
         <Route path="/createUser" component={CreateUserView}/>
