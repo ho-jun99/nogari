@@ -4,7 +4,8 @@ import Modal from 'react-modal';
 import Exit from '../components/modal/exit'
 import CopyLink from '../components/modal/copylink'
 import SelectGame from "../components/modal/selectGame";
-import {getRoomInfo, getUserInfo} from "../firebase/waiting-room";
+import {getRoomInfo} from "../firebase/waiting-room";
+import { getUserInfo } from '../firebase/users';
 
 const menuModalStyle = {
     overlay: {
@@ -90,6 +91,7 @@ export default function NewWaitingRoom({ match }) {
         // console.log(roomInfo);
         for await (const member of roomInfo.members) {
             const memberInfo = await getUserInfo(member);
+            if (!memberInfo) continue;
             members.push(memberInfo);
         }
         const memberProps = members.map((member) => member.nickname);
