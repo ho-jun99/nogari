@@ -1,0 +1,56 @@
+.main{
+    margin: 0 auto;
+    position: relative;
+    width: 822px;
+    height: 740px;
+    overflow: hidden;
+}
+.boxwrapper{
+    margin: 0 auto;
+}
+.quizBox {
+    width: 610.94px;
+    height: 211.48px;
+    background: #0C8247;
+    border-radius: 15px;
+    /*text-align: center;*/
+    margin: 25.28px auto;
+    font-size: 22.2893px;
+    line-height: 26px;
+    letter-spacing: 0.01em;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+.quizBox > div{
+    font-family: DungGeunMo;
+    font-size: 93.991px;
+    line-height: 110px;
+    text-align: center;
+    letter-spacing: 0.15em;
+    width: 94px;
+    height: 94px;
+    color: #FCCE39;
+    float: left;
+    border-radius: 10px;
+    border: 3px solid #000000;
+    background: #08552E;
+}
+.input{
+    width: 275px;
+    height: 52px;
+    background: #08552E;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    font-size: 30px;
+    text-align: center;
+    color: #FCCE39;
+    font-family: DungGeunMo;
+
+
+}
+
