@@ -9,8 +9,8 @@
     margin: 0 auto;
 }
 .quizBox {
-    width: 610.94px;
-    height: 211.48px;
+    width: 422px;
+    height: 146px;
     background: #0C8247;
     border-radius: 15px;
     /*text-align: center;*/
@@ -25,12 +25,12 @@
 
 .quizBox > div{
     font-family: DungGeunMo;
-    font-size: 93.991px;
-    line-height: 110px;
+    font-size: 80px;
+    line-height: 70px;
     text-align: center;
     letter-spacing: 0.15em;
-    width: 94px;
-    height: 94px;
+    width: 80px;
+    height: 80px;
     color: #FCCE39;
     float: left;
     border-radius: 10px;
@@ -38,8 +38,8 @@
     background: #08552E;
 }
 .input{
-    width: 275px;
-    height: 52px;
+    width: 190px;
+    height: 35px;
     background: #08552E;
     border: 1px solid #000000;
     box-sizing: border-box;
@@ -51,6 +51,20 @@
     color: #FCCE39;
     font-family: DungGeunMo;
 
+
+}
+.footer{
+    margin: 74px auto ;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-column-gap: 20.41px;
+    grid-row-gap: 11px;
+}
+.footer > div{
+    width: 105.17px;
+    height: 159.8px;
+    background: #032213;
+    border-radius: 5px;
 
 }
 

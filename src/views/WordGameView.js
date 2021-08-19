@@ -119,7 +119,16 @@ export default function WordGameView() {
                     카테고리 : 인물
                 </div>
                 <div style={{fontFamily:"DungGeunMo",marginTop:"26px", fontSize:"22.2893px", textAlign:"center",lineHeight:"26px",lineSpacing:"0.01em",color:"#535353"}}> 남은 시간
-                    <div style={{fontFamiy:"DungGeunMo",fontSize:"37.1488px", textAlign:"center",lineHeight:"44px",lineSpacing:"0.01em",color:"#1B9659"}}>{seconds}</div>
+                    {
+                        seconds>=20 && <div style={{marginTop:"15px",fontFamiy:"DungGeunMo",fontSize:"37.1488px", textAlign:"center",lineHeight:"44px",lineSpacing:"0.01em",color:"#1B9659"}}>{seconds}</div>
+                    }
+                    {
+                        seconds>=10&&seconds<20 && <div style={{marginTop:"15px",fontFamiy:"DungGeunMo",fontSize:"37.1488px", textAlign:"center",lineHeight:"44px",lineSpacing:"0.01em",color:"#FF8F1D"}}>{seconds}</div>
+                    }
+                    {
+                        seconds<10 && <div style={{marginTop:"15px",fontFamiy:"DungGeunMo",fontSize:"37.1488px", textAlign:"center",lineHeight:"44px",lineSpacing:"0.01em",color:"#FF0000"}}>{seconds}</div>
+                    }
+
                 </div>
                 <div className="boxwrapper">
                     {
@@ -155,6 +164,15 @@ export default function WordGameView() {
                         !seconds && <TimeoutModal open={openModal} close={closeModal}>Timeout</TimeoutModal>
 
                     }
+                </div>
+                <div className="footer">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+
                 </div>
 
 
