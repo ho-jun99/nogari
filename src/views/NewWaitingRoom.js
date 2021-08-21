@@ -6,6 +6,8 @@ import CopyLink from '../components/modal/copylink'
 import SelectGame from "../components/modal/selectGame";
 import {getRoomInfo} from "../firebase/waiting-room";
 import { getUserInfo } from '../firebase/users';
+import firebase from "firebase";
+import {setPlayers} from "../firebase/games/liar";
 
 const menuModalStyle = {
     overlay: {
@@ -85,9 +87,11 @@ export default function NewWaitingRoom({ match }) {
 
     // 새로운 참여자가 발생하거나 룸 정보가 바뀔때 실행되는 함수
     const changedRoomInfo = async (roomInfo) => {
-        const captainInfo = await getUserInfo(roomInfo.captain);
+        console.log(roomInfo)
+        // const captainInfo = await getUserInfo(roomInfo.captain);
         // setCaptain(captainInfo);
         let members = [];
+        let membersGamedata = [];
         // console.log(roomInfo);
         for await (const member of roomInfo.members) {
             const memberInfo = await getUserInfo(member);
@@ -95,11 +99,17 @@ export default function NewWaitingRoom({ match }) {
             members.push(memberInfo);
         }
         const memberProps = members.map((member) => member.nickname);
+        console.log(memberProps);
         setUsers(memberProps);
-    };
+
+        for await (const member of memberProps) {
+            const gameMember = {member, liar: {isliar: false, }, }
+            membersGamedata.push(gameMember);
+        }
+        await setPlayers(match.params.roomId, membersGamedata);
+    }
 
     useEffect(() => {
-        console.log(match.params.roomId);
         getRoomInfo(match.params.roomId, changedRoomInfo);
     }, []);
 
