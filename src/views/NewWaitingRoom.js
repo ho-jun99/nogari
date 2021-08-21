@@ -7,7 +7,7 @@ import SelectGame from "../components/modal/selectGame";
 import {getRoomInfo} from "../firebase/waiting-room";
 import { getUserInfo } from '../firebase/users';
 import firebase from "firebase";
-import {setPlayers} from "../firebase/games/liar";
+import {setPlayers} from "../firebase/game-data";
 
 const menuModalStyle = {
     overlay: {
