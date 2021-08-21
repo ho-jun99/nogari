@@ -25,6 +25,15 @@ export default function CreateRoomView({ history }) {
 
         }, {merge:true});
 
+        await firebase.firestore().collection("game").doc(`${roomNumber}`).set({
+            liar: {
+                question:"",
+            },
+            players: {
+
+            }
+        }, {merge:true});
+
         console.log(roomNumber);
         history.push(`/rooms/${roomNumber}`);
     }

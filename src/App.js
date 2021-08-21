@@ -19,12 +19,11 @@ function App() {
   <div>
     <div>
         <Route exact path="/" component={MainView}/>
-        <Route path="/liar" component={LiarGameView}/>
+        <Route path="/rooms/:roomId/liar" component={LiarGameView}/>
         <Route path="/roulette" component={RouletteGameView}/>
         <Route path="/word" component={WordGameView}/>
         <Route path="/find" component={FindView}/>
         <Route path="/Choose_Char" component={Choose_Char}/>
-        <Route path="/" component={MainView} />
         <Route exact path="/rooms/:roomId" component={NewWaitingRoom}/>
         <Route path="/rooms/:roomId/marble" component={AlcoholMarbleView}/>
         <Route path="/createUser" component={CreateUserView}/>
