@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 function GameInfo(props) {
-    const {open, close, gameInfo} = props;
+    let {open, close, gameInfo} = props;
 
     return (
         <div style={styles.container}>

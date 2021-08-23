@@ -1,0 +1,15 @@
+.gameList {
+    background-color: #323232;
+}
+.gameList:hover {
+    background-color: #FCCE39;
+    color: #1B9659;
+}
+.gameList:hover .infoBtn{
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.infoBtn {
+    background-color: #FCCE39;
+    color: #535353;
+}

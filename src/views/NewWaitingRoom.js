@@ -154,7 +154,7 @@ export default function NewWaitingRoom({ match }) {
 
                                     <div className="menuRankRightWrapper">
                                         <div className="menuRangkRightContainer">
-                                        
+
                                             <div className="rightRank">2위</div>
                                             <div className="rightTitle">청춘 김민석</div>
                                             <div className="rightBadgeContainer">
@@ -165,7 +165,7 @@ export default function NewWaitingRoom({ match }) {
 																									<div className = "rightBadge">+</div>
 																									<div className = "rightBadge">+</div>
 																								</div>
-                                                
+
                                             </div>
                                         </div>
                                         <div className="rightImage">이미지</div>
@@ -173,7 +173,7 @@ export default function NewWaitingRoom({ match }) {
 
                                     <div className="menuRankRightWrapper">
                                         <div className="menuRangkRightContainer">
-                                        
+
                                             <div className="rightRank">2위</div>
                                             <div className="rightTitle">청춘 김민석</div>
                                             <div className="rightBadgeContainer">
@@ -184,7 +184,7 @@ export default function NewWaitingRoom({ match }) {
 																									<div className = "rightBadge">+</div>
 																									<div className = "rightBadge">+</div>
 																								</div>
-                                                
+
                                             </div>
                                         </div>
                                         <div className="rightImage">이미지</div>
@@ -192,7 +192,7 @@ export default function NewWaitingRoom({ match }) {
 
                                     <div className="menuRankRightWrapper">
                                         <div className="menuRangkRightContainer">
-                                        
+
                                             <div className="rightRank">2위</div>
                                             <div className="rightTitle">청춘 김민석</div>
                                             <div className="rightBadgeContainer">
@@ -203,7 +203,7 @@ export default function NewWaitingRoom({ match }) {
 																									<div className = "rightBadge">+</div>
 																									<div className = "rightBadge">+</div>
 																								</div>
-                                                
+
                                             </div>
                                         </div>
                                         <div className="rightImage">이미지</div>
