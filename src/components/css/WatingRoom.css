@@ -156,7 +156,6 @@
 #menuModal #backBtn {
   text-align: center;
   font-size: 30px;
-  border: 1px red solid;
   position: absolute;
   width: 40px;
   height: 40px;
@@ -183,8 +182,8 @@
 
 #menuModal .menuWraper .menuTitle {
   font-size: 50px;
-  border: 1px red solid;
   color: #FCCE39;
+  margin-bottom: 20px;
 }
 
 #menuModal .menuWraper .menuRankContainer {
@@ -197,7 +196,7 @@
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankLeft {
-  border: 1px red solid;
+  border-right: 3px black solid;
   width: 360.1px;
   height: 436.72px;
   display: -webkit-box;
@@ -213,6 +212,7 @@
       -ms-flex-align: center;
           align-items: center;
   background-color: #08552E;
+  border-radius: 3%;
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftName {
@@ -249,7 +249,13 @@
   margin-left: 20px;
 }
 
-#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftBadgeContainer .LeftBadge {
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftBadgeContainer .LeftBadges {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftBadgeContainer .LeftBadges .LeftBadge {
   border-radius: 50%;
   width: 19.94px;
   height: 19.94px;
@@ -258,6 +264,8 @@
   text-align: center;
   font-weight: bold;
   line-height: 19.94px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankRight {
@@ -276,14 +284,14 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border: 1px red solid;
   background-color: #05391F;
+  border-radius: 3%;
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper {
   width: 278.38px;
   height: 100.45px;
-  border: 1px blue solid;
+  border-bottom: 1px solid rgba(252, 206, 57, 0.3);
   color: #FCCE39;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -321,15 +329,30 @@
 
 #menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightBadgeContainer {
   font-size: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightBadgeContainer .rightBadge {
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightBadgeContainer .rightBadges {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightBadgeContainer .rightBadges .rightBadge {
   background-color: #000000;
   border-radius: 50%;
   width: 12.77px;
   height: 12.77px;
   text-align: center;
   font-weight: bold;
+  margin-top: 5px;
+  margin-right: 3px;
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .rightImage {
