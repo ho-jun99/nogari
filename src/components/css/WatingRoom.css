@@ -1,5 +1,8 @@
 #mainWrap {
-  width: 960px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 822.22px;
   height: 740px;
   border: solid blue 2px;
   position: absolute;
@@ -8,134 +11,42 @@
           transform: translateX(-50%);
   padding: 0;
   margin: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-#menuModal #backBtn {
-  text-align: center;
-  font-size: 30px;
-  border: 1px black solid;
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  left: 94%;
-  top: 10px;
-  background-color: #726d6d7c;
+#mainWrap .navi {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-#menuModal .menuWraper {
-  bottom: 100px;
-}
-
-#menuModal .menuWraper div {
-  border: 3px black solid;
-  position: absolute;
-  text-align: center;
-  font-size: 50px;
-}
-
-#menuModal .menuWraper :nth-child(1) {
-  width: 405px;
-  height: 650px;
-}
-
-#menuModal .menuWraper :nth-child(1) img {
-  position: absolute;
-  width: 230px;
-  height: auto;
-  top: 30%;
-  left: 25%;
-}
-
-#menuModal .menuWraper :nth-child(2) {
-  left: 48%;
-  width: 405px;
-  height: 200px;
-}
-
-#menuModal .menuWraper :nth-child(3) {
-  left: 48%;
-  top: 35%;
-  width: 195px;
-  height: 250px;
-}
-
-#menuModal .menuWraper :nth-child(4) {
-  left: 71%;
-  top: 35%;
-  width: 195px;
-  height: 250px;
-}
-
-#menuModal .menuWraper :nth-child(5) {
-  left: 48%;
-  top: 74%;
-  width: 195px;
-  height: 160px;
-}
-
-#menuModal .menuWraper :nth-child(6) {
-  left: 71%;
-  top: 74%;
-  width: 195px;
-  height: 160px;
-}
-
-.navi {
-  border-bottom: 3px dotted;
-}
-
-.navi .modal {
-  display: inline-block;
-  background-color: aqua;
+#mainWrap .navi .modal {
+  background-color: lightgrey;
   margin: 10px;
-  border: 3px solid black;
 }
 
-.Main {
+#mainWrap .Main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  width: 960px;
-  height: 693px;
-}
-
-.Main .char1 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-}
-
-.Main .gameMain {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  height: 695.38px;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  text-align: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 
-.Main .char2 {
+#mainWrap .Main .char1 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -143,25 +54,53 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
-.Main .character {
-  position: relative;
-  width: 137px;
-  height: 141.34px;
-  border: 2px black solid;
+#mainWrap .Main .gameMain {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+#mainWrap .Main .char2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+#mainWrap .Main .character {
+  width: 120px;
+  height: 123.8px;
   border-radius: 5%;
-  margin: 0px;
+  background-color: #000000;
 }
 
-.Main .userName {
-  position: relative;
+#mainWrap .Main .userName {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 16.6079px;
+  font-size: 14px;
   line-height: 19px;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -172,47 +111,233 @@
   color: #323232;
 }
 
-.Main .selectGameBtn {
+#mainWrap .Main .selectGameBtn {
   position: relative;
   width: 200px;
   height: 40px;
-  border: 2px black solid;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5%;
+  background-color: #fcce39;
+  color: white;
+}
+
+#mainWrap .Main .startBtn {
+  width: 300px;
+  height: 65.62px;
+  text-align: center;
+  font-size: 32px;
+  border-radius: 5%;
+  background-color: #fcce39;
+  color: white;
+}
+
+#mainWrap .Main .selectedGame {
+  width: 450px;
+  height: 315.46px;
+  border-radius: 5%;
+  background-color: #0c8247;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#mainWrap .Main .selectedGame .selecteMessage {
+  font-size: 36px;
+  color: #fcce39;
+}
+
+#menuModal #backBtn {
   text-align: center;
   font-size: 30px;
+  border: 1px red solid;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 10px;
+  left: 91%;
+  color: #fcce39;
 }
 
-.Main .startBtn {
-  position: relative;
-  width: 320px;
-  height: 70px;
+#menuModal .menuWraper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#menuModal .menuWraper .menuTitle {
+  font-size: 50px;
+  border: 1px red solid;
+  color: #FCCE39;
+}
+
+#menuModal .menuWraper .menuRankContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankLeft {
+  border: 1px red solid;
+  width: 360.1px;
+  height: 436.72px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #08552E;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftName {
+  font-size: 24px;
+  color: #FCCE39;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftTitle {
+  width: 127.7px;
+  height: 22.99px;
+  background-color: #042917;
+  color: #fcce39;
+  border-radius: 5%;
   text-align: center;
-  border: 2px black solid;
-  font-size: 30px;
+  line-height: 22.99px;
 }
 
-.Main .selectedGame {
-  position: relative;
-  width: 485px;
-  height: 340px;
-  border: 3px black solid;
-}
-
-.Main .selectedGame .selecteMessage {
-  display: inline-block;
-  font-size: 30px;
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftImage {
+  width: 194.1px;
+  height: 194.1px;
+  background-color: #042213;
+  border-radius: 5%;
+  color: #fcce39;
   text-align: center;
-  width: 250px;
-  left: 170px;
+  font-size: 50px;
+  line-height: 194.1px;
 }
 
-.Main .selectedGame .infoBtn {
-  position: relative;
-  top: 5.49%;
-  bottom: 83.88%;
-  background: #737171;
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftBadgeContainer {
+  color: #fcce39;
+  font-size: 14px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-left: 20px;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftBadgeContainer .LeftBadge {
   border-radius: 50%;
+  width: 19.94px;
+  height: 19.94px;
+  background-color: #FCCE39;
+  color: #000000;
   text-align: center;
-  font-size: 30px;
-  color: aliceblue;
+  font-weight: bold;
+  line-height: 19.94px;
 }
-/*# sourceMappingURL=NewWatingRoom.css.map */
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 360.1px;
+  height: 436.72px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px red solid;
+  background-color: #05391F;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper {
+  width: 278.38px;
+  height: 100.45px;
+  border: 1px blue solid;
+  color: #FCCE39;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin: 5px;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightRank {
+  font-size: 14px;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightTitle {
+  width: 127.7px;
+  height: 22.99px;
+  font-size: 12px;
+  background-color: #042213;
+  border-radius: 5%;
+  text-align: center;
+  line-height: 22.99px;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightBadgeContainer {
+  font-size: 10px;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightBadgeContainer .rightBadge {
+  background-color: #000000;
+  border-radius: 50%;
+  width: 12.77px;
+  height: 12.77px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .rightImage {
+  width: 100px;
+  height: 100px;
+  background-color: #042213;
+  border-radius: 5%;
+  text-align: center;
+  line-height: 100px;
+}
+/*# sourceMappingURL=WatingRoom.css.map */
