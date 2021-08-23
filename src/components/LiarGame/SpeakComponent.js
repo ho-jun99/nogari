@@ -1,5 +1,10 @@
 import React, {useState} from 'react'
-import ana from '../../views/img/Ana.png'
+import Egg from '../../views/img/계란말이_스탠딩.png'
+import Kimchi from '../../views/img/김치국수 스탠딩.png'
+import Nogari from '../../views/img/노가리_스탠딩1 1.png'
+import DDuk from '../../views/img/떡볶이 스탠딩.png'
+import Bing from '../../views/img/빙수_스탠딩.png'
+import Chicken from '../../views/img/치킨_스탠딩.png'
 import GoStopModal from "./goStopModal";
 
 export default function SpeakComponent(props) {
@@ -8,6 +13,37 @@ export default function SpeakComponent(props) {
             nickname: "성원이다", // 닉네임
             isLiar: false, // true 이면 해당 유저는 라이어
             order: true, // true 이면 본인 순서
+            img: Egg,
+        },
+        {
+            nickname: "성원이다", // 닉네임
+            isLiar: true, // true 이면 해당 유저는 라이어
+            order: false, // true 이면 본인 순서
+            img: Kimchi,
+        },
+        {
+            nickname: "성원이다", // 닉네임
+            isLiar: false, // true 이면 해당 유저는 라이어
+            order: false, // true 이면 본인 순서
+            img: Nogari,
+        },
+        {
+            nickname: "성원이다", // 닉네임
+            isLiar: false, // true 이면 해당 유저는 라이어
+            order: false, // true 이면 본인 순서
+            img: DDuk,
+        },
+        {
+            nickname: "성원이다", // 닉네임
+            isLiar: false, // true 이면 해당 유저는 라이어
+            order: false, // true 이면 본인 순서
+            img: Bing,
+        },
+        {
+            nickname: "성원이다", // 닉네임
+            isLiar: false, // true 이면 해당 유저는 라이어
+            order: false, // true 이면 본인 순서
+            img: Chicken,
         },
     ]
     const [count, setCount] = useState(20);
@@ -19,8 +55,10 @@ export default function SpeakComponent(props) {
     const userList = gameUser.map((user) => {
         return (
                 <li style={styles.listStyle}>
-                    <img src={ana} alt="아나" style={user.order ? styles.startUser : styles.stopUser}/>
-                    <div>{user.nickname}</div>
+                    <div style={styles.userContainer}>
+                        <img src={user.img} alt="캐릭터" style={user.order ? styles.startUser : styles.stopUser}/>
+                        <div style={styles.nickName}>{user.nickname}</div>
+                    </div>
                 </li>
 
         )
@@ -43,11 +81,9 @@ export default function SpeakComponent(props) {
 
     return (
         <div style={styles.container}>
-            <div style={styles.title}>‘{gameUser[0].nickname}’님 차례입니다!</div>
-            <div style={styles.description}>제시어와 관련된 발언을 한 후, ‘발언 종료’버튼을 눌러주세요.<br/>
-                제한시간이 지나면 자동으로 다음 순서로 넘어갑니다.
-            </div>
-            <span style={styles.count}>{count}</span>
+            <div style={styles.title}>‘{gameUser[0].nickname}’님 차례입니다!!</div>
+            <div style={styles.description}>제한시간 내 발언을 마치고 ‘발언 종료’ 버튼을 눌러주세요!</div>
+            <span style={styles.count}>{count}<span style={styles.countText}>초</span></span>
             <button style={styles.stopBtn} onClick={openVoteModal}>발언 종료</button>
             <div>
                 {userList}
@@ -62,19 +98,20 @@ const styles = {
         textAlign: 'center',
     },
     title: {
-        color: '#535353', fontStyle: 'Roboto', fontWeight: 'black',
-        fontSize: 36, marginBottom: 24, marginTop: 137,
+        color: '#000', fontStyle: 'Roboto', fontWeight: 'black',
+        fontSize: 30, marginBottom: 18, marginTop: 68,
     },
     description: {
-        color: '#535353', fontSize: 24, marginBottom: 68,
+        color: '#000', fontSize: 14, marginBottom: 68,
     },
     count: {
-        fontSize: 55, fontStyle: 'Roboto',
+        fontSize: 120, fontStyle: 'Roboto',
         fontWeight: 'bold', display: 'block',
     },
     stopBtn: {
-        marginTop: 52, width: 238, height: 62, backgroundColor: '#7a7a7a', color: '#fff',
-        fontStyle: 'Roboto', fontWeight: 'bold', fontSize: 25,
+        marginTop: 73, width: 320, height: 70, backgroundColor: '#FCCE39', color: '#08552E',
+        fontStyle: 'Roboto', fontWeight: 'bold', fontSize: 25, border: '4px solid #08552E', borderRadius: 10,
+        cursor: 'pointer',
 
     },
     startUser: {
@@ -85,7 +122,16 @@ const styles = {
     },
     listStyle: {
         listStyleType: 'none', display: 'inline-block', border: '1px solid black', borderRadius: 5,
-        width: 120, boxSizing: 'border-box', height: 160, padding: 10, margin: '28px 8px 0 0',
+        width: 144, boxSizing: 'border-box', height: 218, padding: 10, margin: '86px 8px 0 0',
+        backgroundColor: '#032213', color: '#FCCE39'
     },
-
+    countText: {
+      fontSize: 24,
+    },
+    userContainer: {
+        marginTop: 34,
+    },
+    nickName: {
+      marginTop: 8,
+    },
 }

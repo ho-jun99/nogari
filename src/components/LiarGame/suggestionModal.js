@@ -7,7 +7,7 @@ export default function SuggestionModal() {
     const gameUser = [
         {
             nickname: "성원이다",
-            isLiar: false,
+            isLiar: true,
         }
     ]
 
@@ -40,7 +40,7 @@ export default function SuggestionModal() {
         <div style={styles.container}>
             <div style={styles.title}>제시어 확인</div>
             <div style={styles.content}>제시어 확인 버튼을 클릭해서 역할을 확인해주세요.</div>
-            <input type="button" value="제시어 확인하기" style={styles.btn} onClick={confirmLiar}/>
+            <button style={styles.btn} onClick={confirmLiar}>제시어 확인하기</button>
             <LiarModal open={liarModal} close={liarCloseModal}/>
             <UserModal open={userModal} close={userCloseModal} word={defaultWord}/>
         </div>
@@ -53,19 +53,20 @@ const styles = {
         height: 305,
         top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
         position: 'absolute',
-        textAlign: 'center', backgroundColor: '#7a7a7a',
+        textAlign: 'center', backgroundColor: '#0C8247',
+
     },
     title: {
-        color: '#fff',
+        color: '#FCCE39',
         fontSize: 48, fontWeight: 'bold', marginBottom: 14, marginTop: '14%',
-    },
+        textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+},
     content: {
         color: '#fff',
         fontSize: 18, fontWeight: 'normal', marginBottom: 64,
     },
     btn: {
-        width: 112,
-        height: 40,
-        color: '#8f8f8f', fontSize: 18,
+        width: 244, border: 'none', borderRadius: 5, height: 50,
+        color: '#0C8247', fontSize: 18, backgroundColor: '#FCCE39',
     },
 }

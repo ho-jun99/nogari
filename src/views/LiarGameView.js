@@ -43,7 +43,7 @@ export default function LiarGameView() {
                         <SuggestionModal/>
                     </div>
                 </div>
-                <input type="button" value="누르면 게임 실행됨" onClick={startGame}/>
+                <input type="button" value="누르면 게임 실행됨" onClick={startGame} className="tempBtn"/>
             </>
         );
     }

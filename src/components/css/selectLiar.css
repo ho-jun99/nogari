@@ -3,23 +3,22 @@
 }
 
 .userContainer {
-    color: #fff;
+    color: #FCCE39;
     background-color: #032213;
     list-style: none;
     display: inline-block;
     width: 144px;
     height: 218px;
     border-radius: 5px;
-    box-sizing: border-box;
     position: relative;
     margin-right: 12px;
 }
-.userContainer:hover .userImage{
-    border: 1px solid red;
+.userContainer:hover {
+    border: 3px solid #FCCE39;
 }
 
 .selectLiar {
-    margin: 219px 0 24px 0;
+    margin: 179px 0 24px 0;
     font-size: 40px;
 }
 
@@ -55,4 +54,15 @@
     right: -5px;
     top: -5px;
     opacity: 0;
+}
+.selectBtn {
+    width: 320px;
+    height: 70px;
+    margin-top: 92px;
+    border: none;
+    background-color: #08552E;
+    color: #FCCE39;
+    font-size: 32px;
+    border-radius: 10px;
+    cursor: pointer;
 }

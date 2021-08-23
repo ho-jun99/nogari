@@ -7,8 +7,9 @@ export default function LiarModal(props) {
             {open ? (
                 <div style={styles.container}>
                     <div style={styles.headerTitle}>당신은</div>
-                    <div style={styles.title}>라이어</div>
+                    <div style={styles.title}>라·이·어</div>
                     <div style={styles.content}>정체를 숨기고 제시어를 알아내세요!</div>
+                    <div style={styles.userCount}>3</div>
                     <span style={styles.description}>다른 플레이어들이 제시어를 확인할 때까지 잠시 기다려주세요.</span>
                 </div>
             ) : null}
@@ -17,22 +18,22 @@ export default function LiarModal(props) {
 }
 const styles = {
     container: {
-        width: 470,
-        height: 305,
+        width: 1920,
+        height: 1080,
         top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
         position: 'absolute',
-        textAlign: 'center', backgroundColor: '#7a7a7a',
+        textAlign: 'center', backgroundColor: '#000',
     },
     headerTitle: {
-      marginTop: '10%', marginBottom: '2%', color: '#fff',
+      marginTop: 261, marginBottom: 31, color: '#fff', fontSize: 24,
     },
     title: {
-        color: '#fff',
-        fontSize: 48, fontWeight: 'bold', marginBottom: 14,
+        color: '#FF0000',
+        fontSize: 120, fontWeight: 'bold', marginBottom: 59.72,
     },
     content: {
         color: '#fff',
-        fontSize: 18, fontWeight: 'normal', marginBottom: 64,
+        fontSize: 18, fontWeight: 'normal', marginBottom: 168,
     },
     btn: {
         width: 112,
@@ -40,6 +41,9 @@ const styles = {
         color: '#8f8f8f', fontSize: 18,
     },
     description: {
-        color:'#fff',
+        color:'#FCCE39', fontSize: 19.12,
+    },
+    userCount: {
+        color: '#fff', marginBottom: 29,
     }
 }

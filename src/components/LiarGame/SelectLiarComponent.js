@@ -1,20 +1,45 @@
 import React, {useState} from 'react'
 import '../css/selectLiar.css'
-import Ana from '../../views/img/Ana.png'
+import Egg from '../../views/img/계란말이_스탠딩.png'
+import Kimchi from '../../views/img/김치국수 스탠딩.png'
+import Nogari from '../../views/img/노가리_스탠딩1 1.png'
+import DDuk from '../../views/img/떡볶이 스탠딩.png'
+import Bing from '../../views/img/빙수_스탠딩.png'
+import Chicken from '../../views/img/치킨_스탠딩.png'
 
 export default function SelectLiarComponent() {
 
     let [userList, setUserList] = useState([
         {
-            nickname: "성원이다",
-            profile: Ana,
+            nickname: "임성원",
+            profile: Egg,
             count: 0,
         },
         {
-            nickname: "홍길동",
-            profile: Ana,
+            nickname: "박정민",
+            profile: Kimchi,
             count: 0,
-        }
+        },
+        {
+            nickname: "김호준",
+            profile: Nogari,
+            count: 0,
+        },
+        {
+            nickname: "신재혁",
+            profile: DDuk,
+            count: 0,
+        },
+        {
+            nickname: "김지성",
+            profile: Bing,
+            count: 0,
+        },
+        {
+            nickname: "정나영",
+            profile: Chicken,
+            count: 0,
+        },
     ]);
 
     let user = userList.map((user, index) => {
@@ -25,7 +50,7 @@ export default function SelectLiarComponent() {
                 setUserList(newArr);
             }}>
                 {userList[index].count ? <div className="voteCount">{userList[index].count}</div> : <div className="noneCount">{userList[index].count}</div>}
-                <img src={Ana} alt="프로필" className="userImage"/>
+                <img src={user.profile} alt="프로필" className="userImage"/>
                 <span>{user.nickname}</span>
             </li>
         )
@@ -36,6 +61,7 @@ export default function SelectLiarComponent() {
                 <div className="selectLiar">라이어를 지목해주세요!</div>
                 <div className="description">동점일 시 게임으로 다시 돌아갑니다.</div>
                 {user}
+                <button className="selectBtn">선택 완료</button>
             </div>
         </>
     )
