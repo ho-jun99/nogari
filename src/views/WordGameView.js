@@ -111,7 +111,7 @@ export default function WordGameView() {
     return (
         <>
 
-            <div className="main">
+            <div className="main_wordgame">
                 <div className="category"
                      style={{fontFamily: "DungGeunMo", fontWeight: "bold", fontSize: "28.4571px", textAlign: "center"}}>
                     카테고리 : 인물
