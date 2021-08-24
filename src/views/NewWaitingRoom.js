@@ -231,7 +231,6 @@ export default function NewWaitingRoom({ match }) {
                         <button className="selectGameBtn" onClick={() => selectGameModal(true)}>게임 선택</button>
                         <div className="selectedGame">{room.isSelected ? room.selectedGameName :
                             <div className="selecteMessage">
-                              {room.selectedGameName}
                               게임을 선택해주세요
                             </div>
                         }

@@ -54,7 +54,7 @@ const SelectGame = (props) => {
     const [selectedGame, setSelectedGame] = useState(""); // 선택된 게임 이름
 
     const game_info = gameList.map((idx, index) => (
-        <li className="gameList" key={index} style={styles.listStyle} onClick={() => {
+        <li className="gameList" key={index} onClick={() => {
             for (let i = 0; i < gameList.length; i++) {
                 if (gameList[i].id === idx.id) {
                     setSelectedGame(gameList[i].gameName);
@@ -108,18 +108,6 @@ const styles = {
     },
     title: {
         textAlign: 'center', fontSize: 40,
-    },
-    listStyle: {
-        listStyleType: 'none',
-        display: 'inline-block',
-        border: '1px solid black',
-        borderRadius: 10,
-        width: 350,
-        boxSizing: 'border-box',
-        height: 220,
-        padding: 10,
-        cursor: 'pointer',
-        margin: 18,
     },
     listContainer: {
         textAlign: 'center', backgroundColor: '#08552E', borderRadius: 10, border: '1px solid black',
