@@ -10,11 +10,3 @@ export async function getWord(roomNumber, word) {
         }
     });
 }
-
-export async function setPlayers(roomNumber, player) {
-    console.log(player);
-    await firebase.firestore().collection("game").doc(roomNumber).update({
-            players: player
-
-    });
-}

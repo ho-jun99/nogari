@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
+import Modal from 'react-modal';
 import {getWordGameCategory} from "../firebase/games/word-game";
 import './WordGameView.css';
+import TimeoutModal from "./Timeout";
 import WordGamePlayer from "../components/WordGamePlayer";
 
 export default function WordGameView() {
@@ -23,23 +25,23 @@ export default function WordGameView() {
     const [categories, setCategories] = useState([]);
     const [wordGame, setWordGame] = useState([
         {
-            quiz:'',
-            answer:'',
+            quiz: '',
+            answer: '',
         }
     ]);
-    const [seconds, setSeconds] = useState(30);
+    // const [seconds, setSeconds] = useState(30);
 
-    useEffect(() => {
-        const countdown = setInterval(() => {
-            if (parseInt(seconds) > 0) {
-                setSeconds(parseInt(seconds) - 1);
-            } else {
-                getQuiz();
-                setSeconds(30);
-            }
-        }, 1000);
-        return () => clearInterval(countdown);
-    }, [seconds]);
+    // useEffect(() => {
+    //     const countdown = setInterval(() => {
+    //         if (parseInt(seconds) > 0) {
+    //             setSeconds(parseInt(seconds) - 1);
+    //         } else {
+    //             getQuiz();
+    //             setSeconds(30);
+    //         }
+    //     }, 1000);
+    //     return () => clearInterval(countdown);
+    // }, [seconds]);
 
     useEffect(() => {
         const init = async () => {
@@ -65,10 +67,28 @@ export default function WordGameView() {
         }]));
         await getQuiz()
     };
+    const totalQuiz = 10;
+    const getQuiz = async() => {
+        const dataLength = wordGame.length;
+        await selectIndex(dataLength, totalQuiz);
+        console.log('dataL', dataLength);
+        console.log(randomIndexArray);
 
-    const getQuiz = () => {
-        const length = wordGame.length;
-        setGameIndex(Math.floor(Math.random() * length));
+        // setGameIndex(Math.floor(Math.random() * dataLength));
+    }
+
+    let randomIndexArray = [];
+    const selectIndex = (totalIndex, selectingNumber) => {
+        for (let i=0; i<selectingNumber; i++) {   //check if there is any duplicate index
+            let randomNum = Math.floor(Math.random() * totalIndex);
+            console.log(randomNum);
+            if (randomIndexArray.indexOf(randomNum) === -1) {
+                randomIndexArray.push(randomNum);
+            } else { //if the randomNum is already in the array retry
+                i--
+            }
+        }
+        return randomIndexArray;
     }
 
     // const wordData = [
@@ -99,7 +119,7 @@ export default function WordGameView() {
             alert('정답');
             setGameIndex(Math.floor(Math.random() * wordGame.length));
             setAnswer('');
-            setSeconds(30);
+            // setSeconds(30);
         } else {
             alert('다시 시도');
         }
@@ -109,11 +129,11 @@ export default function WordGameView() {
         <>
             <div className="wordGameContainer">
                 초성 게임 메인 페이지
-                <div>
-                    <h2>
-                        {seconds < 10 ? `0${seconds}` : seconds}
-                    </h2>
-                </div>
+                {/*<div>*/}
+                {/*    <h2>*/}
+                {/*        {seconds < 10 ? `0${seconds}` : seconds}*/}
+                {/*    </h2>*/}
+                {/*</div>*/}
                 <label>cateogory : {selectedCategory}</label>
                 {categories.map((cate, index) => <button onClick={() => getCategoryData(cate)}
                                                          key={index}>{cate}</button>)}
