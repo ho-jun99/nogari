@@ -78,9 +78,12 @@
         transform: translateY(30px) translateX(-30px);
     }
 }
-
+.mainwrapper{
+    margin-top: 10%;
+}
 .main{
     overflow: hidden;
+    vertical-align: auto;
     margin: 0 auto;
     width: 822.22px;
     height: 587px;
