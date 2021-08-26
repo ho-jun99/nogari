@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './find.css'
+import LinkModal from "./Link_input";
+
 export default function Find() {
     const title={
         fontSize:"24px",
@@ -13,6 +15,13 @@ export default function Find() {
         color:"#0C8247;",
         fontFamily:"DungGeunMo",
         lineHeight:"16px"
+    }
+    const [ modalOpen, setModalOpen ] = useState(false);
+    const openModal = () => {
+        setModalOpen(true);
+    }
+    const closeModal = () => {
+        setModalOpen(false);
     }
     return (
         <>
@@ -28,14 +37,16 @@ export default function Find() {
                             <div style={{fontSize:"68px",paddingTop:"38.59px",lineHeight:"80px",letterSpacing: "0.065em",fontFamily: "DungGeunMo" }}>방 만들기</div>
                             <div style={{fontSize:"18px",paddingTop:"15.89px",color:"white" }}>방장이 되어 다른친구들을 초대해보세요!</div>
                         </div>
-                        <div className="make">
+                        <div className="make" onClick={openModal}>
                             <div style={{fontSize:"68px",paddingTop:"38.59px",lineHeight:"80px",letterSpacing: "0.065em",fontFamily: "DungGeunMo"  }}>링크 입력</div>
                             <div style={{fontSize:"18px",paddingTop:"15.89px",color:"white" }}>친구가 보내준 링크를 입력하여 게임에 참여하세요!</div>
                         </div>
                     </div>
 
 
+
                 </div>
+
                 <div className="RightBox">
                     <div className="NameBox">
                         <a style={{
@@ -58,6 +69,7 @@ export default function Find() {
                     </div>
 
                 </div>
+                <LinkModal open={modalOpen} close={closeModal}/>
             </div>
         </>
     );

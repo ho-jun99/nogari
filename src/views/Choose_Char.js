@@ -1,13 +1,15 @@
 import React,{useState} from 'react';
 import "./Choose_Char.css";
-import InfoModal from "./Char_Inform";
-import Rusiu from "./img/Rusiu.png";
-import Tracer from "./img/Tracer.png";
-import Hog from "./img/Hog.png";
-import Sodier from "./img/Soldier.png";
-import Zariya from "./img/Zariya.png";
-import Ana from "./img/Ana.png";
 import unchosen from "./img/unchosen.png";
+import EggRoll from './img/계란말이_스탠딩.png'
+import KimchiRollNoodle from './img/김치국수 스탠딩.png'
+import RiceCake from './img/떡볶이 스탠딩.png'
+import Nogari from './img/노가리_스탠딩1.png'
+import Chicken from './img/치킨_스탠딩.png'
+import Kkochi from './img/꼬치 3인방_스탠딩.png'
+import DdalBing from './img/빙수_스탠딩.png'
+import CheezeBall from './img/치즈볼_스탠딩.png'
+import CaramelPop from './img/카라멜팝곤_스탠딩.png'
 import {Link} from "react-router-dom";
 
 
@@ -35,8 +37,8 @@ const CharName = {
     color: "#FCCE39",
     fontSize: "16px",
     float: "left",
-    paddingLeft: "10px",
-    paddingTop: "5px"
+    paddingLeft: "17px",
+    paddingTop: "10px"
 }
 const Category = {
     color:"#0C8247",
@@ -45,18 +47,20 @@ const Category = {
 }
 
 export default function Choose_Char() {
-    const Chr = [unchosen, Rusiu, Hog, Sodier, Zariya, Tracer, Ana];
-    const Ch_name = ["unchosen", "Rusiu", "Hog", "Sodier", "Zariya", "Tracer", "Ana"];
-    const Catego = ["튀김류", "국물류", "복음류"]
+    const Chr = [unchosen, EggRoll, KimchiRollNoodle, RiceCake, Nogari, Chicken, Kkochi, DdalBing, CheezeBall, CaramelPop];
+    const Ch_name = ["캐릭터 선택", "계란말이", "김치말이 국수", "시골 떡볶이", "청춘 노가리", "치킨", "꼬치구이","딸기 빙수", "치즈볼", "카라멜 팝콘"];
+    const Catego = ["식사류", "안주류", "간식류"]
     const [count, setCount] = useState(0);
     const [idx, setIdx] = useState(0);
     const [value, setValue] = React.useState("");
     const [ modalOpen, setModalOpen ] = useState(false);
     const previous = ()=>{
-        setIdx(idx-1)
+        if(idx <=0) setIdx(0)
+        else setIdx(idx-1)
     }
     const next = ()=>{
-        setIdx(idx+1)
+        if(idx >=2) setIdx(2)
+        else setIdx(idx+1)
     }
     const openModal = () => {
         setModalOpen(true);
@@ -73,43 +77,43 @@ export default function Choose_Char() {
                     <a style={title}>안주선택</a><br></br>
                     <a style={subtitle}>원하는 안주를 선택해주세요</a><br></br>
                     <div className="sel_header">
-                        <button onClick={previous}>이전</button>
+                        <button className='PreNextBT' onClick={previous}>&lt;</button>
                         <a style={Category}> {Catego[idx]}</a>
-                        <button onClick={next}>다음</button>
+                        <button className='PreNextBT' onClick={next}>&gt;</button>
                     </div>
                     <div>
                         {
                             idx===0 && <div className="container_select">
-                                <img src={Rusiu}  alt='Rusiu' onClick={()=>{setCount(1)}}/>
-                                <img src={Hog} alt='Hog'  onClick={()=>{setCount(2)}} />
-                                <img src={Sodier} alt='Soldier' onClick={()=>{setCount(3)}}/>
-                                <img src={Zariya} alt='Zariya' onClick={()=>{setCount(4)}} />
-                                <img src={Tracer} alt='Tracer' onClick={()=>{setCount(5)}}/>
-                                <img src={Ana} alt='Ana' onClick={()=>{setCount(6)}}/>
+                                <img src={EggRoll}  alt='계란말이' onClick={()=>{setCount(1)}}/>
+                                <img src={KimchiRollNoodle} alt='김치말이국수' onClick={()=>{setCount(2)}} />
+                                <img src={RiceCake} alt='떡볶이' onClick={()=>{setCount(3)}}/>
+                                <span>comming<br/>soon</span>
+                                <span>comming<br/>soon</span>
+                                <span>comming<br/>soon</span>
                             </div>
                         }
                     </div>
                     <div>
                         {
                             idx===1 && <div className="container_select">
-                                <img src={Hog}  alt='Rusiu' onClick={()=>{setCount(2)}}/>
-                                <img src={Rusiu} alt='Hog'  onClick={()=>{setCount(1)}} />
-                                <img src={Sodier} alt='Soldier' onClick={()=>{setCount(3)}}/>
-                                <img src={Zariya} alt='Zariya' onClick={()=>{setCount(4)}} />
-                                <img src={Tracer} alt='Tracer' onClick={()=>{setCount(5)}}/>
-                                <img src={Ana} alt='Ana' onClick={()=>{setCount(6)}}/>
+                                <img src={Nogari}  alt='청춘 노가리' onClick={()=>{setCount(4)}}/>
+                                <img src={Chicken} alt='치킨'  onClick={()=>{setCount(5)}} />
+                                <img src={Kkochi} alt='꼬치' onClick={()=>{setCount(6)}}/>
+                                <span>comming<br/>soon</span>
+                                <span>comming<br/>soon</span>
+                                <span>comming<br/>soon</span>
                             </div>
                         }
                     </div>
                     <div>
                         {
                             idx===2 && <div className="container_select">
-                                <img src={Sodier}  alt='Rusiu' onClick={()=>{setCount(3)}}/>
-                                <img src={Hog} alt='Hog'  onClick={()=>{setCount(2)}} />
-                                <img src={Rusiu} alt='Soldier' onClick={()=>{setCount(1)}}/>
-                                <img src={Zariya} alt='Zariya' onClick={()=>{setCount(4)}} />
-                                <img src={Tracer} alt='Tracer' onClick={()=>{setCount(5)}}/>
-                                <img src={Ana} alt='Ana' onClick={()=>{setCount(6)}}/>
+                                <img src={DdalBing}  alt='딸기빙수' onClick={()=>{setCount(7)}}/>
+                                <img src={CheezeBall} alt='치즈볼'  onClick={()=>{setCount(8)}} />
+                                <img src={CaramelPop} alt='카라멜 팝콘' onClick={()=>{setCount(9)}}/>
+                                <span>comming<br/>soon</span>
+                                <span>comming<br/>soon</span>
+                                <span>comming<br/>soon</span>
                             </div>
                         }
                     </div>
@@ -148,18 +152,14 @@ export default function Choose_Char() {
                 </div>
                 <div className="chosen_hero">
                     <img className="image_chosen" src={Chr[count]} alt={'unchosen'} />
-                    <button type="button" className="image_inform" onClick={openModal}>i</button>
                     <div className="Chr_Name_box" style={CharName}>{Ch_name[count]}</div>
-                    <input id="id" type="text"  placeholder="닉네임을 입력하세요" value={value} className="input_box" onChange={e=>setValue(e.target.value)} />
-                    <InfoModal open={modalOpen} close={closeModal} header={"Info"}>
-                        설명
-                    </InfoModal>
+                    <input id="id" type="text"  placeholder="닉네임 입력" value={value} className="input_box" onChange={e=>setValue(e.target.value)} />
                 </div>
                 <div className="complete_button_wrapper">
                     <Link to ="./find">
                         <div>
                             { value===""
-                                ?<button className="complete_button2">캐릭터 생성 완료</button>
+                                ?<button disabled={value===""} className="complete_button2">캐릭터 생성 완료</button>
                                 :<button className="complete_button1">캐릭터 생성 완료</button>
 
                             }

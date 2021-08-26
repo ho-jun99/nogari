@@ -1,5 +1,7 @@
 .main{
     display: flex;
+    justify-content: center;
+    align-content: center;
 }
 .make_wrapper{
     margin-top: 83px;
@@ -15,11 +17,13 @@
 }
 .RightBox{
     position: relative;
+    margin-top: 160px;
     width: 413px;
     height: 575.93px;
-    background: #030303;
+    background: #032213;
     border-radius: 8.39px;
-    margin-left: 108px;
+    margin-left: 95px;
+    z-index: 0;
 }
 .NameBox{
     position: absolute;
@@ -28,4 +32,7 @@
     top:530px;
     background: #0C8247;
     border-radius: 0px 0px 15px 15px;
+    z-index: 1;
 }
+
+
