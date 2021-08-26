@@ -16,12 +16,9 @@ export default function WordGameView() {
         }
     ]);
     const [random, setRandom] = useState([]);
-    const [gameIndex, setGameIndex] = useState(0);
-
     const [state, setState] = useState()
-    // const [round, setRound] = useState(0);
+    const [round, setRound] = useState(0);
 
-    let round = 0;
     // 랜덤하게 추출
     const getRandom = (min, max) => {
         return Math.floor((Math.random() * (max - min + 1)) + min);
@@ -46,9 +43,12 @@ export default function WordGameView() {
                 break;
             }
         }
+
+        // 중복되지 않는 범위 내의 인덱스 array : rst ex ) rst = [0, 1, 3, 4, 2]
+        // wordGame에는 해당 카테고리의 quiz와 answer쌍이 들어있음
+        // arr에 wordGame[0], wordGame[1], wordGame[3], ... 넣어줌
+        // 이러한 arr를 setRandom
         let arr = [];
-        console.log(rst)
-        // rst.forEach()
         rst.map(num => {
             // console.log(wordGame[num], random)
             // setRandom(random => [...random, wordGame[num]])
@@ -58,13 +58,16 @@ export default function WordGameView() {
         setRandom(arr);
     }
 
+    const getQuiz = () => {
+        let total = wordGame.length;
+        getRandomArray(0, total - 1, totalRound);
+    }
+
     useEffect(() => {
         random[0] !== undefined && console.log(random)
         random[0] !== undefined && setState({
             //isSubmitted: false,
-            // value: rand_Qz[idx].key,
             value: random[round].quiz,
-            // ans: ue: rand_Qz[idx].key,
             ans: random[round].answer
         })
     }, [random])
@@ -81,22 +84,17 @@ export default function WordGameView() {
             setCategoryData(gameData);
         };
         init();
-        console.log("component did mount")
     }, []);
 
+    // 카테고리 버튼을 누르면 data를 get
     const getCategoryData = (categoryName) => {
-        console.log("1")
         setSelectedCategory(categoryName);
         setWordGame([]);
-        makeEntries(categoryName)
+        setWordGameData(categoryName)
     };
 
-    const makeEntries = (categoryName) => {
+    const setWordGameData = (categoryName) => {
         let arr = [];
-        // Object.entries(categoryData[categoryName]).map((data) => setWordGame(wordGame => [...wordGame, {
-        //     quiz: data[0],
-        //     answer: data[1]
-        // }]));
         Object.entries(categoryData[categoryName]).map((data) => arr.push({
             quiz: data[0],
             answer: data[1]
@@ -108,34 +106,8 @@ export default function WordGameView() {
         getQuiz()
     }, [wordGame])
 
-    let idx = 0;
+    const totalRound = 5; // 한 카테고리에서 출제될 문제 수 // 현재 firebase data에 카테고리당 6개의 데이터가 들어있어 6개 이하로 설정해야 함.
 
-    const getQuiz = () => {
-        let total = wordGame.length;
-        console.log(wordGame)
-        console.log('total', total);
-        getRandomArray(0, total - 1, 5);
-        console.log(random);
-    }
-    let rand_Qz = [];
-    // let total = array.length;
-    let total = wordGame.length;
-
-    // let num, cur;
-    // const Random = () => {
-    //     num = 0
-    //     cur = 0
-    //     for (let i = total; i > 0; i--) {
-    //         num = Math.random();
-    //         cur = Math.floor(num * (i));
-    //
-    //         // rand_Qz.push(array[cur]);
-    //         rand_Qz.push(wordGame[cur]);
-    //     }
-    //     console.log(rand_Qz);
-    //
-    // }
-    // Random();
 
     const [value, setValue] = useState();
     const [seconds, setSeconds] = useState(30);
@@ -148,14 +120,9 @@ export default function WordGameView() {
                 setInterval(() => {
                     setSeconds(30);
                 }, 3000)
-
-                // setState({value: rand_Qz[idx].key, ans: rand_Qz[idx].value});
-                // setRound(round + 1)
-                round = round + 1;
-                setState({value: random[round].quiz, ans: random[round].answer});
-                // setGameIndex(gameIndex + 1);
-                // Random();
-                // setValue('');
+                setRound(round + 1)
+                // setState({value: random[round].quiz, ans: random[round].answer});
+                setValue('');
             }
 
         }, 1000);
@@ -163,34 +130,21 @@ export default function WordGameView() {
     }, [seconds]);
 
 
-    // const setNextRound = () => (num = round; setRound(num))
-    const [answer, setAnswer] = useState('');
     const handleSearch = async () => {
         if (state.ans === value) {
-            alert("정답")
+            alert("정답");
             setSeconds(30);
-            console.log('br', round)
-            round = round + 1;
-            // setRound(round + 1);
-            setState({value: random[round].quiz, ans: random[round].answer});
-            // await Promise.all([setRound(num), setState({value: random[round].quiz, ans: random[round].answer})])
-            // setRound(round + 1)
-            console.log('ar', round)
+            setRound(round + 1);
             // setState({value: random[round].quiz, ans: random[round].answer});
-            // Random();
             setValue('');
-
         }
-
-        // if (answer && answer === wordGame[random[gameIndex]].answer) {
-        //     alert('정답');
-        //     setGameIndex(gameIndex + 1);
-        //     setAnswer('');
-        //     setSeconds(30);
-        // } else {
-        //     alert('다시 시도');
-        // }
     }
+
+    // round가 증가하면 quiz state를 set
+    useEffect(() => {
+        console.log('round', round);
+        random[0] !== undefined && setState({value: random[round].quiz, ans: random[round].answer});
+    }, [round])
 
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -259,33 +213,15 @@ export default function WordGameView() {
                 </div>
                 <div className="boxwrapper">
                     <div className="quizBox">
-                    {
-                        (state !== undefined && state.ans !== value)
-                        &&
-                        state.value.split('').map((letter) => (
-                           <div>{letter}</div>
-                        ))
-                    }
+                        {
+                            (state !== undefined && state.ans !== value)
+                            &&
+                            state.value.split('').map((letter) => (
+                                <div>{letter}</div>
+                            ))
+                        }
                     </div>
                 </div>
-                {/*<div className="boxwrapper">*/}
-
-                {/*    {*/}
-                {/*        state !== undefined && state.ans !== value && state.value.length === 2 && <div className="quizBox">*/}
-                {/*            <div>{state.value[0]}</div>*/}
-                {/*            <div>{state.value[1]}</div>*/}
-                {/*        </div>*/}
-                {/*    }*/}
-                {/*</div>*/}{/*<div className="boxwrapper">*/}
-
-                {/*    {*/}
-                {/*        state !== undefined && state.ans !== value && state.value.length === 3 && <div className="quizBox">*/}
-                {/*            <div>{state.value[0]}</div>*/}
-                {/*            <div>{state.value[1]}</div>*/}
-                {/*            <div>{state.value[2]}</div>*/}
-                {/*        </div>*/}
-                {/*    }*/}
-                {/*</div>*/}
                 <div className="boxwrapper">
                     {
                         state !== undefined && state.ans === value && <div className="quizBox">
