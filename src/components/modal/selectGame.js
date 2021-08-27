@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 import GameInfo from "./gameInfo";
-import Exit from "./exit";
-import {bindReporter} from "web-vitals/dist/modules/lib/bindReporter";
 
 const gameList = [
     {
@@ -56,8 +54,8 @@ const SelectGame = (props) => {
     const [isSelected, setIsSelected] = useState(false); // 게임 선택 유무
     const [selectedGame, setSelectedGame] = useState(""); // 선택된 게임 이름
 
-    const game_info = gameList.map((idx) => (
-        <li style={styles.listStyle} onClick={() => {
+    const game_info = gameList.map((idx, index) => (
+        <li key={index} style={styles.listStyle} onClick={() => {
             for (let i = 0; i < gameList.length; i++) {
                 if (gameList[i].id === idx.id) {
                     setSelectedGame(gameList[i].gameName);
@@ -73,11 +71,7 @@ const SelectGame = (props) => {
     ));
 
     const sendToParent = () => {
-        for (let i = 0; i < gameList.length; i++) {
-            if (gameList[i].gameName === selectedGame) {
-                props.parentFunction(gameList[i]);
-            }
-        }
+        props.parentFunction(gameList.find((i) => i.gameName === selectedGame));
         props.close();
     }
 

@@ -3,8 +3,35 @@ import '../../src/components/css/liarGame.css'
 import SuggestionModal from "../components/LiarGame/suggestionModal";
 import SpeakComponent from "../components/LiarGame/SpeakComponent";
 import SelectLiarComponent from "../components/LiarGame/SelectLiarComponent";
+import {getWordGameCategory} from "../firebase/games/word-game";
+import {getWord} from "../firebase/games/liar";
 
 export default function LiarGameView() {
+    const [categoryData, setCategoryData] = useState({});
+    const [categories, setCategories] = useState([]);
+    const [word, setWord] = useState('');
+    useEffect(() => {
+        const init = async () => {
+            const gameData = await getWordGameCategory();
+            const test = Object.entries(gameData);
+            console.log(test);
+            const category = test.map(([category]) => category);
+            setCategories(category);
+            setCategoryData(gameData);
+            console.log(categoryData);
+        };
+        init();
+    }, []);
+
+    const getCategoryData = (categoryName) => {
+        const random = Math.floor(Math.random()*4);
+        const gameData = categoryData[categoryName];
+        console.log(gameData);
+        const wordData = Object.values(gameData);
+        setWord(wordData[random]);
+        getWord(match.params.roomId, wordData[random]);
+    };
+
     const [isStart, setIsStart] = useState(false); // 게임 실행 중 확인 여부 변수
     const [continueGame, setContinueGame] = useState(false);
     const startGame = () => { // 게임이 시작되면 발언하는 화면으로 이동

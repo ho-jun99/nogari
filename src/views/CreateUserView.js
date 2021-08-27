@@ -11,7 +11,7 @@ export default function CreateUserView() {
     }
 
     const createID = async () => {
-        if (character == 0) { // 프로필 설정 안 했을 때 에러
+        if (character === 0) { // 프로필 설정 안 했을 때 에러
             alert("error")
         }
         else {

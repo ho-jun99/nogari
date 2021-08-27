@@ -3,7 +3,7 @@ import * as rooms from "../firebase/rooms";
 import firebase from "firebase";
 import {Link} from "react-router-dom";
 
-export default function CreateRoomView() {
+export default function CreateRoomView({ history }) {
     function getUserID() {
         const userID = localStorage.getItem('myId'); // 방을 만드는 유저의 아이디
         return userID;
@@ -17,29 +17,25 @@ export default function CreateRoomView() {
     const makeRoom = async () => {
         const roomNumber = await rooms.createRoom(); // 방만들기
         localStorage.setItem('roomNumber', roomNumber); // 룸 넘버 웹에 저장
+        const myId = getUserID();
+        await firebase.firestore().collection("rooms").doc(`${roomNumber}`).set({
+            game:"",
+            members: [myId],
+            captain: myId,
 
-        firebase.firestore().collection("users").doc(`${getUserID()}`).get().then((doc) => {
-            if (doc.exists) {
-                firebase.firestore().collection("rooms").doc(`${roomNumber}`).collection("members").doc(`${getUserID()}`).set(
-                    doc.data()
-                )
-                setInterval(async () => { // 유저 접속 시간 주기적으로 받기
-                    const time = new Date().getTime()
-                    localStorage.setItem('connection',time)
-                    await firebase.firestore().collection('rooms').doc(`${roomNumber}`).collection('members').doc(`${getUserID()}`).update({
-                        lastConnection : time
-                    }, {merge:true})
-                }, 6000);
-            } else {
-                console.log("No user data");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
-
-        firebase.firestore().collection("rooms").doc(`${roomNumber}`).set({
-            game:""
         }, {merge:true});
+
+        await firebase.firestore().collection("game").doc(`${roomNumber}`).set({
+            liar: {
+                question:"",
+            },
+            players: {
+
+            }
+        }, {merge:true});
+
+        console.log(roomNumber);
+        history.push(`/rooms/${roomNumber}`);
     }
 
     // 닉네임 변화 감지
@@ -51,7 +47,7 @@ export default function CreateRoomView() {
     const inRoom = () => {
         firebase.firestore().collection('rooms').get().then((snapshot) => {
             snapshot.forEach(doc => {
-                if (doc.id == goRoom) { // 이미 생성된 룸넘버 입력 시에만 유저 정보 추가
+                if (doc.id === goRoom) { // 이미 생성된 룸넘버 입력 시에만 유저 정보 추가
                     localStorage.setItem('roomNumber', goRoom);
                     firebase.firestore().collection("users").doc(`${getUserID()}`).get().then((doc) => {
                         if (doc.exists) {  // 현재 웹스토리지에 있는 유저아이디로 된 문서가 있는지 확인
@@ -73,7 +69,7 @@ export default function CreateRoomView() {
                     });
                 }
             })
-            if (getRoomNumber()!=goRoom) {
+            if (getRoomNumber() !== goRoom) {
                 alert('에러')
            }
         })
