@@ -27,7 +27,7 @@ export default function CreateRoomView({ history }) {
 
         await firebase.firestore().collection("game").doc(`${roomNumber}`).set({
             liar: {
-                question:"",
+                liarword:"",
             },
             players: {
 

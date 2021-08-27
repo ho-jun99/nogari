@@ -1,13 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import LiarModal from "./liarModal";
 import UserModal from "./userModal";
+import {getWordGameCategory} from "../../firebase/games/word-game";
 
-export default function SuggestionModal() {
-    const [defaultWord, setDefaultWord] = useState("복숭아");
+export default function SuggestionModal(props) {
+    const [defaultWord, setDefaultWord] = useState('');
     const gameUser = [
         {
             nickname: "성원이다",
-            isLiar: true,
+            isLiar: false,
         }
     ]
 
@@ -42,7 +43,7 @@ export default function SuggestionModal() {
             <div style={styles.content}>제시어 확인 버튼을 클릭해서 역할을 확인해주세요.</div>
             <button style={styles.btn} onClick={confirmLiar}>제시어 확인하기</button>
             <LiarModal open={liarModal} close={liarCloseModal}/>
-            <UserModal open={userModal} close={userCloseModal} word={defaultWord}/>
+            <UserModal open={userModal} close={userCloseModal} word={props.word}/>
         </div>
     )
 }
