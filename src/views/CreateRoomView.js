@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import * as rooms from "../firebase/rooms";
 import firebase from "firebase";
 import {Link} from "react-router-dom";
+import {addMember} from "../firebase/waiting-room";
 
 export default function CreateRoomView({ history }) {
     function getUserID() {
@@ -50,17 +51,18 @@ export default function CreateRoomView({ history }) {
                 if (doc.id === goRoom) { // 이미 생성된 룸넘버 입력 시에만 유저 정보 추가
                     localStorage.setItem('roomNumber', goRoom);
                     firebase.firestore().collection("users").doc(`${getUserID()}`).get().then((doc) => {
-                        if (doc.exists) {  // 현재 웹스토리지에 있는 유저아이디로 된 문서가 있는지 확인
-                            firebase.firestore().collection("rooms").doc(`${goRoom}`).collection("members").doc(`${getUserID()}`).set(
-                                doc.data()
-                            )
-                            setInterval(async () => { // 유저 접속 시간 주기적으로 받기
-                                const time = new Date().getTime()
-                                localStorage.setItem('connection',time)
-                                await firebase.firestore().collection('rooms').doc(`${goRoom}`).collection('members').doc(`${getUserID()}`).update({
-                                    lastConnection : time
-                                }, {merge:true})
-                            }, 6000);
+                        if (doc.exists) { // 현재 웹스토리지에 있는 유저아이디로 된 문서가 있는지 확인
+                            const addUser = async () => {
+                                await addMember(goRoom, getUserID());
+                            }
+                            addUser();
+                            // setInterval(async () => { // 유저 접속 시간 주기적으로 받기
+                            //     const time = new Date().getTime()
+                            //     localStorage.setItem('connection',time)
+                            //     await firebase.firestore().collection('rooms').doc(`${goRoom}`).collection('members').doc(`${getUserID()}`).update({
+                            //         lastConnection : time
+                            //     }, {merge:true})
+                            // }, 6000);
                         } else {
                             console.log("No user data");
                         }
