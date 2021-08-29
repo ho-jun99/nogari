@@ -1,9 +1,13 @@
-import React from 'react';
-import AlcoholMarbleField from "../components/AlcoholMarbleField";
-import AlcoholField from "../components/AlcoholField";
-import AlcoholPlayer from "../components/AlcoholPlayer";
-import AlcoholRoulette from "../components/AlcoholRoulette";
+import React, {useState} from 'react';
 import {AlcoholFieldGrid} from "../components/AlcoholFieldGrid";
+import { Wheel } from 'react-custom-roulette'
+import AlcoholMarblePlayer from "../components/AlcoholMarblePlayer";
+
+import MarbleField from '../images/marbleField.png';
+import MarbleBG from '../images/background.png'
+
+
+
 
 export default function AlcoholMarbleView() {
     const user = {
@@ -18,15 +22,53 @@ export default function AlcoholMarbleView() {
         alert("사용자 위치 : " + user.location%20);
     }
 
+
     return (
         <>
-            <div>
-                주루마블 메인 페이지
-                <input type="button" onClick={startGame} value="주사위 굴리기"/>
-                {/*<AlcoholField/>*/}
-
-                <AlcoholFieldGrid/>
+            <div style={styles.marbleBg}>
+                <div style={styles.rouletteBgParent}>
+                    <div style={styles.rouletteBg}>
+                        <AlcoholFieldGrid/>
+                    </div>
+                </div>
             </div>
+
         </>
     );
 }
+
+
+
+const styles = {
+    marbleBg: {
+        width: '100%',
+        height: '100vh',
+        backgroundImage: `url(${MarbleBG})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+    },
+
+    rouletteBgParent: {
+        height: '100vh',
+        display:'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+    rouletteBg:{
+        backgroundImage: `url(${MarbleField})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        width: '822px',
+        height: '740px',
+        position:'relative'
+
+        // position:'absolute',
+        // left:'50%',
+        // top:'50%',
+        // marginLeft: '-411px',
+        // marginTop: '-370px',
+    }
+};
+
+

@@ -1,47 +1,28 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import './AlcoholFieldGrid.css';
+import WheelImg from '../images/wheel.png';
+
+import styled, { keyframes } from 'styled-components';
+
 
 const getMapLocation = (location) => {
-    if (location <= 5) {
+    if (location <= 35 && location >= 30) {
         return 35 - location;
-    } else if (location >= 10 && location <= 17) {
-        return location - 10;
-    } else if (location >= 6 && location <= 9) {
-        return (10 - location) * 6;
+    } else if (location <= 5 && location >= 0) {
+        return location + 10;
+    } else if (location % 6 === 0) {
+        return 10 - (location / 6);
     } else {
-        return (location - 14) * 6 - 1;
+        return location + (5 * (2 - parseInt(location/6)));
     }
 };
-
-console.log(getMapLocation(18));
-
-// const mapLocation = {
-//     0: 35,
-//     1: 34,
-//     2: 33,
-//     3: 32,
-//     4: 31,
-//     5: 30,
-//     6: 24,
-//     7: 18,
-//     8: 12,
-//     9: 6,
-//     10: 0,
-//     11: 1,
-//     12: 2,
-//     13: 3,
-//     14: 4,
-//     15: 5,
-//     16: 11,
-//     17: 17,
-//     18: 23,
-//     19: 29,
-// };
 
 function Field(props){
     return <div style={{
         ...styles.field,
         ...(props.hidden ? {visibility: 'hidden'} : {})
     }}>
+        {props.children && props.children}
         {props.users && props.users.length && props.users.map((user) => user.nickname)}
         {props.content}
     </div>;
@@ -58,30 +39,137 @@ function isFieldHidden(fieldIndex) {
     return standard.filter((s) => s).length === 4;
 }
 
+const  getRotateDeg = (n, prevN) => {
+
+    const deg = [330, 270, 210, 150, 90, 30, -330, -270, -210, -150, -90, -30 ];
+    if (prevN > n) {
+        console.log(prevN, n);
+        return {
+            transform: `rotate(359deg) rotate(${deg[n+6]}deg)`,
+        }
+    }else {
+        console.log(prevN, n);
+        return {
+            transform: `rotate(${deg[n]}deg)`,
+        }
+    }
+}
+
+const animate = {
+    animation: 'rotation 7s ease-in-out forwards'
+}
+
+const animateRotate = keyframes`
+  rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(7045deg);
+    }
+  }
+`
+
 export function AlcoholFieldGrid() {
     const row = 6;
     const column = 6;
     // 0~35까지 만들기
     const fields = Array.from(Array(row * column).keys()).map((v) => v);
+    const [players, setPlayers] = useState([ //임시 플레이어 목록
+        {name : '지성', location: 0},
+        {name : '정민', location: 0},
+        {name : '종휘', location: 13},
+        {name : '성원', location: 2},
+        {name : '재혁', location: 0},
+        {name : '호준', location: 0}
+    ]);
 
-    return <div style={styles.fields}>
-        {fields.map((field) => {
-            return <Field content={field} hidden={isFieldHidden(field)} users={[{nickname: 'test'}]} />;
-        })}
-    </div>;
+    const [abc, setABC]  = useState(0)
+    const [prevAbc, setPrevABC]  = useState(null)
+
+    function getTurn() {
+        const turn = Math.floor(Math.random() * 6) ;
+        setPrevABC(abc);
+        setABC(turn);
+    }
+
+    return (
+        <div className={'AlcoholMarbleBody'}>
+            <div className={'AlcoholMarbleMain'}>
+                <div style={styles.fields} >
+                    {fields.map((field) => {
+                        const inPlayers = players.filter((i) => i.location === getMapLocation(field))
+
+                        return <div className={'AlcoholMarbleGrid'}>
+                            <Field content={getMapLocation(field)} hidden={isFieldHidden(field)} className={field}>
+                                {inPlayers.map((i) => <div>{i.name}</div>)}
+                            </Field>
+                        </div>
+                    })}
+                </div>
+            </div>
+
+
+            <div style={styles.roulette}>
+                <button onClick={getTurn} >dice</button>
+                <img src={WheelImg} style={{...getRotateDeg(abc, prevAbc), ...styles.wheelAnimate}}/>
+            </div>
+        </div>
+    );
 }
 
 const styles = {
     fields: {
         display: 'grid',
         gridTemplateColumns: 'repeat(6, 1fr)',
-        gridColumnGap: '10px',
-        gridRowGap: '10px',
+        gridColumnGap: '2px',
+        gridRowGap: '2px',
 
     },
     field: {
-        width:'100%',
-        height: '100px',
-        backgroundColor:'red',
+        width:'80px',
+        height: '80px',
     },
+    players : {
+        display: 'grid',
+        width: '10px',
+        height: '5px',
+        gridRowGap: '5px',
+    },
+    player : {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'black',
+        color: 'white'
+    },
+
+    roulette : {
+        width: '220px',
+        height: '220px',
+        position: 'absolute',
+        marginLeft:'-110px',
+        marginTop:'-160px',
+        left:'50%',
+        top: '50%',
+    },
+    wheelAnimate: {
+        transition: '1000ms',
+        width: '220px',
+        height: '220px'
+    },
+    rotate: [
+        // { transform: 'rotate(390deg)'},
+        // { transform: 'rotate(450deg)'},
+        // { transform: 'rotate(510deg)'},
+        // { transform: 'rotate(570deg)'},
+        // { transform: 'rotate(630deg)'},
+        // { transform: 'rotate(630deg)'},
+
+        { transform: 'rotate(330deg)'},
+        { transform: 'rotate(270deg)'},
+        { transform: 'rotate(210deg)'},
+        { transform: 'rotate(150deg)'},
+        { transform: 'rotate(90deg)'},
+        { transform: 'rotate(30deg)'},
+    ],
 };

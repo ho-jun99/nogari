@@ -28,6 +28,11 @@
             <PaintGroupHighlightMap />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/components/AlcoholFieldGrid.css">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/components/AlcoholFieldGrid.js">
           <value>
             <PaintGroupHighlightMap />
@@ -39,6 +44,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/components/AlcoholMarbleField.js">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/components/AlcoholMarblePlayer.js">
           <value>
             <PaintGroupHighlightMap />
           </value>
