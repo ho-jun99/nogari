@@ -117,9 +117,8 @@
   height: 40px;
   text-align: center;
   font-size: 18px;
-  border-radius: 5px;
+  border-radius: 5%;
   background-color: #fcce39;
-    border: none;
   color: white;
 }
 
@@ -128,9 +127,8 @@
   height: 65.62px;
   text-align: center;
   font-size: 32px;
-  border-radius: 10px;
+  border-radius: 5%;
   background-color: #fcce39;
-    border: none;
   color: white;
 }
 

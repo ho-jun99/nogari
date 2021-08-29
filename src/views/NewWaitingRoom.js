@@ -1,46 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../components/css/WatingRoom.css'
 import Modal from 'react-modal';
 import Exit from '../components/modal/exit'
 import CopyLink from '../components/modal/copylink'
 import SelectGame from "../components/modal/selectGame";
-import {getRoomInfo} from "../firebase/waiting-room";
+import { getRoomInfo } from "../firebase/waiting-room";
 import { getUserInfo } from '../firebase/users';
 import firebase from "firebase";
-import {setPlayers} from "../firebase/game-data";
+import { setPlayers } from "../firebase/game-data";
 import RankMenu from '../components/modal/RankMenu';
-
-const menuModalStyle = {
-    overlay: {
-      position: 'absolute',
-      right: 0,
-      bottom: 0,
-      width: '881px',
-    	height: '679px',
-      backgroundColor: 'rgba(0, 0, 0, 0)',
-      zIndex: 100,
-      left: '51%',
-      transform: 'translateX(-50%)',
-    },
-
-    content: {
-      position: 'absolute',
-      top: '40px',
-      left: '40px',
-      right: '40px',
-      bottom: '40px',
-      border: '1px solid #ccc',
-      background: '#fff',
-      overflow: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: '4px',
-      outline: 'none',
-			width: '750px',
-      padding: '10px',
-      height: '578.04px',
-      backgroundColor: '#1B9659',
-    }
-};
 
 Modal.setAppElement('#root');
 export default function NewWaitingRoom({ match }) {
@@ -49,7 +17,7 @@ export default function NewWaitingRoom({ match }) {
     const [room, setRoom] = useState({
         isSelected: false,
         isInfoOpen: false,
-        isMenuOpen: true,
+        isMenuOpen: false,
         selectedGameName: '',
         selectedGameRule: '',
         exitModalOpen: false,
@@ -73,16 +41,16 @@ export default function NewWaitingRoom({ match }) {
     const isInfoOpenFun = () => setRoomState('isInfoOpen', !room.isInfoOpen);
 
     const getFromSelectMenu = (data) => {
-      console.log(data.gameName);
-      console.log(data.description);
-      const roomData = {
-        ...room,
-        selectedGameName: data.gameName,
-        selectedGameRule: data.description,
-        isSelected: true,
-      };
-      setRoom(roomData);
-      console.log(room);
+        console.log(data.gameName);
+        console.log(data.description);
+        const roomData = {
+            ...room,
+            selectedGameName: data.gameName,
+            selectedGameRule: data.description,
+            isSelected: true,
+        };
+        setRoom(roomData);
+        console.log(room);
 
     }
 
@@ -104,7 +72,7 @@ export default function NewWaitingRoom({ match }) {
         setUsers(memberProps);
 
         for await (const member of memberProps) {
-            const gameMember = {member, liar: {isliar: false, }, }
+            const gameMember = { member, liar: { isliar: false, }, }
             membersGamedata.push(gameMember);
         }
         await setPlayers(match.params.roomId, membersGamedata);
@@ -126,98 +94,19 @@ export default function NewWaitingRoom({ match }) {
 
                     <Exit open={room.exitModalOpen} close={() => exitModal(false)}></Exit>
                     <CopyLink open={room.linkCopyModalOpen} close={() => linkCopyModal(false)}></CopyLink>
-                    <RankMenu id = "menuModal" stateData={room}> </RankMenu>
-
-                    {/* <Modal id="menuModal" isOpen={room.isMenuOpen} onRequestClose={() => setRoomState('isMenuOpen', false)} style={menuModalStyle}>
-                        <div id="backBtn" onClick={isMenuOpenFun}>X</div>
-                        <div className="menuWraper">
-                            <div className="menuTitle">오늘의<br/>베스트 안주는</div>
-                            <div className="menuRankContainer">
-
-                                <div className="menuRankLeft">
-                                    <div className="LeftName">1위 <br/>청춘 김민석</div>
-                                    <div className="LeftTitle">마른 오징어</div>
-                                    <div className="LeftImage">이미지</div>
-                                    <div className="LeftBadgeContainer">
-                                        받은뱃지
-										<div className="LeftBadges">
-										<div className="LeftBadge">+</div>
-										<div className="LeftBadge">+</div>
-										<div className="LeftBadge">+</div>
-										</div>
-                                    </div>
-                                </div>
-
-                                <div className="menuRankRight">
-
-                                    <div className="menuRankRightWrapper">
-                                        <div className="menuRangkRightContainer">
-
-                                            <div className="rightRank">2위</div>
-                                            <div className="rightTitle">청춘 김민석</div>
-                                            <div className="rightBadgeContainer">
-                                                <div className="rightBadgeTitle">받은뱃지</div>
-													<div className="rightBadges">
-													<div className="rightBadge">+</div>
-													<div className = "rightBadge">+</div>
-													<div className = "rightBadge">+</div>
-													<div className = "rightBadge">+</div>
-												</div>
-                                            </div>
-                                        </div>
-                                        <div className="rightImage">이미지</div>
-                                    </div>
-
-                                    <div className="menuRankRightWrapper">
-                                        <div className="menuRangkRightContainer">
-
-                                            <div className="rightRank">2위</div>
-                                            <div className="rightTitle">청춘 김민석</div>
-                                            <div className="rightBadgeContainer">
-                                                <div className="rightBadgeTitle">받은뱃지</div>
-													<div className="rightBadges">
-													    <div className="rightBadge">+</div>
-													    <div className = "rightBadge">+</div>
-													    <div className = "rightBadge">+</div>
-													    <div className = "rightBadge">+</div>
-												</div>
-                                            </div>
-                                        </div>
-                                        <div className="rightImage">이미지</div>
-                                    </div>
-
-                                    <div className="menuRankRightWrapper">
-                                        <div className="menuRangkRightContainer">
-                                            <div className="rightRank">2위</div>
-                                            <div className="rightTitle">청춘 김민석</div>
-                                            <div className="rightBadgeContainer">
-                                                <div className="rightBadgeTitle">받은뱃지</div>
-													<div className="rightBadges">
-    													<div className="rightBadge">+</div>
-    													<div className = "rightBadge">+</div>
-														<div className = "rightBadge">+</div>
-														<div className = "rightBadge">+</div>
-													</div>
-                                            </div>
-                                        </div>
-                                        <div className="rightImage">이미지</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Modal> */}
+                    <RankMenu id="menuModal" stateData={room} isMenuOpenFun={isMenuOpenFun} > </RankMenu>
                 </section>
 
                 <section className="Main">
                     <div className="char1">
                         {
                             users.filter((item, index) => index < 3)
-                              .map((item, index) => {
-                                  return <div key={index}>
-                                      <div className="character"></div>
-                                      <div className="userName">{item}</div>
-                                  </div>;
-                              })
+                                .map((item, index) => {
+                                    return <div key={index}>
+                                        <div className="character"></div>
+                                        <div className="userName">{item}</div>
+                                    </div>;
+                                })
                         }
                     </div>
 
@@ -225,7 +114,7 @@ export default function NewWaitingRoom({ match }) {
                         <button className="selectGameBtn" onClick={() => selectGameModal(true)}>게임 선택</button>
                         <div className="selectedGame">{room.isSelected ? room.selectedGameName :
                             <div className="selecteMessage">
-                              게임을 선택해주세요
+                                게임을 선택해주세요
                             </div>
                         }
                             {/* <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
@@ -254,19 +143,17 @@ export default function NewWaitingRoom({ match }) {
                     <div className="char2">
                         {
                             users.filter((item, index) => index >= 3)
-                              .map((item, index) => {
-                                  return <div key={index}>
-                                      <div className="character"></div>
-                                      <div className="userName">{item}</div>
-                                  </div>;
-                              })
+                                .map((item, index) => {
+                                    return <div key={index}>
+                                        <div className="character"></div>
+                                        <div className="userName">{item}</div>
+                                    </div>;
+                                })
                         }
                     </div>
-
-
                 </section>
                 <SelectGame open={room.selectGameModal} close={() => selectGameModal(false)}
-                            parentFunction={getFromSelectMenu}></SelectGame>
+                    parentFunction={getFromSelectMenu}></SelectGame>
             </div>
 
         </>
