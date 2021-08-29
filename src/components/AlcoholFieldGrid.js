@@ -55,20 +55,6 @@ const  getRotateDeg = (n, prevN) => {
     }
 }
 
-const animate = {
-    animation: 'rotation 7s ease-in-out forwards'
-}
-
-const animateRotate = keyframes`
-  rotation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(7045deg);
-    }
-  }
-`
 
 export function AlcoholFieldGrid() {
     const row = 6;
@@ -93,6 +79,33 @@ export function AlcoholFieldGrid() {
         setABC(turn);
     }
 
+
+    const rotation = keyframes`
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(7045deg);
+    }
+  
+    `
+
+    const StyledWrapper = styled.div`
+      width: 100px;
+      height: 100px;
+      background: #00bfb2;
+      ${(props) => props.active &&`
+       animation: ${rotation} 7s ease-in-out forwards;
+      `}
+    `
+    // const Box = ({children, ...rest}) => {
+    //     return (
+    //         <StyledWrapper {...rest}>
+    //             {children}
+    //         </StyledWrapper>
+    //     );
+    // };
+
     return (
         <div className={'AlcoholMarbleBody'}>
             <div className={'AlcoholMarbleMain'}>
@@ -113,6 +126,9 @@ export function AlcoholFieldGrid() {
             <div style={styles.roulette}>
                 <button onClick={getTurn} >dice</button>
                 <img src={WheelImg} style={{...getRotateDeg(abc, prevAbc), ...styles.wheelAnimate}}/>
+            </div>
+            <div>
+                {StyledWrapper}
             </div>
         </div>
     );
