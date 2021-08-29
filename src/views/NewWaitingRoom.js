@@ -24,7 +24,7 @@ export default function NewWaitingRoom({ match }) {
     const [room, setRoom] = useState({
         isSelected: false,
         isInfoOpen: false,
-        isMenuOpen: false,
+        isMenuOpen: true,
         selectedGameName: '',
         selectedGameRule: '',
         exitModalOpen: false,

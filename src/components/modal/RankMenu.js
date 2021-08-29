@@ -48,21 +48,21 @@ const userList = [
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 1,
-		badges: [0, 1, 2, 3, 4],
+		badges: [0, 1, 2,],
 	},
 	{
 		name: "이종휘",
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 2,
-		badges: [0, 1, 2, 3, 4],
+		badges: [0, 3, 4],
 	},
 	{
 		name: "김지성",
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 3,
-		badges: [0, 1, 2, 3, 4],
+		badges: [0, 1, 3, 4],
 	},
 	{
 		name: "신재혁",
@@ -76,7 +76,7 @@ const userList = [
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 5,
-		badges: [0, 1, 2, 3, 4],
+		badges: [0, 1,1,1,],
 	},
 	// {
 	// 	name: "정나영",
