@@ -17,7 +17,7 @@ const title = {
     marginLeft:"4px",
     float: "left",
     display: "flex",
-    fontSize:"24px",
+    fontSize:"18px",
     lineHeight:"28px",
     color:"#0C8247"
 }
@@ -26,8 +26,8 @@ const subtitle = {
     paddingLeft: "5px",
     color: "#0C8247",
     marginLeft:"0px",
-    marginTop: "-40px",
-    fontSize: "14px",
+    marginTop: "-50px",
+    fontSize: "10Px",
     lineHeight: "16px",
     float: "left",
     display: "flex",
@@ -35,15 +35,16 @@ const subtitle = {
 }
 const CharName = {
     color: "#FCCE39",
-    fontSize: "16px",
+    fontSize: "13px",
     float: "left",
-    paddingLeft: "17px",
-    paddingTop: "10px"
+    paddingLeft: "23px",
+    paddingTop: "10px",
 }
 const Category = {
     color:"#0C8247",
-    fontSize: "14px",
-    letterSpacing: "-0.03em"
+    fontSize: "13px",
+    letterSpacing: "-0.03em",
+    lineHeight:'28px'
 }
 
 export default function Choose_Char() {
@@ -74,8 +75,8 @@ export default function Choose_Char() {
         <>
             <div className="main">
                 <div className="sel_hero">
-                    <a style={title}>안주선택</a><br></br>
-                    <a style={subtitle}>원하는 안주를 선택해주세요</a><br></br>
+                    <a style={title}>안주 선택</a><br></br>
+                    <a style={subtitle}>원하시는 안주 캐릭터를 선택해주세요!</a><br></br>
                     <div className="sel_header">
                         <button className='PreNextBT' onClick={previous}>&lt;</button>
                         <a style={Category}> {Catego[idx]}</a>
