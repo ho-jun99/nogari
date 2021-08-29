@@ -30,8 +30,6 @@
     align-items: center;
     align-items: stretch;
 
-
-
     .char1 {
       display: flex;
       flex-direction: column;
@@ -48,9 +46,6 @@
       text-align: center;
       // background-color: lightblue;
       justify-content: space-evenly;
-
-
-
     }
 
     .char2 {
@@ -62,7 +57,6 @@
 
 
     .character {
-
       width: 120px;
       height: 123.8px;
       border-radius: 5%;
@@ -89,7 +83,7 @@
       height: 40px;
       text-align: center;
       font-size: 18px;
-      border-radius: 5%;
+      border-radius: 5px;
       background-color: #fcce39;
       color: white;
     }
@@ -99,7 +93,7 @@
       height: 65.62px;
       text-align: center;
       font-size: 32px;
-      border-radius: 5%;
+      border-radius: 10px;
       background-color: #fcce39;
       color: white;
     }
@@ -107,7 +101,7 @@
     .selectedGame {
       width: 450px;
       height: 315.46px;
-      border-radius: 5%;
+      border-radius: 10px;
       background-color: #0c8247;
       display: flex;
       align-items: center;
@@ -135,6 +129,10 @@
     top: 10px;
     left: 91%;
     color: #fcce39;
+    cursor: pointer;
+    &:hover{
+      color: black;
+    }
   }
 
   .menuWraper {
@@ -148,15 +146,15 @@
       // border: 1px red solid;
       color: #FCCE39;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .menuRankContainer {
       display: flex;
       justify-content: center;
 
-
       .menuRankLeft {
-        border-right: 3px black solid;
+        border-right: 5px black solid;
         width: 360.1px;
         height: 436.72px;
         display: flex;
@@ -164,28 +162,34 @@
         justify-content: space-around;
         align-items: center;
         background-color: #08552E;
-        border-radius: 3%;
+        border-radius: 10px;
 
-        .LeftName {
-          font-size: 24px;
-          color: #FCCE39;
-        }
+        .nameTitleContainer {
+          margin-top: 20px;
 
-        .LeftTitle {
-          width: 127.7px;
-          height: 22.99px;
-          background-color: #042917;
-          color: #fcce39;
-          border-radius: 5%;
-          text-align: center;
-          line-height: 22.99px;
+          .LeftName {
+            font-size: 24px;
+            color: #FCCE39;
+            margin-bottom: 10px;
+            text-align: center;
+          }
+
+          .LeftTitle {
+            width: 127.7px;
+            height: 22.99px;
+            background-color: #042917;
+            color: #fcce39;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 22.99px;
+          }
         }
 
         .LeftImage {
           width: 194.1px;
           height: 194.1px;
           background-color: #042213;
-          border-radius: 5%;
+          border-radius: 10px;
           color: #fcce39;
           text-align: center;
           font-size: 50px;
@@ -197,8 +201,10 @@
           font-size: 14px;
           align-self: flex-start;
           margin-left: 20px;
-          .LeftBadges{
+
+          .LeftBadges {
             display: flex;
+
             .LeftBadge {
               border-radius: 50%;
               width: 19.94px;
@@ -215,7 +221,6 @@
         }
 
       }
-
       .menuRankRight {
         display: flex;
         width: 360.1px;
@@ -225,7 +230,35 @@
         align-items: center;
         // border: 1px red solid;
         background-color: #05391F;
-        border-radius: 3%;
+        border-radius: 10px;
+
+        .scrollBtnContainer {
+          display: flex;
+          width: 360.1px;
+          flex-direction: row;
+          font-size: 20px;
+          justify-content: space-around;
+          padding-top: 10px;
+          align-self: flex-end;
+          align-items: flex-end;
+          .leftBtn{
+            color: #FCCE39;
+            cursor: pointer;
+            &:hover {
+              color: #000000;
+            }
+          }
+
+          .rightBtn{
+            color: #FCCE39;
+            cursor: pointer;
+            &:hover {
+              color: #000000;
+            }
+          }
+
+          
+        }
 
         .menuRankRightWrapper {
           width: 278.38px;
@@ -251,21 +284,21 @@
               height: 22.99px;
               font-size: 12px;
               background-color: #042213;
-              border-radius: 5%;
+              border-radius: 5px;
               text-align: center;
               line-height: 22.99px;
-
             }
 
             .rightBadgeContainer {
               font-size: 10px;
               display: flex;
               flex-direction: column;
-              .rightBadgeTitle {
 
-              }
-              .rightBadges{
+              .rightBadgeTitle {}
+
+              .rightBadges {
                 display: flex;
+
                 .rightBadge {
                   background-color: #000000;
                   border-radius: 50%;
@@ -284,18 +317,12 @@
             width: 100px;
             height: 100px;
             background-color: #042213;
-            border-radius: 5%;
+            border-radius: 10px;
             text-align: center;
             line-height: 100px;
           }
-
-
         }
-
-
-
       }
-
     }
   }
 }

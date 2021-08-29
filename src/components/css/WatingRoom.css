@@ -117,7 +117,7 @@
   height: 40px;
   text-align: center;
   font-size: 18px;
-  border-radius: 5%;
+  border-radius: 5px;
   background-color: #fcce39;
   color: white;
     border: none;
@@ -128,7 +128,7 @@
   height: 65.62px;
   text-align: center;
   font-size: 32px;
-  border-radius: 5%;
+  border-radius: 10px;
   background-color: #fcce39;
   color: white;
     border: none;
@@ -147,7 +147,7 @@
 #mainWrap .Main .selectedGame {
   width: 450px;
   height: 315.46px;
-  border-radius: 5%;
+  border-radius: 10px;
   background-color: #0c8247;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -174,6 +174,11 @@
   top: 10px;
   left: 91%;
   color: #fcce39;
+  cursor: pointer;
+}
+
+#menuModal #backBtn:hover {
+  color: black;
 }
 
 #menuModal .menuWraper {
@@ -196,6 +201,7 @@
   font-size: 50px;
   color: #FCCE39;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 #menuModal .menuWraper .menuRankContainer {
@@ -208,7 +214,7 @@
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankLeft {
-  border-right: 3px black solid;
+  border-right: 5px black solid;
   width: 360.1px;
   height: 436.72px;
   display: -webkit-box;
@@ -224,20 +230,26 @@
       -ms-flex-align: center;
           align-items: center;
   background-color: #08552E;
-  border-radius: 3%;
+  border-radius: 10px;
 }
 
-#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftName {
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .nameTitleContainer {
+  margin-top: 20px;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .nameTitleContainer .LeftName {
   font-size: 24px;
   color: #FCCE39;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-#menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftTitle {
+#menuModal .menuWraper .menuRankContainer .menuRankLeft .nameTitleContainer .LeftTitle {
   width: 127.7px;
   height: 22.99px;
   background-color: #042917;
   color: #fcce39;
-  border-radius: 5%;
+  border-radius: 5px;
   text-align: center;
   line-height: 22.99px;
 }
@@ -246,7 +258,7 @@
   width: 194.1px;
   height: 194.1px;
   background-color: #042213;
-  border-radius: 5%;
+  border-radius: 10px;
   color: #fcce39;
   text-align: center;
   font-size: 50px;
@@ -297,7 +309,45 @@
       -ms-flex-align: center;
           align-items: center;
   background-color: #05391F;
-  border-radius: 3%;
+  border-radius: 10px;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .scrollBtnContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 360.1px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  font-size: 20px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-top: 10px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .scrollBtnContainer .leftBtn {
+  color: #FCCE39;
+  cursor: pointer;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .scrollBtnContainer .leftBtn:hover {
+  color: #000000;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .scrollBtnContainer .rightBtn {
+  color: #FCCE39;
+  cursor: pointer;
+}
+
+#menuModal .menuWraper .menuRankContainer .menuRankRight .scrollBtnContainer .rightBtn:hover {
+  color: #000000;
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper {
@@ -334,7 +384,7 @@
   height: 22.99px;
   font-size: 12px;
   background-color: #042213;
-  border-radius: 5%;
+  border-radius: 5px;
   text-align: center;
   line-height: 22.99px;
 }
@@ -371,7 +421,7 @@
   width: 100px;
   height: 100px;
   background-color: #042213;
-  border-radius: 5%;
+  border-radius: 10px;
   text-align: center;
   line-height: 100px;
 }
