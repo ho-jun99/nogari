@@ -8,6 +8,7 @@ import {getRoomInfo} from "../firebase/waiting-room";
 import { getUserInfo } from '../firebase/users';
 import firebase from "firebase";
 import {setPlayers} from "../firebase/game-data";
+import RankMenu from '../components/modal/RankMenu';
 
 const menuModalStyle = {
     overlay: {
@@ -48,7 +49,7 @@ export default function NewWaitingRoom({ match }) {
     const [room, setRoom] = useState({
         isSelected: false,
         isInfoOpen: false,
-        isMenuOpen: false,
+        isMenuOpen: true,
         selectedGameName: '',
         selectedGameRule: '',
         exitModalOpen: false,
@@ -68,7 +69,6 @@ export default function NewWaitingRoom({ match }) {
 
     // 게임 선택 버튼에 관한 변수, 함수
     const selectGameModal = (isOpen) => setRoomState('selectGameModal', isOpen);
-
     const isMenuOpenFun = () => setRoomState('isMenuOpen', !room.isMenuOpen);
     const isInfoOpenFun = () => setRoomState('isInfoOpen', !room.isInfoOpen);
 
@@ -110,9 +110,9 @@ export default function NewWaitingRoom({ match }) {
         await setPlayers(match.params.roomId, membersGamedata);
     }
 
-    useEffect(() => {
-        getRoomInfo(match.params.roomId, changedRoomInfo);
-    }, []);
+    // useEffect(() => {
+    //     getRoomInfo(match.params.roomId, changedRoomInfo);
+    // }, []);
 
     return (
         <>
@@ -126,11 +126,9 @@ export default function NewWaitingRoom({ match }) {
 
                     <Exit open={room.exitModalOpen} close={() => exitModal(false)}></Exit>
                     <CopyLink open={room.linkCopyModalOpen} close={() => linkCopyModal(false)}></CopyLink>
-                    <Modal
-                      id="menuModal"
-                      isOpen={room.isMenuOpen}
-                      onRequestClose={() => setRoomState('isMenuOpen', false)}
-                      style={menuModalStyle}>
+                    <RankMenu id = "menuModal" stateData={room}> </RankMenu>
+
+                    {/* <Modal id="menuModal" isOpen={room.isMenuOpen} onRequestClose={() => setRoomState('isMenuOpen', false)} style={menuModalStyle}>
                         <div id="backBtn" onClick={isMenuOpenFun}>X</div>
                         <div className="menuWraper">
                             <div className="menuTitle">오늘의<br/>베스트 안주는</div>
@@ -142,11 +140,11 @@ export default function NewWaitingRoom({ match }) {
                                     <div className="LeftImage">이미지</div>
                                     <div className="LeftBadgeContainer">
                                         받은뱃지
-																				<div className="LeftBadges">
-																					<div className="LeftBadge">+</div>
-																					<div className="LeftBadge">+</div>
-																					<div className="LeftBadge">+</div>
-																				</div>
+										<div className="LeftBadges">
+										<div className="LeftBadge">+</div>
+										<div className="LeftBadge">+</div>
+										<div className="LeftBadge">+</div>
+										</div>
                                     </div>
                                 </div>
 
@@ -159,13 +157,12 @@ export default function NewWaitingRoom({ match }) {
                                             <div className="rightTitle">청춘 김민석</div>
                                             <div className="rightBadgeContainer">
                                                 <div className="rightBadgeTitle">받은뱃지</div>
-																								<div className="rightBadges">
-																									<div className="rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																								</div>
-
+													<div className="rightBadges">
+													<div className="rightBadge">+</div>
+													<div className = "rightBadge">+</div>
+													<div className = "rightBadge">+</div>
+													<div className = "rightBadge">+</div>
+												</div>
                                             </div>
                                         </div>
                                         <div className="rightImage">이미지</div>
@@ -178,13 +175,12 @@ export default function NewWaitingRoom({ match }) {
                                             <div className="rightTitle">청춘 김민석</div>
                                             <div className="rightBadgeContainer">
                                                 <div className="rightBadgeTitle">받은뱃지</div>
-																								<div className="rightBadges">
-																									<div className="rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																								</div>
-
+													<div className="rightBadges">
+													    <div className="rightBadge">+</div>
+													    <div className = "rightBadge">+</div>
+													    <div className = "rightBadge">+</div>
+													    <div className = "rightBadge">+</div>
+												</div>
                                             </div>
                                         </div>
                                         <div className="rightImage">이미지</div>
@@ -192,18 +188,16 @@ export default function NewWaitingRoom({ match }) {
 
                                     <div className="menuRankRightWrapper">
                                         <div className="menuRangkRightContainer">
-
                                             <div className="rightRank">2위</div>
                                             <div className="rightTitle">청춘 김민석</div>
                                             <div className="rightBadgeContainer">
                                                 <div className="rightBadgeTitle">받은뱃지</div>
-																								<div className="rightBadges">
-																									<div className="rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																									<div className = "rightBadge">+</div>
-																								</div>
-
+													<div className="rightBadges">
+    													<div className="rightBadge">+</div>
+    													<div className = "rightBadge">+</div>
+														<div className = "rightBadge">+</div>
+														<div className = "rightBadge">+</div>
+													</div>
                                             </div>
                                         </div>
                                         <div className="rightImage">이미지</div>
@@ -211,7 +205,7 @@ export default function NewWaitingRoom({ match }) {
                                 </div>
                             </div>
                         </div>
-                    </Modal>
+                    </Modal> */}
                 </section>
 
                 <section className="Main">
