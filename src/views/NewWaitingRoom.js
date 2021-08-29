@@ -31,6 +31,7 @@ export default function NewWaitingRoom({ match }) {
         linkCopyModalOpen: false,
         selectGameModal: false,
     });
+    // room 안돼서 새로 만듦
     const [selectedGameInfo, setSelectedGameInfo] = useState([
         {
             isSelected: false,
