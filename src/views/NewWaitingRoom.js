@@ -9,6 +9,13 @@ import { getUserInfo } from '../firebase/users';
 import firebase from "firebase";
 import { setPlayers } from "../firebase/game-data";
 import RankMenu from '../components/modal/RankMenu';
+import MainGameModal from "../components/modal/mainGameInfo";
+
+import Roulette from './img/상한안주.png';
+import Liar from './img/안주라이어.png';
+import Marble from './img/노가리마블.png';
+import Midterm from './img/중간고사.png';
+import GameInfo from "../components/modal/gameInfo";
 
 Modal.setAppElement('#root');
 export default function NewWaitingRoom({ match }) {
@@ -24,6 +31,16 @@ export default function NewWaitingRoom({ match }) {
         linkCopyModalOpen: false,
         selectGameModal: false,
     });
+    const [selectedGameInfo, setSelectedGameInfo] = useState([
+        {
+            isSelected: false,
+            selectedGameStory: '',
+            selectedGameName: '',
+            selectedGameRule: '',
+            playTime: '',
+            background: '', // 선택된 게임 일러스트가 들어갈 변수
+        },
+    ])
     const setRoomState = (key, value) => setRoom({ ...room, [key]: value });
 
     // 다른 방 찾기, 링크로 초대하기 버튼에 관한 변수, 함수
@@ -41,17 +58,28 @@ export default function NewWaitingRoom({ match }) {
     const isInfoOpenFun = () => setRoomState('isInfoOpen', !room.isInfoOpen);
 
     const getFromSelectMenu = (data) => {
-        console.log(data.gameName);
-        console.log(data.description);
-        const roomData = {
-            ...room,
-            selectedGameName: data.gameName,
-            selectedGameRule: data.description,
-            isSelected: true,
-        };
-        setRoom(roomData);
-        console.log(room);
+        // console.log(data.gameName);
+        // console.log(data.description);
+        // const roomData = {
+        //     ...room,
+        //     selectedGameName: data.gameName,
+        //     selectedGameRule: data.description,
+        //     isSelected: true,
+        // };
+        // setRoom(roomData);
+        // console.log(room);
+        const tempData = [...selectedGameInfo];
+        tempData[0].isSelected = true
+        tempData[0].selectedGameName = data.gameName;
+        tempData[0].selectedGameRule = data.description;
+        tempData[0].selectedGameStory = data.story;
+        tempData[0].playTime = data.runningTime;
+        if(data.gameName === "노가리마블") {tempData[0].background = Marble;}
+        else if (data.gameName === "안주 라이어") {tempData[0].background = Liar;}
+        else if (data.gameName === "중간고사 서바이벌") {tempData[0].background = Midterm;}
+        else if (data.gameName === "상한 안주찾기") {tempData[0].background = Roulette;}
 
+        setSelectedGameInfo(tempData);
     }
 
     // 새로운 참여자가 발생하거나 룸 정보가 바뀔때 실행되는 함수
@@ -76,6 +104,15 @@ export default function NewWaitingRoom({ match }) {
             membersGamedata.push(gameMember);
         }
         await setPlayers(match.params.roomId, membersGamedata);
+    }
+
+    const [gameInfoModal, setGameInfoModal] = useState(false);
+    const infoOpenModal = () => {
+        setGameInfoModal(true);
+
+    }
+    const infoCloseModal = () => {
+        setGameInfoModal(false);
     }
 
     // useEffect(() => {
@@ -112,7 +149,20 @@ export default function NewWaitingRoom({ match }) {
 
                     <div className="gameMain">
                         <button className="selectGameBtn" onClick={() => selectGameModal(true)}>게임 선택</button>
-                        <div className="selectedGame">{room.isSelected ? room.selectedGameName :
+                        <div className="selectedGame">{selectedGameInfo[0].isSelected ?
+                            <div className="gameContainer" style={{
+                                width: 450,
+                                height: 315.46,
+                                borderRadius: '5%',
+                                backgroundImage: `url(${selectedGameInfo[0].background})`,
+                                backgroundSize: 'cover',
+                            }}>
+                                <div className="gameTitle">
+                                    {selectedGameInfo[0].selectedGameName}
+                                </div>
+                                <span className="main-info-btn" onClick={infoOpenModal}></span>
+                                <MainGameModal open={gameInfoModal} close={infoCloseModal} gameInfo={selectedGameInfo[0]}/>
+                            </div> :
                             <div className="selecteMessage">
                                 게임을 선택해주세요
                             </div>
@@ -137,7 +187,7 @@ export default function NewWaitingRoom({ match }) {
                     </Modal> */}
                         </div>
                         {room.isSelected ? <button className="startBtn">시작</button> :
-                            <button className="startBtn" disabled>시작</button>}
+                            <button className="stopBtn" disabled>시작</button>}
                     </div>
 
                     <div className="char2">
@@ -158,4 +208,6 @@ export default function NewWaitingRoom({ match }) {
 
         </>
     )
+}
+const styles = {
 }
