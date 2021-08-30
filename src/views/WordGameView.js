@@ -75,30 +75,44 @@ export default function WordGameView({ match }) {
 
     useEffect(() => {
         const init = async () => {
-            const gameData = await getWordGameCategory();
+            // const gameData = await getWordGameCategory();
             const playerData = await getPlayers(match.params.roomId);
+            // console.log(gameData);
             console.log(playerData);
-            const test = Object.entries(gameData);
-            console.log(test);
+            // const test = Object.entries(gameData);
+            // console.log(test);
             setPlayer(playerData['players']);
-            const category = test.map(([category, list]) => category);
-            console.log(category);
-            setCategories(category);
-            setCategoryData(gameData);
+            setSelectedCategory(playerData['wordGame'].category);
+            // const category = test.map(([category, list]) => category);
+            // console.log(category);
+            // setCategories(category);
+            // setCategoryData(gameData);
+            // console.log(categoryData);
         };
         init();
     }, []);
 
-    // 카테고리 버튼을 누르면 data를 get
-    const getCategoryData = (categoryName) => {
-        setSelectedCategory(categoryName);
-        setWordGame([]);
-        setWordGameData(categoryName)
-    };
 
-    const setWordGameData = (categoryName) => {
+    useEffect(() => {
+        setWordGame([]);
+        console.log(selectedCategory);
+        setWordGameData(selectedCategory);
+    },[selectedCategory]);
+
+    // 카테고리 버튼을 누르면 data를 get
+    // const getCategoryData = (categoryName) => {
+    //     setSelectedCategory(categoryName);
+    //     setWordGame([]);
+    //     setWordGameData(categoryName)
+    // };
+
+    const setWordGameData = async(categoryName) => {
+        const gameData = await getWordGameCategory();
+        console.log(gameData);
+        console.log(categoryName);
+        console.log(gameData[categoryName]);
         let arr = [];
-        Object.entries(categoryData[categoryName]).map((data) => arr.push({
+        gameData !== undefined && categoryName !== '' && Object.entries(gameData[categoryName]).map((data) => arr.push({
             quiz: data[0],
             answer: data[1]
         }));
@@ -107,7 +121,7 @@ export default function WordGameView({ match }) {
 
     useEffect(() => {
         getQuiz()
-    }, [wordGame])
+    }, [wordGame]);
 
     const totalRound = 2; // 한 카테고리에서 출제될 문제 수 // 현재 firebase data에 카테고리당 6개의 데이터가 들어있어 6개 이하로 설정해야 함.
 
@@ -165,8 +179,8 @@ export default function WordGameView({ match }) {
         <>
 
             <div className="main_wordgame">
-                {categories.map((cate, index) => <button onClick={() => getCategoryData(cate)}
-                                                         key={index}>{cate}</button>)}
+                {/*{categories.map((cate, index) => <button onClick={() => getCategoryData(cate)}*/}
+                {/*                                         key={index}>{cate}</button>)}*/}
                 <div className="category"
                      style={{fontFamily: "DungGeunMo", fontWeight: "bold", fontSize: "28.4571px", textAlign: "center"}}>
                     카테고리 : {selectedCategory}
