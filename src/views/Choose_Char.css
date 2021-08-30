@@ -4,7 +4,7 @@ body{
     width: 100vw;
     height: 100vh;
 }
-.main{
+.choose_main{
     display: flex;
     width: 822px;
     height: 740px;

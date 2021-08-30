@@ -26,7 +26,7 @@ export default function Find() {
     }
     return (
         <>
-            <div className="main">
+            <div className="find_main">
                 <div style={title}>
                     대기실
                     <div style={subtitle}>

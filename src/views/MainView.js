@@ -1,5 +1,6 @@
 import {useState,useEffect} from 'react';
 import "./MainView.css"
+
 import icon from './main_img/main_icon.png'
 import bottles from './main_img/main_bottles.png'
 import first from './main_img/Mask Group1.png'
