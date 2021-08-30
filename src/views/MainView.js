@@ -1,4 +1,5 @@
 import {useState,useEffect} from 'react';
+import {useHistory} from "react-router";
 import "./MainView.css"
 
 import icon from './main_img/main_icon.png'
@@ -15,7 +16,9 @@ import fourth from './main_img/Mask Group4.png'
 
 
 export default function MainView() {
+    const history = useHistory();
   const[sec,setSec] = useState(0)
+
   useEffect(()=>{
     const countdown= setInterval(()=>{
       setSec(parseInt(sec)+1)
@@ -23,6 +26,10 @@ export default function MainView() {
     },10)
     return()=> clearInterval(countdown);
   },[sec])
+
+    const play = () => {
+      history.push("/choose_char")
+    }
   return (
       <>
         <div className="mainwrapper">
@@ -101,7 +108,7 @@ export default function MainView() {
 
             {
               sec > 260 && <button className='fourth_top'>
-                <a>PLAY</a>
+                <a onClick={play}>PLAY</a>
               </button>}
             {
               sec > 290 && <p className='blinking'>노가리 이야기 보러가기 &#9654;</p>}
