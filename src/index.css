@@ -5,12 +5,16 @@
   font-style: normal;
 }
 
-body {
+body * {
   margin: 0;
   font-family: 'DungGeunMo';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+}
+
+body {
+  background-image: url("./images/back.png");
 }
 
 code {

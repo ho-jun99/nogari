@@ -116,9 +116,9 @@ export default function NewWaitingRoom({ match }) {
         setGameInfoModal(false);
     }
 
-    // useEffect(() => {
-    //     getRoomInfo(match.params.roomId, changedRoomInfo);
-    // }, []);
+    useEffect(() => {
+        getRoomInfo(match.params.roomId, changedRoomInfo);
+    }, []);
 
     return (
         <>
