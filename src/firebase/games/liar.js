@@ -2,17 +2,11 @@ import firebase from '../firebase-manager';
 
 const db = firebase.firestore();
 
-export async function setWord(roomNumber, word) {
+export async function getWord(roomNumber, word) {
     console.log(roomNumber);
     await db.collection("game").doc(`${roomNumber}`).update({
         liar:{
-            liarword: word
+            question: word
         }
     });
-}
-
-export async function updateUserData(roomNumber,data) {
-    await db.collection("game").doc(roomNumber).update({
-        players: data
-    })
 }

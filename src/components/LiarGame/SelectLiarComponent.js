@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {useHistory} from "react-router";
 import '../css/selectLiar.css'
 import Egg from '../../views/img/계란말이_스탠딩.png'
 import Kimchi from '../../views/img/김치국수 스탠딩.png'
@@ -8,8 +7,7 @@ import DDuk from '../../views/img/떡볶이 스탠딩.png'
 import Bing from '../../views/img/빙수_스탠딩.png'
 import Chicken from '../../views/img/치킨_스탠딩.png'
 
-export default function SelectLiarComponent(props) {
-
+export default function SelectLiarComponent() {
 
     let [userList, setUserList] = useState([
         {
@@ -57,19 +55,13 @@ export default function SelectLiarComponent(props) {
             </li>
         )
     });
-
-    //임시 게임끝
-    const test = () => {
-        props.setIsStart(false);
-        props.setContinueGame(false);
-    }
     return (
         <>
             <div className="container">
                 <div className="selectLiar">라이어를 지목해주세요!</div>
                 <div className="description">동점일 시 게임으로 다시 돌아갑니다.</div>
                 {user}
-                <button onClick={test} className="selectBtn">선택 완료</button>
+                <button className="selectBtn">선택 완료</button>
             </div>
         </>
     )
