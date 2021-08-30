@@ -37,7 +37,7 @@ export default function CreateRoomView({ history }) {
     }
 
     // 닉네임 변화 감지
-   const [goRoom,setGoRoom] = useState('')
+    const [goRoom,setGoRoom] = useState('')
     const handleOnChange = (e) => {
         setGoRoom(e.target.value);
     }
@@ -70,7 +70,7 @@ export default function CreateRoomView({ history }) {
             })
             if (getRoomNumber() !== goRoom) {
                 alert('에러')
-           }
+            }
         })
     }
 
@@ -92,7 +92,7 @@ export default function CreateRoomView({ history }) {
     }
 
     const resetInfo = () => {
-       // 웹에서는 컬렉션 삭제 지원 안 한대여. 그래서 일단 웹스토리지만 초기화
+        // 웹에서는 컬렉션 삭제 지원 안 한대여. 그래서 일단 웹스토리지만 초기화
         localStorage.setItem('roomNumber','')
     }
 

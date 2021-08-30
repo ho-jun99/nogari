@@ -73,7 +73,7 @@ export default function Choose_Char() {
     return(
 
         <>
-            <div className="main">
+            <div className="choose_main">
                 <div className="sel_hero">
                     <a style={title}>안주 선택</a><br></br>
                     <a style={subtitle}>원하시는 안주 캐릭터를 선택해주세요!</a><br></br>

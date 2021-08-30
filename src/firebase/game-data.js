@@ -9,7 +9,7 @@ export async function getGameData() {
 
 export async function getGameRoomData(roomNumber, callback) {
     await firebase.firestore().collection('game').doc(roomNumber).onSnapshot((doc)=> {
-       callback(doc.data());
+        callback(doc.data());
     });
 }
 

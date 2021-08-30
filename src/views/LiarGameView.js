@@ -40,7 +40,7 @@ export default function LiarGameView({ match }) {
         const userArray = Object.entries(users);
         let checkCount = 0;
         userArray.forEach(user => {
-            if(user[1]['liar'].isCheckWord) checkCount +=1;
+                if(user[1]['liar'].isCheckWord) checkCount +=1;
             }
         )
         if(checkCount==userArray.length) setIsStart(true);
@@ -80,9 +80,9 @@ export default function LiarGameView({ match }) {
                 <div className='container'>
                     <div className='inner-container'>
                         <SuggestionModal
-                        word = {word}
-                        users = {users}
-                        myGameData = {myGameData}
+                            word = {word}
+                            users = {users}
+                            myGameData = {myGameData}
                         />
                     </div>
                 </div>

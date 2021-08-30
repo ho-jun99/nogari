@@ -13,6 +13,6 @@ export async function addMember(roomNumber, userId) {
   const userArray = await getRoomdata(roomNumber);
   userArray.members.push(userId);
   firebase.firestore().collection("rooms").doc(roomNumber).update({
-   members : userArray.members
+    members : userArray.members
   });
 }

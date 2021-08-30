@@ -116,9 +116,9 @@ export default function NewWaitingRoom({ match }) {
         setGameInfoModal(false);
     }
 
-    // useEffect(() => {
-    //     getRoomInfo(match.params.roomId, changedRoomInfo);
-    // }, []);
+    useEffect(() => {
+        getRoomInfo(match.params.roomId, changedRoomInfo);
+    }, []);
 
     return (
         <>
@@ -204,10 +204,9 @@ export default function NewWaitingRoom({ match }) {
                     </div>
                 </section>
                 <SelectGame open={room.selectGameModal} close={() => selectGameModal(false)}
-                    parentFunction={getFromSelectMenu}></SelectGame>
+                            parentFunction={getFromSelectMenu}></SelectGame>
             </div>
 
         </>
     )
 }
-
