@@ -30,9 +30,6 @@ export default function CreateRoomView({ history }) {
             liar: {
                 liarword:"",
             },
-            players: {
-
-            }
         }, {merge:true});
 
         console.log(roomNumber);

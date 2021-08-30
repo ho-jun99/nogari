@@ -2,15 +2,10 @@ import React, {useState, useEffect} from 'react'
 import LiarModal from "./liarModal";
 import UserModal from "./userModal";
 import {getWordGameCategory} from "../../firebase/games/word-game";
+import {updateUserData} from "../../firebase/games/liar";
 
 export default function SuggestionModal(props) {
     const [defaultWord, setDefaultWord] = useState('');
-    const gameUser = [
-        {
-            nickname: "성원이다",
-            isLiar: false,
-        }
-    ]
 
     const [liarModal, setLiarModal] = useState(false);
     const liarOpenModal = () => {
@@ -29,7 +24,14 @@ export default function SuggestionModal(props) {
     }
 
     const confirmLiar = () => {
-        if (gameUser[0].isLiar) { // 라이어
+        setInterval(async()=> {
+            const roomNumber = localStorage.getItem('roomNumber');
+            const myNickname = localStorage.getItem('nickname');
+            props.users[myNickname].liar.isCheckWord = true;
+            await updateUserData(roomNumber, props.users);
+        },3000)
+
+        if (props.myGameData.liar.isliar) { // 라이어
             liarOpenModal()
         }
         else { // 일반 유저

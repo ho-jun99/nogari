@@ -9,17 +9,22 @@ export default function LiarGameView({ match }) {
 
     //게임 데이터 불러오기
     const [liarGamedata, setLiarGamedata] = useState({});
-    const [user, setUser] = useState({});
+    const [users, setUsers] = useState([]);
+
     const changedgamedata = async (gamedata) => {
-        console.log(gamedata.liar);
+        setUsers(gamedata.players);
         setLiarGamedata(gamedata.liar);
     }
     useEffect(() => {
         getGameRoomData(match.params.roomId, changedgamedata)
     }, []);
 
+    //나의 게임 데이터
+    const myNickname = localStorage.getItem('nickname');
+    const myGameData = users[myNickname];
+
+    //제시어
     const word = liarGamedata.liarword;
-    console.log(word);
 
     //프론트
     const [isStart, setIsStart] = useState(false); // 게임 실행 중 확인 여부 변수
@@ -31,13 +36,27 @@ export default function LiarGameView({ match }) {
         setContinueGame(result);
     }
 
+    useEffect(()=> {
+        const userArray = Object.entries(users);
+        let checkCount = 0;
+        userArray.forEach(user => {
+            if(user[1]['liar'].isCheckWord) checkCount +=1;
+            }
+        )
+        if(checkCount==userArray.length) setIsStart(true);
+    })
+
 
     if (isStart && !continueGame) {
         return (
             <>
                 <div className='container'>
                     <div className='inner-container'>
-                        <SpeakComponent goStopResult={goStop}/>
+                        <SpeakComponent
+                            goStopResult={goStop}
+                            myGameData={myGameData}
+                            users={users}
+                        />
                     </div>
                 </div>
             </>
@@ -47,7 +66,10 @@ export default function LiarGameView({ match }) {
             <>
                 <div className='container'>
                     <div className='inner-container'>
-                        <SelectLiarComponent/>
+                        <SelectLiarComponent
+                            setIsStart = {setIsStart}
+                            setContinueGame = {setContinueGame}
+                        />
                     </div>
                 </div>
             </>
@@ -58,7 +80,10 @@ export default function LiarGameView({ match }) {
                 <div className='container'>
                     <div className='inner-container'>
                         <SuggestionModal
-                        word = {word}/>
+                        word = {word}
+                        users = {users}
+                        myGameData = {myGameData}
+                        />
                     </div>
                 </div>
                 <input type="button" value="누르면 게임 실행됨" onClick={startGame} className="tempBtn"/>

@@ -13,10 +13,9 @@ export async function getGameRoomData(roomNumber, callback) {
     });
 }
 
-export async function setPlayers(roomNumber, player) {
-    console.log(player);
+export async function setPlayers(roomNumber, players) {
+    console.log(players);
     await firebase.firestore().collection("game").doc(roomNumber).update({
-        players: player
-
+        players
     });
 }

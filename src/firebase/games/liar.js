@@ -10,3 +10,9 @@ export async function setWord(roomNumber, word) {
         }
     });
 }
+
+export async function updateUserData(roomNumber,data) {
+    await db.collection("game").doc(roomNumber).update({
+        players: data
+    })
+}
