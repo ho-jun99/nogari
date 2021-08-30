@@ -10,12 +10,12 @@ body * {
   font-family: 'DungGeunMo';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 
 body {
   background-image: url("./images/back.png");
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

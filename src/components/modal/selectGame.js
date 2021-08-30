@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import GameInfo from "./gameInfo";
 import '../css/selectGame.css'
+import {choiceGame} from "../../firebase/choiceGame";
 
-const SelectGame = (props) => {
+const SelectGame = (props, {match}) => {
 
     const [gameList, setGameList] = useState([
         {
@@ -59,6 +60,7 @@ const SelectGame = (props) => {
             for (let i = 0; i < gameList.length; i++) {
                 if (gameList[i].id === idx.id) {
                     setSelectedGame(gameList[i].gameName);
+                    choiceGame(localStorage.getItem('roomNumber'),gameList[i].gameName);
                     setGameInfo(gameList[i]);
                     setIsSelected(true);
                 }

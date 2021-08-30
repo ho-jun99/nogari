@@ -11,6 +11,7 @@ import DdalBing from './img/빙수_스탠딩.png'
 import CheezeBall from './img/치즈볼_스탠딩.png'
 import CaramelPop from './img/카라멜팝곤_스탠딩.png'
 import {Link} from "react-router-dom";
+import * as members from "../firebase/users";
 
 
 const title = {
@@ -53,8 +54,11 @@ export default function Choose_Char() {
     const Catego = ["식사류", "안주류", "간식류"]
     const [count, setCount] = useState(0);
     const [idx, setIdx] = useState(0);
-    const [value, setValue] = React.useState("");
     const [ modalOpen, setModalOpen ] = useState(false);
+    const [nickname, setNickname] = useState(''); // 닉네임
+    const [character,setCharacter] = useState(0); // 프로필
+    const [snack, setSnack] = useState('');
+
     const previous = ()=>{
         if(idx <=0) setIdx(0)
         else setIdx(idx-1)
@@ -68,6 +72,36 @@ export default function Choose_Char() {
     }
     const closeModal = () => {
         setModalOpen(false);
+    }
+
+    const handleOnChange = (e) => { // 닉네임 변화 감지
+        setNickname(e.target.value);
+    }
+
+    const createID = async () => {
+        if (character === 0) { // 프로필 설정 안 했을 때 에러
+            alert("error")
+        }
+        else {
+            const userId = await members.createUser(nickname, character);
+            localStorage.setItem('myId', userId);
+            localStorage.setItem('nickname', nickname);
+            localStorage.setItem('character', character);
+            localStorage.setItem('snack', snack);
+
+            setCharacter(0);
+
+            /*  유저 문서에서 주기적으로 접속 시간 받을 필요가 있나? 룸에서만 확인하면 되는 거 아닌가요?
+            setInterval(async () => {
+                const user = localStorage.getItem('myId')
+                const time = new Date().getTime()
+                localStorage.setItem('connection',time)
+                await firebase.firestore().collection('users').doc(`${user}`).update({
+                    lastConnection : time
+                }, {merge:true})
+            }, 6000);
+            */
+        }
     }
 
     return(
@@ -85,9 +119,9 @@ export default function Choose_Char() {
                     <div>
                         {
                             idx===0 && <div className="container_select">
-                                <img src={EggRoll}  alt='계란말이' onClick={()=>{setCount(1)}}/>
-                                <img src={KimchiRollNoodle} alt='김치말이국수' onClick={()=>{setCount(2)}} />
-                                <img src={RiceCake} alt='떡볶이' onClick={()=>{setCount(3)}}/>
+                                <img src={EggRoll}  alt='계란말이' onClick={()=>{setCount(1); setCharacter(1); setSnack('계란말이');}}/>
+                                <img src={KimchiRollNoodle} alt='김치말이국수' onClick={()=>{setCount(2); setCharacter(2); setSnack('김치말이국수');}} />
+                                <img src={RiceCake} alt='떡볶이' onClick={()=>{setCount(3); setCharacter(3); setSnack('떡볶이');}}/>
                                 <span>comming<br/>soon</span>
                                 <span>comming<br/>soon</span>
                                 <span>comming<br/>soon</span>
@@ -97,9 +131,9 @@ export default function Choose_Char() {
                     <div>
                         {
                             idx===1 && <div className="container_select">
-                                <img src={Nogari}  alt='청춘 노가리' onClick={()=>{setCount(4)}}/>
-                                <img src={Chicken} alt='치킨'  onClick={()=>{setCount(5)}} />
-                                <img src={Kkochi} alt='꼬치' onClick={()=>{setCount(6)}}/>
+                                <img src={Nogari}  alt='청춘 노가리' onClick={()=>{setCount(4); setCharacter(4); setSnack('청춘 노가리');}}/>
+                                <img src={Chicken} alt='치킨'  onClick={()=>{setCount(5); setCharacter(5); setSnack('치킨');}} />
+                                <img src={Kkochi} alt='꼬치' onClick={()=>{setCount(6); setCharacter(6); setSnack('꼬치');}}/>
                                 <span>comming<br/>soon</span>
                                 <span>comming<br/>soon</span>
                                 <span>comming<br/>soon</span>
@@ -109,9 +143,9 @@ export default function Choose_Char() {
                     <div>
                         {
                             idx===2 && <div className="container_select">
-                                <img src={DdalBing}  alt='딸기빙수' onClick={()=>{setCount(7)}}/>
-                                <img src={CheezeBall} alt='치즈볼'  onClick={()=>{setCount(8)}} />
-                                <img src={CaramelPop} alt='카라멜 팝콘' onClick={()=>{setCount(9)}}/>
+                                <img src={DdalBing}  alt='딸기빙수' onClick={()=>{setCount(7); setCharacter(7); setSnack('딸기빙수');}}/>
+                                <img src={CheezeBall} alt='치즈볼'  onClick={()=>{setCount(8); setCharacter(8); setSnack('치즈볼');}} />
+                                <img src={CaramelPop} alt='카라멜 팝콘' onClick={()=>{setCount(9); setCharacter(9); setSnack('캬라멜 팝콘');}}/>
                                 <span>comming<br/>soon</span>
                                 <span>comming<br/>soon</span>
                                 <span>comming<br/>soon</span>
@@ -154,14 +188,14 @@ export default function Choose_Char() {
                 <div className="chosen_hero">
                     <img className="image_chosen" src={Chr[count]} alt={'unchosen'} />
                     <div className="Chr_Name_box" style={CharName}>{Ch_name[count]}</div>
-                    <input id="id" type="text"  placeholder="닉네임 입력" value={value} className="input_box" onChange={e=>setValue(e.target.value)} />
+                    <input id="id" type="text"  placeholder="닉네임 입력" value={nickname} className="input_box" onChange={handleOnChange} />
                 </div>
                 <div className="complete_button_wrapper">
                     <Link to ="./find">
                         <div>
-                            { value===""
-                                ?<button disabled={value===""} className="complete_button2">캐릭터 생성 완료</button>
-                                :<button className="complete_button1">캐릭터 생성 완료</button>
+                            { nickname===""
+                                ?<button disabled={nickname===""} className="complete_button2">캐릭터 생성 완료</button>
+                                :<button className="complete_button1" onClick={createID}>캐릭터 생성 완료</button>
 
                             }
                         </div>
