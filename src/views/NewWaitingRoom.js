@@ -103,8 +103,8 @@ export default function NewWaitingRoom({ match }) {
         setUsers(memberProps);
 
         for await (const member of memberProps) {
-            const gameMember = {member, liar: {isliar: false, }, }
-            membersGamedata.push(gameMember);
+            const gameMember = {liar: {isliar: false, isCheckWord: false, order: false}, wordGame : {isCorrected: false}}
+            membersGamedata[member] = gameMember;
         }
         await setPlayers(match.params.roomId, membersGamedata);
     }

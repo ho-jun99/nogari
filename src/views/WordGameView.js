@@ -3,9 +3,9 @@ import Modal from 'react-modal'
 import {useState, useEffect} from "react";
 import './WordGameView.css';
 import TimeoutModal from './Timeout'
-import {getWordGameCategory} from "../firebase/games/word-game";
+import {getWordGameCategory, getPlayers} from "../firebase/games/word-game";
 
-export default function WordGameView() {
+export default function WordGameView({ match }) {
     const [categoryData, setCategoryData] = useState({});
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categories, setCategories] = useState([]);
@@ -18,6 +18,7 @@ export default function WordGameView() {
     const [random, setRandom] = useState([]);
     const [state, setState] = useState()
     const [round, setRound] = useState(0);
+    const [player, setPlayer] = useState();
 
     // 랜덤하게 추출
     const getRandom = (min, max) => {
@@ -27,37 +28,37 @@ export default function WordGameView() {
     const getRandomArray = (min, max, count) => {
         if (max - min + 1 < count) return;
 
-        let rst = [];
+        let randomArr = [];
         while (1) {
             let index = getRandom(min, max);
 
             // 중복 여부를 체크
-            if (rst.indexOf(index) > -1) {
+            if (randomArr.indexOf(index) > -1) {
                 continue;
             }
 
-            rst.push(index);
+            randomArr.push(index);
 
             // 원하는 배열 갯수가 되면 종료
-            if (rst.length == count) {
+            if (randomArr.length == count + 1) {
                 break;
             }
         }
 
-        // 중복되지 않는 범위 내의 인덱스 array : rst ex ) rst = [0, 1, 3, 4, 2]
+        // 중복되지 않는 범위 내의 인덱스 array : randomArr ex ) randomArr = [0, 1, 3, 4, 2]
         // wordGame에는 해당 카테고리의 quiz와 answer쌍이 들어있음
         // arr에 wordGame[0], wordGame[1], wordGame[3], ... 넣어줌
         // 이러한 arr를 setRandom
         let arr = [];
-        rst.map(num => {
+        randomArr.map(num => {
             // console.log(wordGame[num], random)
             // setRandom(random => [...random, wordGame[num]])
             arr.push(wordGame[num])
         });
-        console.log(arr);
         setRandom(arr);
     }
 
+    // category 버튼 클릭시 문제를 setting하는 부분
     const getQuiz = () => {
         let total = wordGame.length;
         getRandomArray(0, total - 1, totalRound);
@@ -72,12 +73,14 @@ export default function WordGameView() {
         })
     }, [random])
 
-
     useEffect(() => {
         const init = async () => {
             const gameData = await getWordGameCategory();
+            const playerData = await getPlayers(match.params.roomId);
+            console.log(playerData);
             const test = Object.entries(gameData);
             console.log(test);
+            setPlayer(playerData['players']);
             const category = test.map(([category, list]) => category);
             console.log(category);
             setCategories(category);
@@ -106,27 +109,27 @@ export default function WordGameView() {
         getQuiz()
     }, [wordGame])
 
-    const totalRound = 5; // 한 카테고리에서 출제될 문제 수 // 현재 firebase data에 카테고리당 6개의 데이터가 들어있어 6개 이하로 설정해야 함.
-
+    const totalRound = 2; // 한 카테고리에서 출제될 문제 수 // 현재 firebase data에 카테고리당 6개의 데이터가 들어있어 6개 이하로 설정해야 함.
 
     const [value, setValue] = useState();
     const [seconds, setSeconds] = useState(30);
 
     useEffect(() => {
-        const countdown = setInterval(() => {
+        console.log(seconds)
+        const countdown = setTimeout(() => {
             if (parseInt(seconds) > 0) {
                 setSeconds(parseInt(seconds) - 1);
             } else {
-                setInterval(() => {
+                setTimeout(() => {
                     setSeconds(30);
                 }, 3000)
-                setRound(round + 1)
+                totalRound !== round ? setRound(round + 1) : setRound(0);
                 // setState({value: random[round].quiz, ans: random[round].answer});
                 setValue('');
             }
 
         }, 1000);
-        return () => clearInterval(countdown);
+        return () => (clearTimeout(countdown));
     }, [seconds]);
 
 
@@ -134,7 +137,8 @@ export default function WordGameView() {
         if (state.ans === value) {
             alert("정답");
             setSeconds(30);
-            setRound(round + 1);
+            // 일단은 라운드 2까지 밖에 없으니까 라운드 다 되면 0으로 다시 초기화 해줍니다
+            totalRound !== round ? setRound(round + 1) : setRound(0);
             // setState({value: random[round].quiz, ans: random[round].answer});
             setValue('');
         }
@@ -241,16 +245,8 @@ export default function WordGameView() {
                     }
                 </div>
                 <div className="footer">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-
+                    {player !== undefined && Object.keys(player).map((mem) => (<div>{mem}</div>))}
                 </div>
-
-
             </div>
         </>
     );

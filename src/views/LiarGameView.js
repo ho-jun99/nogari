@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../src/components/css/liarGame.css'
 import SuggestionModal from "../components/LiarGame/suggestionModal";
 import SpeakComponent from "../components/LiarGame/SpeakComponent";
@@ -6,7 +6,7 @@ import SelectLiarComponent from "../components/LiarGame/SelectLiarComponent";
 import {getWordGameCategory} from "../firebase/games/word-game";
 import {getWord} from "../firebase/games/liar";
 
-export default function LiarGameView() {
+export default function LiarGameView({ match }) {
     const [categoryData, setCategoryData] = useState({});
     const [categories, setCategories] = useState([]);
     const [word, setWord] = useState('');

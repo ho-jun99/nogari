@@ -21,7 +21,7 @@ function App() {
         <Route exact path="/" component={MainView}/>
         <Route path="/rooms/:roomId/liar" component={LiarGameView}/>
         <Route path="/roulette" component={RouletteGameView}/>
-        <Route path="/word" component={WordGameView}/>
+        <Route path="/rooms/:roomId/word" component={WordGameView}/>
         <Route path="/find" component={FindView}/>
         <Route path="/Choose_Char" component={Choose_Char}/>
         <Route exact path="/rooms/:roomId" component={NewWaitingRoom}/>
