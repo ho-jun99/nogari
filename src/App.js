@@ -10,7 +10,7 @@ import {
   CreateRoomView,
   ChangeCharacterView,
   Choose_Char,
-  FindView,
+  Find,
   NewWaitingRoom,
 } from './views';
 
@@ -22,7 +22,7 @@ function App() {
         <Route path="/rooms/:roomId/liar" component={LiarGameView}/>
         <Route path="/roulette" component={RouletteGameView}/>
         <Route path="/rooms/:roomId/word" component={WordGameView}/>
-        <Route path="/find" component={FindView}/>
+        <Route path="/Find" component={Find}/>
         <Route path="/Choose_Char" component={Choose_Char}/>
         <Route exact path="/rooms/:roomId" component={NewWaitingRoom}/>
         <Route path="/rooms/:roomId/marble" component={AlcoholMarbleView}/>

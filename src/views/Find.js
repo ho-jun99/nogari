@@ -39,7 +39,7 @@ export default function Find() {
                             <div style={{fontSize:"11px",paddingTop:"13.89px"}}>방장이 되어 다른친구들을 초대해보세요!</div>
                         </div>
                         <div className="make" onClick={openModal}>
-                        <div style={{fontSize:"45px",paddingTop:"30.59px",lineHeight:"45px",letterSpacing: "0.065em",fontFamily: "DungGeunMo" }}>링크 입력</div>
+                            <div style={{fontSize:"45px",paddingTop:"30.59px",lineHeight:"45px",letterSpacing: "0.065em",fontFamily: "DungGeunMo" }}>링크 입력</div>
                             <div style={{fontSize:"11px",paddingTop:"13.89px"}}>친구가 보내준 링크를 입력하여 게임에 참여하세요!</div>
                         </div>
                     </div>

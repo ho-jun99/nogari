@@ -1,5 +1,4 @@
 .main{
-
     display: flex;
     justify-content: center;
     align-content: center;
@@ -48,5 +47,3 @@
     border-radius: 0px 0px 15px 15px;
     z-index: 1;
 }
-
-
