@@ -25,7 +25,7 @@ const styles = {
         textAlign: 'center', backgroundColor: '#000',
     },
     headerTitle: {
-      marginTop: 261, marginBottom: 31, color: '#fff', fontSize: 24,
+        marginTop: 261, marginBottom: 31, color: '#fff', fontSize: 24,
     },
     title: {
         color: '#FF0000',

@@ -8,58 +8,60 @@ import Chicken from '../../views/img/치킨_스탠딩.png'
 import GoStopModal from "./goStopModal";
 
 export default function SpeakComponent(props) {
-    const gameUser = [
-        {
-            nickname: "성원이다", // 닉네임
-            isLiar: false, // true 이면 해당 유저는 라이어
-            order: true, // true 이면 본인 순서
-            img: Egg,
-        },
-        {
-            nickname: "성원이다", // 닉네임
-            isLiar: true, // true 이면 해당 유저는 라이어
-            order: false, // true 이면 본인 순서
-            img: Kimchi,
-        },
-        {
-            nickname: "성원이다", // 닉네임
-            isLiar: false, // true 이면 해당 유저는 라이어
-            order: false, // true 이면 본인 순서
-            img: Nogari,
-        },
-        {
-            nickname: "성원이다", // 닉네임
-            isLiar: false, // true 이면 해당 유저는 라이어
-            order: false, // true 이면 본인 순서
-            img: DDuk,
-        },
-        {
-            nickname: "성원이다", // 닉네임
-            isLiar: false, // true 이면 해당 유저는 라이어
-            order: false, // true 이면 본인 순서
-            img: Bing,
-        },
-        {
-            nickname: "성원이다", // 닉네임
-            isLiar: false, // true 이면 해당 유저는 라이어
-            order: false, // true 이면 본인 순서
-            img: Chicken,
-        },
-    ]
+    // const gameUser = [
+    //     {
+    //         nickname: "성원이다", // 닉네임
+    //         isLiar: false, // true 이면 해당 유저는 라이어
+    //         order: true, // true 이면 본인 순서
+    //         img: Egg,
+    //     },
+    //     {
+    //         nickname: "성원이다", // 닉네임
+    //         isLiar: true, // true 이면 해당 유저는 라이어
+    //         order: false, // true 이면 본인 순서
+    //         img: Kimchi,
+    //     },
+    //     {
+    //         nickname: "성원이다", // 닉네임
+    //         isLiar: false, // true 이면 해당 유저는 라이어
+    //         order: false, // true 이면 본인 순서
+    //         img: Nogari,
+    //     },
+    //     {
+    //         nickname: "성원이다", // 닉네임
+    //         isLiar: false, // true 이면 해당 유저는 라이어
+    //         order: false, // true 이면 본인 순서
+    //         img: DDuk,
+    //     },
+    //     {
+    //         nickname: "성원이다", // 닉네임
+    //         isLiar: false, // true 이면 해당 유저는 라이어
+    //         order: false, // true 이면 본인 순서
+    //         img: Bing,
+    //     },
+    //     {
+    //         nickname: "성원이다", // 닉네임
+    //         isLiar: false, // true 이면 해당 유저는 라이어
+    //         order: false, // true 이면 본인 순서
+    //         img: Chicken,
+    //     },
+    // ]
     const [count, setCount] = useState(20);
 
     setTimeout(() => {
         setCount(count - 1);
     }, 1000);
 
-    const userList = gameUser.map((user) => {
+    const usersArray = Object.entries(props.users);
+
+    const userList = usersArray.map((user) => {
         return (
-                <li style={styles.listStyle}>
-                    <div style={styles.userContainer}>
-                        <img src={user.img} alt="캐릭터" style={user.order ? styles.startUser : styles.stopUser}/>
-                        <div style={styles.nickName}>{user.nickname}</div>
-                    </div>
-                </li>
+            <li style={styles.listStyle}>
+                <div style={styles.userContainer}>
+                    <img src='#' alt="캐릭터" style={user[1]['liar'].order ? styles.startUser : styles.stopUser}/>
+                    <div style={styles.nickName}>{user[0]}</div>
+                </div>
+            </li>
 
         )
     });
@@ -81,14 +83,14 @@ export default function SpeakComponent(props) {
 
     return (
         <div style={styles.container}>
-            <div style={styles.title}>‘{gameUser[0].nickname}’님 차례입니다!!</div>
+            <div style={styles.title}>‘{''}’님 차례입니다!!</div>
             <div style={styles.description}>제한시간 내 발언을 마치고 ‘발언 종료’ 버튼을 눌러주세요!</div>
             <span style={styles.count}>{count}<span style={styles.countText}>초</span></span>
             <button style={styles.stopBtn} onClick={openVoteModal}>발언 종료</button>
             <div>
                 {userList}
             </div>
-            <GoStopModal open={voteModal} close={closeVoteModal} userList={gameUser} goStopResult={getFromVoteModal}/>
+            <GoStopModal open={voteModal} close={closeVoteModal} userList={props.users} goStopResult={getFromVoteModal}/>
         </div>
     )
 }
@@ -126,12 +128,12 @@ const styles = {
         backgroundColor: '#032213', color: '#FCCE39'
     },
     countText: {
-      fontSize: 24,
+        fontSize: 24,
     },
     userContainer: {
         marginTop: 34,
     },
     nickName: {
-      marginTop: 8,
+        marginTop: 8,
     },
 }

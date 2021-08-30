@@ -1,15 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import LiarModal from "./liarModal";
 import UserModal from "./userModal";
+import {getWordGameCategory} from "../../firebase/games/word-game";
+import {updateUserData} from "../../firebase/games/liar";
 
-export default function SuggestionModal() {
-    const [defaultWord, setDefaultWord] = useState("복숭아");
-    const gameUser = [
-        {
-            nickname: "성원이다",
-            isLiar: true,
-        }
-    ]
+export default function SuggestionModal(props) {
+    const [defaultWord, setDefaultWord] = useState('');
 
     const [liarModal, setLiarModal] = useState(false);
     const liarOpenModal = () => {
@@ -28,7 +24,14 @@ export default function SuggestionModal() {
     }
 
     const confirmLiar = () => {
-        if (gameUser[0].isLiar) { // 라이어
+        setInterval(async()=> {
+            const roomNumber = localStorage.getItem('roomNumber');
+            const myNickname = localStorage.getItem('nickname');
+            props.users[myNickname].liar.isCheckWord = true;
+            await updateUserData(roomNumber, props.users);
+        },3000)
+
+        if (props.myGameData.liar.isliar) { // 라이어
             liarOpenModal()
         }
         else { // 일반 유저
@@ -42,7 +45,7 @@ export default function SuggestionModal() {
             <div style={styles.content}>제시어 확인 버튼을 클릭해서 역할을 확인해주세요.</div>
             <button style={styles.btn} onClick={confirmLiar}>제시어 확인하기</button>
             <LiarModal open={liarModal} close={liarCloseModal}/>
-            <UserModal open={userModal} close={userCloseModal} word={defaultWord}/>
+            <UserModal open={userModal} close={userCloseModal} word={props.word}/>
         </div>
     )
 }
@@ -60,7 +63,7 @@ const styles = {
         color: '#FCCE39',
         fontSize: 48, fontWeight: 'bold', marginBottom: 14, marginTop: '14%',
         textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
-},
+    },
     content: {
         color: '#fff',
         fontSize: 18, fontWeight: 'normal', marginBottom: 64,
