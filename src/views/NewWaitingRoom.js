@@ -89,7 +89,7 @@ export default function NewWaitingRoom({ match }) {
         // const captainInfo = await getUserInfo(roomInfo.captain);
         // setCaptain(captainInfo);
         let members = [];
-        let membersGamedata = {};
+        let membersGamedata = [];
         // console.log(roomInfo);
         for await (const member of roomInfo.members) {
             const memberInfo = await getUserInfo(member);
@@ -97,11 +97,11 @@ export default function NewWaitingRoom({ match }) {
             members.push(memberInfo);
         }
         const memberProps = members.map((member) => member.nickname);
-        // console.log(memberProps);
+        console.log(memberProps);
         setUsers(memberProps);
 
         for await (const member of memberProps) {
-            const gameMember = {liar: {isCheckWord: false, isliar: false, order:false}, wordGame : {isCorrected: false}}
+            const gameMember = {liar: {isliar: false, isCheckWord: false, order: false}, wordGame : {isCorrected: false}}
             membersGamedata[member] = gameMember;
         }
         await setPlayers(match.params.roomId, membersGamedata);

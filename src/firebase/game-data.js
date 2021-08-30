@@ -6,16 +6,10 @@ export async function getGameData() {
     return game.data();
 }
 
-
-export async function getGameRoomData(roomNumber, callback) {
-    await firebase.firestore().collection('game').doc(roomNumber).onSnapshot((doc)=> {
-       callback(doc.data());
-    });
-}
-
-export async function setPlayers(roomNumber, players) {
-    console.log(players);
+export async function setPlayers(roomNumber, player) {
+    console.log(player);
     await firebase.firestore().collection("game").doc(roomNumber).update({
-        players
+        players: player
+
     });
 }
