@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {getWordGameCategory} from "../../firebase/games/word-game";
 import {setWord} from "../../firebase/games/liar";
-import {setCategory} from "../../firebase/games/word-game";
 import '../css/Category.css';
 
 export default function Category(props) {
     const [categoryData, setCategoryData] = useState({});
     const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
     useEffect(() => {
         const init = async () => {
             const gameData = await getWordGameCategory();
@@ -19,23 +17,13 @@ export default function Category(props) {
         init();
     }, []);
 
-
-
     const getCategoryData = (categoryName) => {
         props.setIsChoice(true);
         const random = Math.floor(Math.random()*4); //단어 랜덤 선택 위한 index
         const gameData = categoryData[categoryName]; //해당 카테고리의 단어들 array
         const wordData = Object.values(gameData); //해당 카테고리 단어의 value (라이어게임 전용)
         setWord(props.roomId, wordData[random]); //랜덤 선택된 단어 (라이어게임 전용)
-        setCategory(props.roomId, categoryName);
     };
-
-    // 카테고리 버튼을 누르면 data를 get
-    // const getCategoryData = (categoryName) => {
-    //     setSelectedCategory(categoryName);
-    //     setWordGame([]);
-    //     setWordGameData(categoryName)
-    // };
     return (
         <>
             <div>
