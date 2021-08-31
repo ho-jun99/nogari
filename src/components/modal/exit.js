@@ -1,7 +1,13 @@
 import React from 'react';
+import {useHistory} from "react-router";
 
 function Exit(props) {
     const {open, close} = props;
+    const history = useHistory();
+
+    const exitModal = () => {
+        history.push("/find");
+    }
     return (
         <div style={styles.container}>
             {open ? (
@@ -9,7 +15,7 @@ function Exit(props) {
                     <span style={styles.title}>다른방 찾기</span>
                     <span style={styles.content}>다른방을 찾으러 나가시겠습니까?</span>
                     <div style={styles.btnContainer}>
-                        <button style={styles.btn}>나갈래</button>
+                        <button style={styles.btn} onClick={() => exitModal()}>나갈래</button>
                         <button onClick={close} style={styles.btn}>취소</button>
                     </div>
 

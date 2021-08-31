@@ -18,13 +18,13 @@ import Midterm from './img/중간고사.png';
 import GameInfo from "../components/modal/gameInfo";
 
 Modal.setAppElement('#root');
-export default function NewWaitingRoom({ match }) {
+export default function NewWaitingRoom({ match, history }) {
     const [users, setUsers] = useState([]);
 
     const [room, setRoom] = useState({
-        isSelected: false,
+        isSelected: true,
         isInfoOpen: false,
-        isMenuOpen: true,
+        isMenuOpen: false,
         selectedGameName: '',
         selectedGameRule: '',
         exitModalOpen: false,
@@ -42,14 +42,17 @@ export default function NewWaitingRoom({ match }) {
             background: '', // 선택된 게임 일러스트가 들어갈 변수
         },
     ])
+
     const setRoomState = (key, value) => setRoom({ ...room, [key]: value });
 
     // 다른 방 찾기, 링크로 초대하기 버튼에 관한 변수, 함수
-    const exitModal = (isOpen) => setRoomState('exitModalOpen', isOpen);
+    const exitModal = (isOpen) => {
+        setRoomState('exitModalOpen', isOpen);
+    }
     const linkCopyModal = (isOpen) => {
         setRoomState('linkCopyModalOpen', isOpen)
         if (isOpen) {
-            navigator.clipboard.writeText("https://www.naver.com/");
+            navigator.clipboard.writeText(window.location.href);
         }
     }
 
@@ -115,11 +118,22 @@ export default function NewWaitingRoom({ match }) {
     const infoCloseModal = () => {
         setGameInfoModal(false);
     }
+    const startCallback = (data) => {
+        if(data.game === "노가리마블") {history.push(`/rooms/${match.params.roomId}/marble`)}
+        else if (data.game === "안주 라이어") {history.push(`/rooms/${match.params.roomId}/liarCategory`)}
+        else if (data.game === "중간고사 서바이벌") {history.push(`/rooms/${match.params.roomId}/wordCategory`)}
+        else if (data.game === "상한 안주찾기") {history.push(`/rooms/${match.params.roomId}/roulette`)}
+
+    }
+
+    const gameStart = () => {
+        getRoomInfo(match.params.roomId, startCallback);
+    }
+
 
     useEffect(() => {
         getRoomInfo(match.params.roomId, changedRoomInfo);
     }, []);
-
     return (
         <>
             <div id="mainWrap">
@@ -187,7 +201,7 @@ export default function NewWaitingRoom({ match }) {
                         {selectedGameRule ? <div>{selectedGameRule}</div> : <div>게임을 먼저 선택해 주세요.</div>}
                     </Modal> */}
                         </div>
-                        {room.isSelected ? <button className="startBtn">시작</button> :
+                        {room.isSelected ? <button className="startBtn" onClick={gameStart}>시작</button> :
                             <button className="stopBtn" disabled>시작</button>}
                     </div>
 

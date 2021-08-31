@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import GameInfo from "./gameInfo";
 import '../css/selectGame.css'
+import {choiceGame} from "../../firebase/choiceGame";
 
-const SelectGame = (props) => {
+const SelectGame = (props, {match}) => {
 
     const [gameList, setGameList] = useState([
         {
@@ -59,6 +60,8 @@ const SelectGame = (props) => {
             for (let i = 0; i < gameList.length; i++) {
                 if (gameList[i].id === idx.id) {
                     setSelectedGame(gameList[i].gameName);
+                    choiceGame(localStorage.getItem('roomNumber'),gameList[i].gameName);
+                    console.log(localStorage.getItem('roomNumber'));
                     setGameInfo(gameList[i]);
                     setIsSelected(true);
                 }
@@ -98,7 +101,7 @@ export default SelectGame
 
 const styles = {
     container: {
-      position: 'absolute',
+        position: 'absolute',
         left: '50%',
         top: '7%',
         transform: 'translateX(-50%)',
@@ -126,14 +129,14 @@ const styles = {
         borderRadius: 10, cursor: 'pointer',
     },
     contentContainer: {
-      position: 'relative'
+        position: 'relative'
     },
     infoIcon: {
         position: 'absolute', display: 'block', width: 20, height: 20, lineHeight: '22px',
         borderRadius: 100, right: 0, zIndex: 99,
     },
     gameName: {
-      marginTop: 94,
+        marginTop: 94,
         fontSize: 32,
         zIndex: 99,
         position: 'absolute',

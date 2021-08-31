@@ -36,15 +36,15 @@ export default function LiarGameView({ match }) {
         setContinueGame(result);
     }
 
-    useEffect(()=> {
-        const userArray = Object.entries(users);
-        let checkCount = 0;
-        userArray.forEach(user => {
-                if(user[1]['liar'].isCheckWord) checkCount +=1;
-            }
-        )
-        if(checkCount==userArray.length) setIsStart(true);
-    })
+    // useEffect(()=> {
+    //     const userArray = Object.entries(users);
+    //     let checkCount = 0;
+    //     userArray.forEach(user => {
+    //             if(user[1]['liar'].isCheckWord) checkCount +=1;
+    //         }
+    //     )
+    //     if(checkCount==userArray.length) setIsStart(true);
+    // })
 
 
     if (isStart && !continueGame) {
