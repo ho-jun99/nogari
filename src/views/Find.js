@@ -12,7 +12,7 @@ export default function Find({history}) {
         fontFamily: "DungGeunMo",
         lineHeight: "20px",
         color: "#0C8247",
-        marginTop:"-80px"
+        marginTop:"30px"
     }
     const subtitle={
         fontSize:"13px",
@@ -145,9 +145,6 @@ export default function Find({history}) {
                                 <div style={{fontSize:"11px",paddingTop:"13.89px"}}>친구가 보내준 링크를 입력하여 게임에 참여하세요!</div>
                             </div>
                         </div>
-
-
-
                     </div>
 
                     <div className="RightBox">

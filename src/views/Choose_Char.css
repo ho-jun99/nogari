@@ -19,7 +19,7 @@ body{
     margin-right: 50px;
     display: flex;
     flex-direction: row;
-    margin-top: -90px;
+    margin-top: -50px;
 }
 .sel_hero{
     text-align: center;
@@ -129,7 +129,7 @@ body{
     color: #FCCE39;
 }
 .category_button_box{
-    margin-top: -50px;
+    margin-top: -30px;
     align-items: center;
     justify-content: space-between;
 }
@@ -138,16 +138,18 @@ body{
     margin-left: 7px;
     background: #BDBDBD;
     border:0px;
-    border-radius: 0;
     font-size: 20px;
     color: ghostwhite;
     border-radius: 15px;
 }
 .complete_button_wrapper{
-    position: absolute;
+    position: relative;
     width: 960px;
-    margin-top:850px;
-    margin-left: 720px;
+    margin-top:650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -1015px;
 
 }
 
@@ -162,7 +164,6 @@ body{
     border: 0;
     background: #FCCE39;
     border-radius: 5px;
-    margin-top: -70px;
 }
 .complete_button2{
     position: absolute;
@@ -175,7 +176,6 @@ body{
     border: 0;
     background: #DDDDDD;
     border-radius: 5px;
-    margin-top: -70px;
 }
 .dimmed_layer_wrapper .full_layer {
     overflow:hidden;
