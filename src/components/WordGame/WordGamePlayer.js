@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/WordGamePlayer.scss'
+import '../css/WordGamePlayer.scss'
 import PropTypes from "prop-types";
 
 export default function WordGamePlayer({user}){

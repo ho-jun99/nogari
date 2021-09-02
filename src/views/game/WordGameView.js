@@ -1,9 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal'
 import {useState, useEffect} from "react";
-import './WordGameView.css';
+import './css/WordGameView.css';
 import TimeoutModal from './Timeout'
-import {getWordGameCategory, getPlayers} from "../firebase/games/word-game";
+import {getWordGameCategory, getPlayers} from "../../firebase/games/word-game";
 
 export default function WordGameView({ match }) {
     const [categoryData, setCategoryData] = useState({});

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router";
-import {getWordGameCategory} from "../firebase/games/word-game";
-import {getWord} from "../firebase/games/liar";
-import Category from "../components/common/Category";
-import './LiarCategoryView.css'
+import {getWordGameCategory} from "../../firebase/games/word-game";
+import {getWord} from "../../firebase/games/liar";
+import Category from "../../components/common/Category";
+import './css/LiarCategoryView.css'
 
 export default function LiarCategoryView({ match } ) {
     const [isChoice, setIsChoice] = useState(false);

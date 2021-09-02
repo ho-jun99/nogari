@@ -1,5 +1,5 @@
 import React from 'react';
-import './find.css'
+import './css/find.css'
 
 const styles = {
     title: {

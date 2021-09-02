@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import './find.css'
+import './css/find.css'
 import LinkModal from "./Link_input";
-import * as rooms from "../firebase/rooms";
-import {addMember, getRoomInfo} from "../firebase/waiting-room";
+import * as rooms from "../../firebase/rooms";
+import {addMember, getRoomInfo} from "../../firebase/waiting-room";
 import firebase from "firebase";
-import {getUserInfo} from "../firebase/users";
+import {getUserInfo} from "../../firebase/users";
 
 export default function Find({history}) {
     const title={

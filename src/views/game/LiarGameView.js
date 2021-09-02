@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import '../../src/components/css/liarGame.css'
-import SuggestionModal from "../components/LiarGame/suggestionModal";
-import SpeakComponent from "../components/LiarGame/SpeakComponent";
-import SelectLiarComponent from "../components/LiarGame/SelectLiarComponent";
-import {getGameRoomData} from "../firebase/game-data";
+import '../../components/css/liarGame.css'
+import SuggestionModal from "../../components/LiarGame/suggestionModal";
+import SpeakComponent from "../../components/LiarGame/SpeakComponent";
+import SelectLiarComponent from "../../components/LiarGame/SelectLiarComponent";
+import {getGameRoomData} from "../../firebase/game-data";
 
 export default function LiarGameView({ match }) {
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import AlcoholMarbleField from "../components/AlcoholMarbleField";
+import AlcoholMarbleField from "../../components/AlcoholMarble/AlcoholMarbleField";
 
 export default function AlcoholMarbleView() {
     const user = {

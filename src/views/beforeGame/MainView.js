@@ -1,17 +1,17 @@
 import {useState,useEffect} from 'react';
 import {useHistory} from "react-router";
-import "./MainView.css"
+import "./css/MainView.css"
 
-import icon from './main_img/main_icon.png'
-import bottles from './main_img/main_bottles.png'
-import first from './main_img/Mask Group1.png'
-import second1 from './main_img/Mask Group2-1.png'
-import second2 from './main_img/Mask Group2-2.png'
-import third1 from './main_img/Mask Group3-1.png'
-import third2 from './main_img/Mask Group3-2.png'
-import third3 from './main_img/Mask Group3-3.png'
-import third4 from './main_img/Mask Group3-4.png'
-import fourth from './main_img/Mask Group4.png'
+import icon from '../main_img/main_icon.png'
+import bottles from '../main_img/main_bottles.png'
+import first from '../main_img/Mask Group1.png'
+import second1 from '../main_img/Mask Group2-1.png'
+import second2 from '../main_img/Mask Group2-2.png'
+import third1 from '../main_img/Mask Group3-1.png'
+import third2 from '../main_img/Mask Group3-2.png'
+import third3 from '../main_img/Mask Group3-3.png'
+import third4 from '../main_img/Mask Group3-4.png'
+import fourth from '../main_img/Mask Group4.png'
 
 
 

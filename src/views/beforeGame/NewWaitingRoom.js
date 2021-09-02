@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import '../components/css/WatingRoom.css'
+import '../../components/css/WatingRoom.css'
 import Modal from 'react-modal';
-import Exit from '../components/modal/exit'
-import CopyLink from '../components/modal/copylink'
-import SelectGame from "../components/modal/selectGame";
-import { getRoomInfo } from "../firebase/waiting-room";
-import { getUserInfo } from '../firebase/users';
+import Exit from '../../components/modal/exit'
+import CopyLink from '../../components/modal/copylink'
+import SelectGame from "../../components/modal/selectGame";
+import { getRoomInfo } from "../../firebase/waiting-room";
+import { getUserInfo } from '../../firebase/users';
 import firebase from "firebase";
-import { setPlayers } from "../firebase/game-data";
-import RankMenu from '../components/modal/RankMenu';
-import MainGameModal from "../components/modal/mainGameInfo";
+import { setPlayers } from "../../firebase/game-data";
+import RankMenu from '../../components/modal/RankMenu';
+import MainGameModal from "../../components/modal/mainGameInfo";
 
-import Roulette from './img/상한안주.png';
-import Liar from './img/안주라이어.png';
-import Marble from './img/노가리마블.png';
-import Midterm from './img/중간고사.png';
-import GameInfo from "../components/modal/gameInfo";
+import Roulette from '../img/상한안주.png';
+import Liar from '../img/안주라이어.png';
+import Marble from '../img/노가리마블.png';
+import Midterm from '../img/중간고사.png';
+import GameInfo from "../../components/modal/gameInfo";
 
 Modal.setAppElement('#root');
 export default function NewWaitingRoom({ match, history }) {

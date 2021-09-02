@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/AlcoholMarbleCard.css'
+import '../css/AlcoholMarbleCard.css'
 
 export default function AlcoholMarbleCard(props){
     const Data = ['주루마블','주루마블','주루마블','주루마블','주루마블','주루마블'];

@@ -1,6 +1,6 @@
 import {useState,React} from 'react'
 import Modal from 'react-modal'
-import './Link_input.css'
+import './css/Link_input.css'
 
 Modal.setAppElement('#root')
 

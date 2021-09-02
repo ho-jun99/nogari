@@ -1,17 +1,17 @@
 import React,{useState} from 'react';
-import "./Choose_Char.css";
-import unchosen from "./img/unchosen.png";
-import EggRoll from './img/계란말이_스탠딩.png'
-import KimchiRollNoodle from './img/김치국수 스탠딩.png'
-import RiceCake from './img/떡볶이 스탠딩.png'
-import Nogari from './img/노가리_스탠딩1.png'
-import Chicken from './img/치킨_스탠딩.png'
-import Kkochi from './img/꼬치 3인방_스탠딩.png'
-import DdalBing from './img/빙수_스탠딩.png'
-import CheezeBall from './img/치즈볼_스탠딩.png'
-import CaramelPop from './img/카라멜팝곤_스탠딩.png'
+import "./css/Choose_Char.css";
+import unchosen from "../img/unchosen.png";
+import EggRoll from '../img/계란말이_스탠딩.png'
+import KimchiRollNoodle from '../img/김치국수 스탠딩.png'
+import RiceCake from '../img/떡볶이 스탠딩.png'
+import Nogari from '../img/노가리_스탠딩1.png'
+import Chicken from '../img/치킨_스탠딩.png'
+import Kkochi from '../img/꼬치 3인방_스탠딩.png'
+import DdalBing from '../img/빙수_스탠딩.png'
+import CheezeBall from '../img/치즈볼_스탠딩.png'
+import CaramelPop from '../img/카라멜팝곤_스탠딩.png'
 import {Link} from "react-router-dom";
-import * as members from "../firebase/users";
+import * as members from "../../firebase/users";
 
 
 const title = {

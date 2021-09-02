@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import './Timeout.css'
+import './css/Timeout.css'
 
 Modal.setAppElement('#root')
 
