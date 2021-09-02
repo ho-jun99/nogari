@@ -2,7 +2,10 @@
     width: 822.22px;
     height: 740px;
     text-align: center;
-    vertical-align: middle;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5%;
 }
 
 #LiarCategoryHeader {
