@@ -1,10 +1,11 @@
 import React from 'react';
+import RottenPlatesGame from "../../components/RottenPlatesGame/RottenPlatesGame";
 
 export default function RouletteGameView() {
   return (
     <>
       <div>
-        벌칙 게임 메인 페이지
+        <RottenPlatesGame/>
       </div>
     </>
   );
