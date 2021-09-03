@@ -95,18 +95,21 @@ export default function NewWaitingRoom({ match, history }) {
         let membersGamedata = {};
         // console.log(roomInfo);
         for await (const member of roomInfo.members) {
-            const memberInfo = await getUserInfo(member);
+            const memberInfo = await getUserInfo(member); //user컬렉션의 문서 가져오기
             if (!memberInfo) continue;
             members.push(memberInfo);
+            const gameMember = {member, liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}}
+            membersGamedata[memberInfo.nickname] = gameMember;
         }
         const memberProps = members.map((member) => member.nickname);
         // console.log(memberProps);
         setUsers(memberProps);
 
-        for await (const member of memberProps) {
-            const gameMember = {liar: {isCheckWord: false, isliar: false, order:false}, wordGame : {isCorrected: false}}
-            membersGamedata[member] = gameMember;
-        }
+        // for await (const member of members) {
+        //     console.log(member);
+        //     const gameMember = {liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}}
+        //     membersGamedata[member.nickname] = gameMember;
+        // }
         await setPlayers(match.params.roomId, membersGamedata);
     }
 
