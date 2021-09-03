@@ -65,4 +65,9 @@
     font-size: 32px;
     border-radius: 10px;
     cursor: pointer;
+    /*display: block;*/
+}
+
+.userList {
+    display: block;
 }
