@@ -1,59 +1,40 @@
 import React, {useState} from 'react'
 import {useHistory} from "react-router";
 import '../css/selectLiar.css'
+import {getUserInfo} from "../../firebase/users";
 import Egg from '../../views/img/계란말이_스탠딩.png'
 import Kimchi from '../../views/img/김치국수 스탠딩.png'
 import Nogari from '../../views/img/노가리_스탠딩1 1.png'
 import DDuk from '../../views/img/떡볶이 스탠딩.png'
 import Bing from '../../views/img/빙수_스탠딩.png'
 import Chicken from '../../views/img/치킨_스탠딩.png'
+import {updateUserData} from "../../firebase/games/liar";
 
 export default function SelectLiarComponent(props) {
 
+    const roomNumber = localStorage.getItem('roomNumber');
+    const myNickname = localStorage.getItem('nickname');
 
-    let [userList, setUserList] = useState([
-        {
-            nickname: "임성원",
-            profile: Egg,
-            count: 0,
-        },
-        {
-            nickname: "박정민",
-            profile: Kimchi,
-            count: 0,
-        },
-        {
-            nickname: "김호준",
-            profile: Nogari,
-            count: 0,
-        },
-        {
-            nickname: "신재혁",
-            profile: DDuk,
-            count: 0,
-        },
-        {
-            nickname: "김지성",
-            profile: Bing,
-            count: 0,
-        },
-        {
-            nickname: "정나영",
-            profile: Chicken,
-            count: 0,
-        },
-    ]);
+    const [profile, setProfile] = useState("");
 
-    let user = userList.map((user, index) => {
+    const usersArray = Object.entries(props.users);
+
+    let user = usersArray.map((user, index) => {
+        const getUser = async ()=> {
+            const userInfo = await getUserInfo(user[1].member);
+            // console.log(userInfo);
+            setProfile(userInfo.profile)
+        }
+        getUser();
         return (
-            <li className="userContainer" key={index} onClick={() => {
-                let newArr = [...userList];
-                newArr[index].count += 1;
-                setUserList(newArr);
+            <li className="userContainer" key={index} onClick={async () => {
+                props.users[myNickname].liar.count +=1;
+                await updateUserData(roomNumber, props.users);
+
             }}>
-                {userList[index].count ? <div className="voteCount">{userList[index].count}</div> : <div className="noneCount">{userList[index].count}</div>}
-                <img src={user.profile} alt="프로필" className="userImage"/>
-                <span>{user.nickname}</span>
+                {props.users[myNickname].liar.count!=0 ? <div className="voteCount">{props.users[myNickname].liar.count}</div> : <div className="noneCount">{}</div>}
+                <img src='#' alt={profile}  className="userImage"/>
+                <span>{user[0]}</span>
             </li>
         )
     });

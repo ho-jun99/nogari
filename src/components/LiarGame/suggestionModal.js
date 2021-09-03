@@ -5,9 +5,10 @@ import {getWordGameCategory} from "../../firebase/games/word-game";
 import {updateUserData} from "../../firebase/games/liar";
 
 export default function SuggestionModal(props) {
-    const [defaultWord, setDefaultWord] = useState('');
 
+    const [defaultWord, setDefaultWord] = useState('');
     const [liarModal, setLiarModal] = useState(false);
+
     const liarOpenModal = () => {
         setLiarModal(true);
     }

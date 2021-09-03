@@ -6,6 +6,7 @@ import DDuk from '../../views/img/떡볶이 스탠딩.png'
 import Bing from '../../views/img/빙수_스탠딩.png'
 import Chicken from '../../views/img/치킨_스탠딩.png'
 import GoStopModal from "./goStopModal";
+import {getUserInfo} from "../../firebase/users";
 
 export default function SpeakComponent(props) {
     // const gameUser = [
@@ -47,6 +48,7 @@ export default function SpeakComponent(props) {
     //     },
     // ]
     const [count, setCount] = useState(20);
+    const [profile, setProfile] = useState("");
 
     setTimeout(() => {
         setCount(count - 1);
@@ -55,10 +57,16 @@ export default function SpeakComponent(props) {
     const usersArray = Object.entries(props.users);
 
     const userList = usersArray.map((user) => {
+        const getUser = async () => {
+            const userInfo = await getUserInfo(user[1].member);
+            // console.log(userInfo);
+            setProfile(userInfo.profile)
+        }
+        getUser();
         return (
             <li style={styles.listStyle}>
                 <div style={styles.userContainer}>
-                    <img src='#' alt="캐릭터" style={user[1]['liar'].order ? styles.startUser : styles.stopUser}/>
+                    <img src='#' alt={profile} style={user[1]['liar'].order ? styles.startUser : styles.stopUser}/>
                     <div style={styles.nickName}>{user[0]}</div>
                 </div>
             </li>
@@ -90,50 +98,51 @@ export default function SpeakComponent(props) {
             <div>
                 {userList}
             </div>
-            <GoStopModal open={voteModal} close={closeVoteModal} userList={props.users} goStopResult={getFromVoteModal}/>
+            <GoStopModal open={voteModal} close={closeVoteModal} userList={props.users}
+                         goStopResult={getFromVoteModal}/>
         </div>
     )
 }
 
-const styles = {
-    container: {
-        textAlign: 'center',
-    },
-    title: {
-        color: '#000', fontStyle: 'Roboto', fontWeight: 'black',
-        fontSize: 30, marginBottom: 18, marginTop: 68,
-    },
-    description: {
-        color: '#000', fontSize: 14, marginBottom: 68,
-    },
-    count: {
-        fontSize: 120, fontStyle: 'Roboto',
-        fontWeight: 'bold', display: 'block',
-    },
-    stopBtn: {
-        marginTop: 73, width: 320, height: 70, backgroundColor: '#FCCE39', color: '#08552E',
-        fontStyle: 'Roboto', fontWeight: 'bold', fontSize: 25, border: '4px solid #08552E', borderRadius: 10,
-        cursor: 'pointer',
+    const styles = {
+        container: {
+            textAlign: 'center',
+        },
+        title: {
+            color: '#000', fontStyle: 'Roboto', fontWeight: 'black',
+            fontSize: 30, marginBottom: 18, marginTop: 68,
+        },
+        description: {
+            color: '#000', fontSize: 14, marginBottom: 68,
+        },
+        count: {
+            fontSize: 120, fontStyle: 'Roboto',
+            fontWeight: 'bold', display: 'block',
+        },
+        stopBtn: {
+            marginTop: 73, width: 320, height: 70, backgroundColor: '#FCCE39', color: '#08552E',
+            fontStyle: 'Roboto', fontWeight: 'bold', fontSize: 25, border: '4px solid #08552E', borderRadius: 10,
+            cursor: 'pointer',
 
-    },
-    startUser: {
-        width: 100, height: 100, border: '1px solid red',
-    },
-    stopUser: {
-        width: 100, height: 100,
-    },
-    listStyle: {
-        listStyleType: 'none', display: 'inline-block', border: '1px solid black', borderRadius: 5,
-        width: 144, boxSizing: 'border-box', height: 218, padding: 10, margin: '86px 8px 0 0',
-        backgroundColor: '#032213', color: '#FCCE39'
-    },
-    countText: {
-        fontSize: 24,
-    },
-    userContainer: {
-        marginTop: 34,
-    },
-    nickName: {
-        marginTop: 8,
-    },
-}
+        },
+        startUser: {
+            width: 100, height: 100, border: '1px solid red',
+        },
+        stopUser: {
+            width: 100, height: 100,
+        },
+        listStyle: {
+            listStyleType: 'none', display: 'inline-block', border: '1px solid black', borderRadius: 5,
+            width: 144, boxSizing: 'border-box', height: 218, padding: 10, margin: '86px 8px 0 0',
+            backgroundColor: '#032213', color: '#FCCE39'
+        },
+        countText: {
+            fontSize: 24,
+        },
+        userContainer: {
+            marginTop: 34,
+        },
+        nickName: {
+            marginTop: 8,
+        },
+    }
