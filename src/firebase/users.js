@@ -3,8 +3,13 @@ import firebase from './firebase-manager';
 const db = firebase.firestore();
 
 export async function getUserInfo(userId) {
-    const user = await db.collection("users").doc(userId).get();
-    return user.data() ?? null;
+    try{
+        const user = await db.collection("users").doc(userId).get();
+        return user.data() ?? null;
+    }catch (e) {
+        return null;
+    }
+
 }
 
 export async function createUser(nickname, profile) {

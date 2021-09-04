@@ -7,6 +7,16 @@ import firebase from "firebase";
 import {getUserInfo} from "../../firebase/users";
 
 export default function Find({history}) {
+    const [userdata, setUserData] = useState({});
+    useEffect(() => {
+       async function exec(){
+           const userId = localStorage.getItem('myId');
+           const userdata = await getUserInfo(userId);
+           setUserData(userdata);
+       }
+       exec();
+    }, []);
+
     const title={
         fontSize:"20px",
         fontFamily: "DungGeunMo",
@@ -22,10 +32,6 @@ export default function Find({history}) {
         marginTop:"10px"
     }
     const [ modalOpen, setModalOpen ] = useState(false);
-
-    const userId = localStorage.getItem('myId');
-    const userdata = getUserInfo(userId);
-    console.log(userId);
 
     const openModal = () => {
         setModalOpen(true);
