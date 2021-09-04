@@ -4,7 +4,7 @@ import {useState, useEffect} from "react";
 import './css/WordGameView.css';
 import TimeoutModal from './Timeout'
 import {getWordGameCategory, getPlayers} from "../../firebase/games/word-game";
-
+import StartModal from '../../components/common/gameStart'
 export default function WordGameView({ match }) {
     const [categoryData, setCategoryData] = useState({});
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -40,7 +40,7 @@ export default function WordGameView({ match }) {
             randomArr.push(index);
 
             // 원하는 배열 갯수가 되면 종료
-            if (randomArr.length == count + 1) {
+            if (randomArr.length === count + 1) {
                 break;
             }
         }
@@ -174,10 +174,18 @@ export default function WordGameView({ match }) {
             setModalOpen(false)
         }, 3000)
     }
-
+    const [startModalOpen, setStartModalOpen] = useState(true);
+    const openStartModal=()=>{
+        setStartModalOpen(true)
+    }
+    const closeStartModal = () => {
+        setInterval(() => {
+            setStartModalOpen(false)
+        }, 5000)
+    }
+    closeStartModal()
     return (
         <>
-
             <div className="main_wordgame">
                 {/*{categories.map((cate, index) => <button onClick={() => getCategoryData(cate)}*/}
                 {/*                                         key={index}>{cate}</button>)}*/}
@@ -262,6 +270,7 @@ export default function WordGameView({ match }) {
                     {player !== undefined && Object.keys(player).map((mem) => (<div>{mem}</div>))}
                 </div>
             </div>
+            <StartModal open={startModalOpen} close={startModalOpen}/>
         </>
     );
 }
