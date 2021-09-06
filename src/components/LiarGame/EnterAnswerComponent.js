@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import LiarAnswerComponent from "./LiarAnswerComponent";
 
-const AnswerComponent = (props) => {
+// 라이어가 정답을 입력하는 컴포넌트, 라이어가 아닌 유저는 대기 화면이 나타난다.
+const EnterAnswerComponent = (props) => {
 
     // *********라이어 화면일 때 쓰이는 코드들*********
     const [answer, setAnswer] = useState("");
@@ -14,15 +16,19 @@ const AnswerComponent = (props) => {
     const [userInfo, setUserInfo] = useState({
         nickname: "홍길동",
         profile: "",
-        isLiar: false, // 실제로 쓰이는 변수
+        isLiar: true, // 실제로 쓰이는 변수
     });
 
+    // '확인' 버튼 클릭 시 실행되는 함수.
+    const [confirmAnswer, setConfirmAnswer] = useState(false); // true 이면, 라이어가 적은 답 보여주는 화면으로 이동
+    const liarAnswerConfirm = () => {
+        setConfirmAnswer(true);
+    }
 
-    // *********대기 유저 화면일 때 쓰이는 코드들*********
 
 
     // 라이어 일 때 화면
-    if (userInfo.isLiar) {
+    if (userInfo.isLiar && !confirmAnswer) {
         return (
             <>
                 {/*카테고리도 파이어베이스에서 가져와서 보여줘야 할 듯*/}
@@ -32,14 +38,14 @@ const AnswerComponent = (props) => {
                     <input type="text" style={styles.textInput} onChange={setData}/>
                 </div>
                 <div>
-                    {answer ? <input type="button" value="확인" style={styles.yesBtn}/> :
+                    {answer ? <input type="button" value="확인" style={styles.yesBtn} onClick={liarAnswerConfirm}/> :
                         <input type="button" value="확인" style={styles.noBtn} disabled/>}
                 </div>
             </>
         )
     }
     // 대기 유저 화면
-    else {
+    else if (!userInfo.isLiar && !confirmAnswer) {
         return (
             <>
                 <div style={styles.category}>카테고리 : 인물</div>
@@ -52,8 +58,16 @@ const AnswerComponent = (props) => {
             </>
         )
     }
+    // 라이어가 적은 답을 보여주는 화면으로 이동
+    else {
+        return (
+            <>
+                <LiarAnswerComponent answer={answer} profile={props.profile} name={props.name}/>
+            </>
+        )
+    }
 }
-export default AnswerComponent
+export default EnterAnswerComponent
 const styles = {
     category: {
         fontSize: 32, marginTop: 125, marginBottom: 29,

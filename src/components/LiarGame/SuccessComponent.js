@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Circle from "./images/greenCircle.png";
-import AnswerComponent from "./AnswerComponent";
+import EnterAnswerComponent from "./EnterAnswerComponent";
 
 const SuccessComponent = (props) => {
     const [answer, setAnswer] = useState(false); // true 이면 라이어가 정답을 입력하는 화면, 다른 플레이어는 대기 화면으로 이동
@@ -35,7 +35,7 @@ const SuccessComponent = (props) => {
     else {
         return (
             <>
-                <AnswerComponent name={props.name} profile={props.profile}/>
+                <EnterAnswerComponent name={props.name} profile={props.profile}/>
             </>
         )
     }
