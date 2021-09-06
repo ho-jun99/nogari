@@ -48,9 +48,12 @@ const Category = {
     lineHeight:'28px'
 }
 
+
+
+export const Chr = [unchosen, EggRoll, KimchiRollNoodle, RiceCake, Nogari, Chicken, Kkochi, DdalBing, CheezeBall, CaramelPop];
+export const Ch_name = ["캐릭터 선택", "계란말이", "김치말이 국수", "시골 떡볶이", "청춘 노가리", "치킨", "꼬치구이","딸기 빙수", "치즈볼", "카라멜 팝콘"];
+
 export default function Choose_Char() {
-    const Chr = [unchosen, EggRoll, KimchiRollNoodle, RiceCake, Nogari, Chicken, Kkochi, DdalBing, CheezeBall, CaramelPop];
-    const Ch_name = ["캐릭터 선택", "계란말이", "김치말이 국수", "시골 떡볶이", "청춘 노가리", "치킨", "꼬치구이","딸기 빙수", "치즈볼", "카라멜 팝콘"];
     const Catego = ["식사류", "안주류", "간식류"]
     const [count, setCount] = useState(0);
     const [idx, setIdx] = useState(0);
