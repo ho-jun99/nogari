@@ -15,7 +15,8 @@ export default function Find({history}) {
            const userdata = await getUserInfo(userId);
            setUserData(userdata);
        }
-       exec();
+
+        exec();
     }, []);
 
     const title={
