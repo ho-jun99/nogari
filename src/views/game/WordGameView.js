@@ -66,8 +66,6 @@ export default function WordGameView({match}) {
         // 이러한 arr를 setRandom
         let arr = [];
         randomArr.map(num => {
-            // console.log(wordGame[num], random)
-            // setRandom(random => [...random, wordGame[num]])
             arr.push(wordGame[num])
         });
         setRandom(arr);
