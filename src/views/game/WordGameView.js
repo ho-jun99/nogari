@@ -104,9 +104,6 @@ export default function WordGameView({match}) {
         }
     }
     const handleSearch = async () => {
-        const setThreeSeconds = () => {
-            console.log("fffffffffffff")
-        }
         player[myNickname].wordGame.inputWord = value;
         if (state.ans === value) {
             player[myNickname].wordGame.isCorrected = true;
@@ -115,7 +112,6 @@ export default function WordGameView({match}) {
             // 일단은 라운드 2까지 밖에 없으니까 라운드 다 되면 0으로 다시 초기화 해줍니다
             totalRound !== round ? setRound(round + 1) : setRound(0);
             setState({value: random[round].quiz, ans: random[round].answer});
-            setThreeSeconds()
         } else {
             alert('오답!');
             player[myNickname].wordGame.isCorrected = false;
@@ -158,7 +154,6 @@ export default function WordGameView({match}) {
 
     // round가 증가하면 quiz state를 set
     useEffect(() => {
-        console.log("aaaaaaa")
         random[0] !== undefined && setState({value: random[round].quiz, ans: random[round].answer});
         if (player !== undefined) {
             player[myNickname].wordGame.inputWord = "";

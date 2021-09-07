@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import '../css/WordGamePlayer.scss'
+import Graduation_Hat from '../../views/img/졸업모자.png'
 
 function WordGamePlayer({player, myNickname, roomNumber, updateUserData}) {
     useEffect(() => {
@@ -15,8 +16,10 @@ function WordGamePlayer({player, myNickname, roomNumber, updateUserData}) {
             <div className="footer">
                 {player !== undefined && Object.entries(player).map((mem) => (
                     <>
-                        {mem[1].wordGame.inputWord !== "" && <div className="inputword">{mem[1].wordGame.inputWord}</div>}
-                        <div>{mem[0]}</div>
+                        {mem[1].wordGame.inputWord !== "" &&
+                        <div className="inputword">{mem[1].wordGame.inputWord}</div>}
+                        {mem[1].wordGame.isCorrected ? <div><img src={Graduation_Hat}/> {mem[0]}</div> :
+                            <div>{mem[0]}</div>}
                     </>
                 ))}
             </div>
