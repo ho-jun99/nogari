@@ -98,7 +98,7 @@ export default function NewWaitingRoom({ match, history }) {
             const memberInfo = await getUserInfo(member); //user컬렉션의 문서 가져오기
             if (!memberInfo) continue;
             members.push(memberInfo);
-            const gameMember = {member, liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}}
+            const gameMember = {member, liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false, inputWord: ""}}
             membersGamedata[memberInfo.nickname] = gameMember;
         }
         const memberProps = members.map((member) => member.nickname);

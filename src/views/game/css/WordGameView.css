@@ -20,6 +20,7 @@
     letter-spacing: 0.01em;
     align-items: center;
     display: flex;
+    opacity: 0.9;
     justify-content: space-around;
 }
 
@@ -60,6 +61,11 @@
     grid-column-gap: 20.41px;
     grid-row-gap: 11px;
 }
+
+.footer > .inputword {
+    background-color: green;
+}
+
 .footer > div{
     color: #FFFFFF;
     width: 105.17px;
@@ -68,4 +74,5 @@
     border-radius: 5px;
 
 }
+
 

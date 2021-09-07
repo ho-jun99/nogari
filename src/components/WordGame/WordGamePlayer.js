@@ -1,18 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../css/WordGamePlayer.scss'
-import PropTypes from "prop-types";
 
-export default function WordGamePlayer({user}){
-    console.log(user);
+function WordGamePlayer({player, myNickname, roomNumber, updateUserData}) {
+    useEffect(() => {
+        if (player !== undefined) {
+            player[myNickname].wordGame.isCorrected = false;
+            player[myNickname].wordGame.inputWord = "";
+            updateUserData(roomNumber, player);
+        }
+    }, [player])
+
     return (
         <>
-            <div className="user">
-                {/*<label>{name}</label>*/}
+            <div className="footer">
+                {player !== undefined && Object.entries(player).map((mem) => (
+                    <>
+                        {mem[1].wordGame.inputWord !== "" && <div className="inputword">{mem[1].wordGame.inputWord}</div>}
+                        <div>{mem[0]}</div>
+                    </>
+                ))}
             </div>
         </>
     )
 }
 
-// WordGamePlayer.propTypes = {
-//     name: PropTypes.string.isRequired,
-// };
+export default WordGamePlayer
