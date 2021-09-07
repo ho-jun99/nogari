@@ -5,14 +5,7 @@ import * as rooms from "../../firebase/rooms";
 import {addMember, getRoomInfo} from "../../firebase/waiting-room";
 import firebase from "firebase";
 import {getUserInfo} from "../../firebase/users";
-
-import profileAsset1 from '../img/계란말이_스탠딩.png';
-import profileAsset2 from '../img/김치국수 스탠딩.png';
-import profileAsset3 from '../img/노가리_스탠딩1.png';
-import profileAsset4 from '../img/떡볶이 스탠딩.png';
-import profileAsset5 from '../img/계란말이_스탠딩.png';
-
-const profileAssets = [profileAsset1, profileAsset2, profileAsset3, profileAsset4, profileAsset5];
+import {Chr, Ch_name} from './Choose_Char';
 
 export default function Find({history}) {
     const [userdata, setUserData] = useState({});
@@ -22,7 +15,8 @@ export default function Find({history}) {
            const userdata = await getUserInfo(userId);
            setUserData(userdata);
        }
-       exec();
+
+        exec();
     }, []);
 
     const title={
@@ -163,8 +157,7 @@ export default function Find({history}) {
 
                     <div className="RightBox">
                         <div className="">
-                            {userdata?.profile && <img src={profileAssets[(userdata?.profile || 0) + 1]} style={{width: '100%'}} alt=""/>}
-
+                            {userdata?.profile && <img src={Chr[userdata?.profile || 1]} style={{width: '100%'}} alt=""/>}
                         </div>
                         <div className="NameBox">
                             <a style={{
@@ -174,7 +167,7 @@ export default function Find({history}) {
                                 fontFamily: "DungGeunMo",
                                 fontSize: "12px",
                                 lineHeight: "19px",
-                                color: " #FCCE39"}}>{}</a>
+                                color: " #FCCE39"}}>{Ch_name[userdata?.profile || 1]}</a>
                             <a style={{
                                 position:"absolute",
                                 paddingTop:"20px",
