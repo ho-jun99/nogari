@@ -71,7 +71,7 @@
     position: relative;
 }
 .first-inner-container {
-    top: -576px;
+    top: -594px;
     left: 59px;
     position: absolute;
     width: 350px;
@@ -87,7 +87,7 @@
 }
 .second-inner-container {
     position: absolute;
-    top: -576px;
+    top: -594px;
     right: 59px;
     width: 350px;
     height: 220px;
@@ -102,7 +102,7 @@
 }
 .third-inner-container {
     position: absolute;
-    top: -318px;
+    top: -336px;
     left: 59px;
     width: 350px;
     height: 220px;
@@ -121,7 +121,7 @@
 }
 .fourth-inner-container {
     position: absolute;
-    top: -318px;
+    top: -336px;
     right: 59px;
     width: 350px;
     height: 220px;
@@ -167,6 +167,6 @@
 .exit-btn:before {
     content: url("../../views/img/closeBtn.png");
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 16px;
+    right: 16px;
 }

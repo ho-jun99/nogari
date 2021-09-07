@@ -83,7 +83,7 @@ const SelectGame = (props, {match}) => {
         <div style={styles.container}>
             {props.open ? (
                 <div style={styles.innerContainer}>
-                    <h2 style={styles.title}>게임 선택</h2>
+                    <h2 style={styles.title}>게임 선택!!</h2>
                     <div style={styles.listContainer}>{game_info}</div>
                     <div style={styles.btnContainer}>
                         {isSelected ? <button style={styles.btnStyleSelected} onClick={sendToParent}>선택 완료</button> :
@@ -105,13 +105,14 @@ const styles = {
         left: '50%',
         top: '7%',
         transform: 'translateX(-50%)',
+        zIndex: 100,
     },
     innerContainer: {
         width: 850, height: 700, border: '2px solid #FCCE39', backgroundColor: '#1B9659', color: '#FCCE39',
         borderRadius: 15,
     },
     title: {
-        textAlign: 'center', fontSize: 40,
+        textAlign: 'center', fontSize: 40, marginTop: 32, marginBottom: 16,
     },
     listContainer: {
         textAlign: 'center', backgroundColor: '#08552E', borderRadius: 10, border: '1px solid black',

@@ -28,7 +28,7 @@
     background-color : red;
     z-index: 100;
   }
-  
+
 
   .UnPassTrash {
     color :#fcce3a;
@@ -77,14 +77,14 @@
 
   }
 
-  
-  
+
+
 
   .UnPassMessage {
     color : #E0E0E0;
     font-size: 18px;
     text-align:center;
-    
+
   }
 
 }
@@ -137,8 +137,8 @@
     left : 30px;
     top : 30px;
   }
-  
-  .message { 
+
+  .message {
     font-size: 24px;
     color: #1a9659;
   }
@@ -174,10 +174,10 @@
       height: 53px;
     }
 
-    &:hover {         
+    &:hover {
       transform: scale(1.5);
       transition: scale 0.25s ease-in;
-      
+
     }
   }
 }
@@ -188,7 +188,7 @@
   width: 730px;
   height: 170.57px;
   justify-content: space-between;
-  
+
   .userWrapper {
     background-color: #022213;
     border: 2px solid black;
@@ -200,8 +200,8 @@
     justify-content: space-around;
     align-items: center;
 
-  
-    
+
+
     .userImage {
       width: 100px;
       height: 116.45px;
