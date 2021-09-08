@@ -22,12 +22,15 @@ const styles = {
     container: {
         color: '#fcce39',
         textAlign: 'left',
-        width: '100%',
+        width: 440,
         height: 315.46,
         backgroundColor: '#323232',
         borderRadius: 15,
         zIndex: 100,
         position: 'absolute',
+        // border: '5px solid #323232',
+
+
     },
     gameName: {
         marginTop: 57,

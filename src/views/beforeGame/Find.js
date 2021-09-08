@@ -5,8 +5,20 @@ import * as rooms from "../../firebase/rooms";
 import {addMember, getRoomInfo} from "../../firebase/waiting-room";
 import firebase from "firebase";
 import {getUserInfo} from "../../firebase/users";
+import {Chr, Ch_name} from './Choose_Char';
 
 export default function Find({history}) {
+    const [userdata, setUserData] = useState({});
+    useEffect(() => {
+       async function exec(){
+           const userId = localStorage.getItem('myId');
+           const userdata = await getUserInfo(userId);
+           setUserData(userdata);
+       }
+
+        exec();
+    }, []);
+
     const title={
         fontSize:"20px",
         fontFamily: "DungGeunMo",
@@ -22,10 +34,6 @@ export default function Find({history}) {
         marginTop:"10px"
     }
     const [ modalOpen, setModalOpen ] = useState(false);
-
-    const userId = localStorage.getItem('myId');
-    const userdata = getUserInfo(userId);
-    console.log(userId);
 
     const openModal = () => {
         setModalOpen(true);
@@ -148,6 +156,9 @@ export default function Find({history}) {
                     </div>
 
                     <div className="RightBox">
+                        <div className="">
+                            {userdata?.profile && <img src={Chr[userdata?.profile || 1]} style={{width: '100%'}} alt=""/>}
+                        </div>
                         <div className="NameBox">
                             <a style={{
                                 position:"absolute",
@@ -156,7 +167,7 @@ export default function Find({history}) {
                                 fontFamily: "DungGeunMo",
                                 fontSize: "12px",
                                 lineHeight: "19px",
-                                color: " #FCCE39"}}>{}</a>
+                                color: " #FCCE39"}}>{Ch_name[userdata?.profile || 1]}</a>
                             <a style={{
                                 position:"absolute",
                                 paddingTop:"20px",
