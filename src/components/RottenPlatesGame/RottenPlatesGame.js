@@ -1,7 +1,7 @@
 import react, {useState,createContext,memo,useRef, useEffect} from 'react';
 import Table from './Table';
 import Users from './Users';
-import './css/RottenPlatesGame.css'
+import '../css/RottenPlatesGame.css';
 import UnPassModal from './UnPassModal';
 
 export const TableContext = createContext();

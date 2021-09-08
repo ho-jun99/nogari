@@ -12,11 +12,11 @@ function Exit(props) {
         <div style={styles.container}>
             {open ? (
                 <div style={styles.innerContainer}>
-                    <span style={styles.title}>다른방 찾기</span>
-                    <span style={styles.content}>다른방을 찾으러 나가시겠습니까?</span>
+                    <div style={styles.title}>다른방 찾기</div>
+                    <div style={styles.content}>다른방을 찾으러 이 방에서 나가시겠습니까?</div>
                     <div style={styles.btnContainer}>
-                        <button style={styles.btn} onClick={() => exitModal()}>나갈래</button>
-                        <button onClick={close} style={styles.btn}>취소</button>
+                        <button style={styles.firstBtn} onClick={() => exitModal()}>나갈래용!</button>
+                        <button onClick={close} style={styles.secondBtn}>취소</button>
                     </div>
 
                 </div>
@@ -37,18 +37,24 @@ const styles = {
 
     },
     innerContainer: {
-        position: 'relative', width: 440, height: 220, border: '3px solid black', backgroundColor: '#eee',
+        position: 'relative', width: 450, height: 332, borderRadius: '5%', backgroundColor: '#0c8247', border: '1px solid black',
     },
     title: {
-        display: 'block', textAlign: 'center', fontWeight: 'bold', position: 'absolute', width: '100%', top: 30,
+        position: 'absolute',
+        width: '100%', top: 30, fontSize: 28,
+        textAlign: 'center', marginBottom: 49, color: '#fcce39', marginTop: 36,
     },
     content: {
-        display: 'block', textAlign: 'center', fontWeight: 'bold', position: 'absolute', width: '100%', top: '40%'
+        position: 'absolute',
+        textAlign: 'center', width: '100%', fontSize: 18, color: '#fcce39', marginTop: 142,
     },
     btnContainer: {
-        position: 'absolute', textAlign: 'center', width: '100%', bottom: 10,
+        position: 'absolute', textAlign: 'center', width: '100%', marginTop: 241,
     },
-    btn: {
-        backgroundColor: '#908f8f', width:100, color: '#fff', margin: '0 10px 0 10px',
+    firstBtn: {
+        backgroundColor: '#08552E', width:146, color: '#fcce39', height: 43, borderRadius: 5, border: 'none', fontSize: 20, marginRight: 28.51,
+    },
+    secondBtn: {
+        backgroundColor: '#21AB66', width:146, color: '#fcce39', height: 43, borderRadius: 5, border: 'none', fontSize: 20,
     },
 }

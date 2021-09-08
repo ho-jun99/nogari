@@ -95,18 +95,21 @@ export default function NewWaitingRoom({ match, history }) {
         let membersGamedata = {};
         // console.log(roomInfo);
         for await (const member of roomInfo.members) {
-            const memberInfo = await getUserInfo(member);
+            const memberInfo = await getUserInfo(member); //user컬렉션의 문서 가져오기
             if (!memberInfo) continue;
             members.push(memberInfo);
+            const gameMember = {member, liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false, inputWord: ""}}
+            membersGamedata[memberInfo.nickname] = gameMember;
         }
         const memberProps = members.map((member) => member.nickname);
         // console.log(memberProps);
         setUsers(memberProps);
 
-        for await (const member of memberProps) {
-            const gameMember = {liar: {isCheckWord: false, isliar: false, order:false}, wordGame : {isCorrected: false}}
-            membersGamedata[member] = gameMember;
-        }
+        // for await (const member of members) {
+        //     console.log(member);
+        //     const gameMember = {liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}}
+        //     membersGamedata[member.nickname] = gameMember;
+        // }
         await setPlayers(match.params.roomId, membersGamedata);
     }
 
@@ -131,17 +134,17 @@ export default function NewWaitingRoom({ match, history }) {
     }
 
 
-    useEffect(() => {
-        getRoomInfo(match.params.roomId, changedRoomInfo);
-    }, []);
+    // useEffect(() => {
+    //     getRoomInfo(match.params.roomId, changedRoomInfo);
+    // }, []);
     return (
         <>
             <div id="mainWrap">
                 <section className="navi">
                     <div className="btnContainer">
-                        <button className="modal" onClick={isMenuOpenFun}>메뉴판 일러스트</button>
-                        <button className="modal" onClick={() => linkCopyModal(true)}>링크로 초대하기</button>
-                        <button className="modal" onClick={() => exitModal(true)}>다른방 찾기</button>
+                        <button className="modal" onClick={isMenuOpenFun}>베스트 메뉴판</button>
+                        <button className="modal" onClick={() => linkCopyModal(true)}>링크 초대</button>
+                        <button className="modal" onClick={() => exitModal(true)}>대기실로 돌아가기</button>
                     </div>
 
                     <Exit open={room.exitModalOpen} close={() => exitModal(false)}></Exit>
@@ -171,6 +174,7 @@ export default function NewWaitingRoom({ match, history }) {
                                 borderRadius: '5%',
                                 backgroundImage: `url(${selectedGameInfo[0].background})`,
                                 backgroundSize: 'cover',
+
                             }}>
                                 <div className="gameTitle">
                                     {selectedGameInfo[0].selectedGameName}
@@ -201,7 +205,7 @@ export default function NewWaitingRoom({ match, history }) {
                         {selectedGameRule ? <div>{selectedGameRule}</div> : <div>게임을 먼저 선택해 주세요.</div>}
                     </Modal> */}
                         </div>
-                        {room.isSelected ? <button className="startBtn" onClick={gameStart}>시작</button> :
+                        {room.isSelected ? <button className="startBtn" onClick={gameStart}>시작하기</button> :
                             <button className="stopBtn" disabled>시작</button>}
                     </div>
 

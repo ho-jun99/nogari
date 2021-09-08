@@ -45,6 +45,50 @@
     display: block;
 }
 
+.gameList[tabindex="0"]:focus:before {
+    background-color: #FCCE39;
+}
+.gameList[tabindex="0"]:focus .infoBtn {
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.gameList[tabindex="0"]:focus {
+    color: #20985C;
+}
+
+.gameList[tabindex="1"]:focus:before {
+    background-color: #FCCE39;
+}
+.gameList[tabindex="1"]:focus .infoBtn {
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.gameList[tabindex="1"]:focus {
+    color: #20985C;
+}
+
+.gameList[tabindex="2"]:focus:before {
+    background-color: #FCCE39;
+}
+.gameList[tabindex="2"]:focus .infoBtn {
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.gameList[tabindex="2"]:focus {
+    color: #20985C;
+}
+
+.gameList[tabindex="3"]:focus:before {
+    background-color: #FCCE39;
+}
+.gameList[tabindex="3"]:focus .infoBtn {
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.gameList[tabindex="3"]:focus {
+    color: #20985C;
+}
+
 
 
 .gameList:hover {
@@ -71,7 +115,7 @@
     position: relative;
 }
 .first-inner-container {
-    top: -576px;
+    top: -594px;
     left: 59px;
     position: absolute;
     width: 350px;
@@ -87,7 +131,7 @@
 }
 .second-inner-container {
     position: absolute;
-    top: -576px;
+    top: -594px;
     right: 59px;
     width: 350px;
     height: 220px;
@@ -102,7 +146,7 @@
 }
 .third-inner-container {
     position: absolute;
-    top: -318px;
+    top: -336px;
     left: 59px;
     width: 350px;
     height: 220px;
@@ -121,7 +165,7 @@
 }
 .fourth-inner-container {
     position: absolute;
-    top: -318px;
+    top: -336px;
     right: 59px;
     width: 350px;
     height: 220px;
@@ -167,6 +211,6 @@
 .exit-btn:before {
     content: url("../../views/img/closeBtn.png");
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 16px;
+    right: 16px;
 }

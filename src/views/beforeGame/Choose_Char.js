@@ -48,9 +48,12 @@ const Category = {
     lineHeight:'28px'
 }
 
-export default function Choose_Char() {
-    const Chr = [unchosen, EggRoll, KimchiRollNoodle, RiceCake, Nogari, Chicken, Kkochi, DdalBing, CheezeBall, CaramelPop];
-    const Ch_name = ["캐릭터 선택", "계란말이", "김치말이 국수", "시골 떡볶이", "청춘 노가리", "치킨", "꼬치구이","딸기 빙수", "치즈볼", "카라멜 팝콘"];
+
+
+export const Chr = [unchosen, EggRoll, KimchiRollNoodle, RiceCake, Nogari, Chicken, Kkochi, DdalBing, CheezeBall, CaramelPop];
+export const Ch_name = ["캐릭터 선택", "계란말이", "김치말이 국수", "시골 떡볶이", "청춘 노가리", "치킨", "꼬치구이","딸기 빙수", "치즈볼", "카라멜 팝콘"];
+
+export default function Choose_Char({ history }) {
     const Catego = ["식사류", "안주류", "간식류"]
     const [count, setCount] = useState(0);
     const [idx, setIdx] = useState(0);
@@ -90,17 +93,7 @@ export default function Choose_Char() {
             localStorage.setItem('snack', snack);
 
             setCharacter(0);
-
-            /*  유저 문서에서 주기적으로 접속 시간 받을 필요가 있나? 룸에서만 확인하면 되는 거 아닌가요?
-            setInterval(async () => {
-                const user = localStorage.getItem('myId')
-                const time = new Date().getTime()
-                localStorage.setItem('connection',time)
-                await firebase.firestore().collection('users').doc(`${user}`).update({
-                    lastConnection : time
-                }, {merge:true})
-            }, 6000);
-            */
+            history.push('/find');
         }
     }
 
@@ -191,16 +184,13 @@ export default function Choose_Char() {
                     <input id="id" type="text"  placeholder="닉네임 입력" value={nickname} className="input_box" onChange={handleOnChange} />
                 </div>
                 <div className="complete_button_wrapper">
-                    <Link to ="./find">
-                        <div>
-                            { nickname===""
-                                ?<button disabled={nickname===""} className="complete_button2">캐릭터 생성 완료</button>
-                                :<button className="complete_button1" onClick={createID}>캐릭터 생성 완료</button>
+                    <div>
+                        { nickname===""
+                            ?<button disabled={nickname===""} className="complete_button2">캐릭터 생성 완료</button>
+                            :<button className="complete_button1" onClick={createID}>캐릭터 생성 완료</button>
 
-                            }
-                        </div>
-                    </Link>
-
+                        }
+                    </div>
                 </div>
 
             </div>
