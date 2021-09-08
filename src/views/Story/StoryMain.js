@@ -24,7 +24,7 @@ const getBackImg = (index) => {
 
 
 // 정답 화면을 보여주는 컴포넌트, 3초 뒤 라이어 승리 컴포넌트로 이동
-export default function StoryMain () {
+export default function StoryMain ({ history }) {
   const [curIndex,setCurIndex] = useState(0);
 
   const getTextMsg = (index) => {
@@ -64,7 +64,7 @@ export default function StoryMain () {
   }
 
   const BtnStartGame = () => {
-
+    history.push("/choose_char")
   }
 
   return (
