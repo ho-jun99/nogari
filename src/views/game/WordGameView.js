@@ -4,6 +4,7 @@ import {useState, useEffect} from "react";
 import './css/WordGameView.css';
 import TimeoutModal from './Timeout'
 import {getWordGameCategory, getPlayers} from "../../firebase/games/word-game";
+import StartModal from '../../components/common/gameStart'
 import {updateUserData} from "../../firebase/games/liar";
 import WordGamePlayer from "../../components/WordGame/WordGamePlayer";
 import WordGameTimer from "../../components/WordGame/WordGameTimer";
@@ -55,7 +56,7 @@ export default function WordGameView({match}) {
             randomArr.push(index);
 
             // 원하는 배열 갯수가 되면 종료
-            if (randomArr.length == count + 1) {
+            if (randomArr.length === count + 1) {
                 break;
             }
         }
@@ -126,6 +127,16 @@ export default function WordGameView({match}) {
             setModalOpen(false)
         }, 3000)
     }
+    const [startModalOpen, setStartModalOpen] = useState(true);
+    const openStartModal=()=>{
+        setStartModalOpen(true)
+    }
+    const closeStartModal = () => {
+        setInterval(() => {
+            setStartModalOpen(false)
+        }, 5000)
+    }
+    closeStartModal()
 
     useEffect(() => {
         init();
@@ -183,6 +194,7 @@ export default function WordGameView({match}) {
                 </div>
                 <WordGamePlayer player={player} myNickname={myNickname} roomNumber={roomNumber} updateUserData={updateUserData}/>
             </div>
+            <StartModal open={startModalOpen} close={startModalOpen}/>
         </>
     );
 }
