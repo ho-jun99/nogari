@@ -45,6 +45,50 @@
     display: block;
 }
 
+.gameList[tabindex="0"]:focus:before {
+    background-color: #FCCE39;
+}
+.gameList[tabindex="0"]:focus .infoBtn {
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.gameList[tabindex="0"]:focus {
+    color: #20985C;
+}
+
+.gameList[tabindex="1"]:focus:before {
+    background-color: #FCCE39;
+}
+.gameList[tabindex="1"]:focus .infoBtn {
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.gameList[tabindex="1"]:focus {
+    color: #20985C;
+}
+
+.gameList[tabindex="2"]:focus:before {
+    background-color: #FCCE39;
+}
+.gameList[tabindex="2"]:focus .infoBtn {
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.gameList[tabindex="2"]:focus {
+    color: #20985C;
+}
+
+.gameList[tabindex="3"]:focus:before {
+    background-color: #FCCE39;
+}
+.gameList[tabindex="3"]:focus .infoBtn {
+    background-color: #1B9659;
+    color: #FCCE39;
+}
+.gameList[tabindex="3"]:focus {
+    color: #20985C;
+}
+
 
 
 .gameList:hover {

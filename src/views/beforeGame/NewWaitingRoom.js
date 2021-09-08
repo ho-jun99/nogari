@@ -134,9 +134,9 @@ export default function NewWaitingRoom({ match, history }) {
     }
 
 
-    useEffect(() => {
-        getRoomInfo(match.params.roomId, changedRoomInfo);
-    }, []);
+    // useEffect(() => {
+    //     getRoomInfo(match.params.roomId, changedRoomInfo);
+    // }, []);
     return (
         <>
             <div id="mainWrap">
