@@ -11,7 +11,8 @@ import {
     ChangeCharacterView,
     Choose_Char,
     Find,
-    NewWaitingRoom, LiarCategoryView,WordGameCategoryView
+    NewWaitingRoom, LiarCategoryView,WordGameCategoryView,
+    StoryMain
 } from './views';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                 <Route exact path="/rooms/:roomId/wordCategory" component={WordGameCategoryView}/>
                 <Route path="/rooms/:roomId/marble" component={AlcoholMarbleView}/>
                 <Route path="/changeCharacter" component={ChangeCharacterView}/>
+                <Route path = "/story" component ={StoryMain}/>
             </div>
         </div>
     );
