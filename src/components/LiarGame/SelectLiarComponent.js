@@ -30,6 +30,7 @@ export default function SelectLiarComponent(props) {
             <li className="userContainer" key={index} onClick={async () => {
                 props.users[myNickname].liar.count +=1;
                 await updateUserData(roomNumber, props.users);
+                console.log(props.users);
 
             }}>
                 {props.users[myNickname].liar.count!=0 ? <div className="voteCount">{props.users[myNickname].liar.count}</div> : <div className="noneCount">{}</div>}

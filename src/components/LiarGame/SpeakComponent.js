@@ -7,6 +7,7 @@ import Bing from '../../views/img/빙수_스탠딩.png'
 import Chicken from '../../views/img/치킨_스탠딩.png'
 import GoStopModal from "./goStopModal";
 import {getUserInfo} from "../../firebase/users";
+import {updateUserData} from "../../firebase/games/liar";
 
 export default function SpeakComponent(props) {
     // const gameUser = [
@@ -50,17 +51,20 @@ export default function SpeakComponent(props) {
     const [count, setCount] = useState(20);
     const [profile, setProfile] = useState("");
 
+    const roomNumber = localStorage.getItem('roomNumber');
+    const myNickname = localStorage.getItem('nickname');
+
     setTimeout(() => {
         setCount(count - 1);
     }, 1000);
 
     const usersArray = Object.entries(props.users);
+    console.log(usersArray);
 
     const userList = usersArray.map((user) => {
         const getUser = async () => {
             const userInfo = await getUserInfo(user[1].member);
-            // console.log(userInfo);
-            setProfile(userInfo.profile)
+            setProfile(userInfo.profile);
         }
         getUser();
         return (
@@ -76,7 +80,9 @@ export default function SpeakComponent(props) {
 
 
     const [voteModal, setVoteModal] = useState(false);
-    const openVoteModal = () => {
+    const openVoteModal = async() => {
+        props.users[myNickname].liar.order = true;
+        await updateUserData(roomNumber, props.users);
         setVoteModal(true);
     }
     const closeVoteModal = () => {

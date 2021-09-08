@@ -98,6 +98,7 @@ export default function NewWaitingRoom({ match, history }) {
             const memberInfo = await getUserInfo(member); //user컬렉션의 문서 가져오기
             if (!memberInfo) continue;
             members.push(memberInfo);
+            console.log(member);
             const gameMember = {member, liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false, inputWord: ""}}
             membersGamedata[memberInfo.nickname] = gameMember;
         }
@@ -105,11 +106,6 @@ export default function NewWaitingRoom({ match, history }) {
         // console.log(memberProps);
         setUsers(memberProps);
 
-        for await (const member of members) {
-            console.log(member);
-            const gameMember = {liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}}
-            membersGamedata[member.nickname] = gameMember;
-        }
         await setPlayers(match.params.roomId, membersGamedata);
     }
 
