@@ -5,9 +5,7 @@ import {
     RouletteGameView,
     WordGameView,
     MainView,
-    CreateUserView,
     AlcoholMarbleView,
-    CreateRoomView,
     ChangeCharacterView,
     Choose_Char,
     Find,
@@ -31,6 +29,7 @@ function App() {
                 <Route path="/rooms/:roomId/marble" component={AlcoholMarbleView}/>
                 <Route path="/changeCharacter" component={ChangeCharacterView}/>
                 <Route path = "/story" component ={StoryMain}/>
+
             </div>
         </div>
     );
