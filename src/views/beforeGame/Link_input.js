@@ -1,18 +1,19 @@
-import {useState,React} from 'react'
+import {useState, React, useEffect} from 'react'
 import {useHistory} from "react-router";
 import Modal from 'react-modal'
 import './css/Link_input.css'
 import firebase from "firebase";
 import {addMember} from "../../firebase/waiting-room";
+import {getUserInfo} from "../../firebase/users";
 
 Modal.setAppElement('#root')
 
 const LinkModal = (props) => {
     const{open,close} = props;
     const[value,setValue]=useState("");
+    const[roomId, setRoomId] = useState('');
 
     const history = useHistory();
-    const roomId = localStorage.getItem('roomNumber');
 
     const inRoom = () => {
         firebase.firestore().collection('rooms').get().then((snapshot) => {
@@ -24,9 +25,9 @@ const LinkModal = (props) => {
                         if (doc.exists) { // 현재 웹스토리지에 있는 유저아이디로 된 문서가 있는지 확인
                             const addUser = async () => {
                                 await addMember(value, localStorage.getItem('myId'));
-                                history.push(`/rooms/${roomId}`);
                             }
                             addUser();
+                            history.push(`/rooms/${value}`);
                             // setInterval(async () => { // 유저 접속 시간 주기적으로 받기
                             //     const time = new Date().getTime()
                             //     localStorage.setItem('connection',time)
@@ -42,9 +43,6 @@ const LinkModal = (props) => {
                     });
                 }
             })
-            if ( roomId !== value) {
-                alert('에러')
-            }
         })
     }
     return(
