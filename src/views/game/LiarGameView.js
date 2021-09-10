@@ -4,20 +4,37 @@ import SuggestionModal from "../../components/LiarGame/suggestionModal";
 import SpeakComponent from "../../components/LiarGame/SpeakComponent";
 import SelectLiarComponent from "../../components/LiarGame/SelectLiarComponent";
 import {getGameRoomData} from "../../firebase/game-data";
+import {getRoomdata} from "../../firebase/rooms";
 
 export default function LiarGameView({ match }) {
 
     //게임 데이터 불러오기
     const [liarGamedata, setLiarGamedata] = useState({});
     const [users, setUsers] = useState([]);
+    const [turn, setTurn] = useState([]);
+    const [isStart, setIsStart] = useState(false); // 게임 실행 중 확인 여부 변수
+    const [continueGame, setContinueGame] = useState(false);
 
     const changedgamedata = async (gamedata) => {
         setUsers(gamedata.players);
+        setTurn(gamedata.turn);
         setLiarGamedata(gamedata.liar);
+
+        const gameUserData = Object.entries(gamedata.players);
+
+        //제시어 관련
+        const isNotCheckedUsers = gameUserData.filter(([nickname, userGameData]) => !userGameData.liar.isCheckWord); // isCheckWord가 false인 array만 모아서 저장
+        if(isNotCheckedUsers.length == 0) setIsStart(true); //만약 isNotCheckedUsers에 아무것도 없을 경우 발언화면으로 넘어가도록 함
+
     }
     useEffect(() => {
         getGameRoomData(match.params.roomId, changedgamedata)
     }, []);
+
+    //룸 데이터 불러오기
+    const roomdata = async() => {
+        await getRoomdata(match.params.roomId);
+    }
 
     //나의 게임 데이터
     const myNickname = localStorage.getItem('nickname');
@@ -27,8 +44,6 @@ export default function LiarGameView({ match }) {
     const word = liarGamedata.liarword;
 
     //프론트
-    const [isStart, setIsStart] = useState(false); // 게임 실행 중 확인 여부 변수
-    const [continueGame, setContinueGame] = useState(false);
     const startGame = () => { // 게임이 시작되면 발언하는 화면으로 이동
         setIsStart(true);
     }
@@ -56,6 +71,7 @@ export default function LiarGameView({ match }) {
                             goStopResult={goStop}
                             myGameData={myGameData}
                             users={users}
+                            turn={turn}
                         />
                     </div>
                 </div>
@@ -69,6 +85,8 @@ export default function LiarGameView({ match }) {
                         <SelectLiarComponent
                             setIsStart = {setIsStart}
                             setContinueGame = {setContinueGame}
+                            users={users}
+                            roomdata = {roomdata}
                         />
                     </div>
                 </div>
