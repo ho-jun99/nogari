@@ -12,7 +12,7 @@ import '../css/voteBadge.css'
 import CompletionVoteComponent from "./CompletionVoteComponent";
 
 
-function VoteBadgeComponent () {
+function VoteBadgeComponent() {
     const history = useHistory();
 
     // 6명 이라는 가정 하에 voteCount 값이 6이 되면 뱃지 투표 종료
@@ -22,6 +22,8 @@ function VoteBadgeComponent () {
 
     const [maxIndex, setMaxIndex] = useState(0); // 가장 많이 지목된 인원 인덱스 위치
     const [maxCount, setMaxCount] = useState(0); // 가장 많이 지목된 카운트
+    const [maxUser, setMaxUser] = useState(""); // 가장 많이 지목된 유저 이름
+    const [maxImg, setMaxImg] = useState(""); // 가장 많이 지목된 유저 캐릭터
     const [lastPage, setLastPage] = useState(false); // true가 되면 마지막 페이지로 이동
 
     // 뱃지 수여 타임 띠 생기고 사라지게 하기 위한 변수 =
@@ -49,11 +51,14 @@ function VoteBadgeComponent () {
         elements.style.transition = "1.5s";
 
         setInterval(() => {
-                setLastPage(true);
+            setLastPage(true);
         }, 3000);
     }
     if(lastPage) {
-        history.push('/badge');
+        history.push({
+            pathname: '/badge',
+            state: {user:maxUser, img: maxImg}
+        });
     }
 
 
@@ -101,6 +106,8 @@ function VoteBadgeComponent () {
 
                 if (gameUser[index].count > maxCount) {
                     setMaxIndex(index);
+                    setMaxUser(gameUser[index].nickname);
+                    setMaxImg(gameUser[index].img);
                 }
             }}>
                 {gameUser[index].count ? <div className="voteCount">{gameUser[index].count}</div> :
@@ -127,50 +134,45 @@ function VoteBadgeComponent () {
 
 
     // 여기에 voteCount 값을 6이랑 비교하는 것도 6이 아니라 나중에는 참가 유저 길이 만큼으로 지정해야 할 것 같다.
-    if (lastPage) {
+
+
+    if (badgeTime && voteCount !== 6) {
         return (
-            <CompletionVoteComponent/>
+            <div style={styles.container}>
+                <BadgeTimeComponent/>
+                <div style={styles.title}>뱃지에 어울리는 플레이어를 선택해주세요!</div>
+                <img style={styles.badge} src={Badge} alt="Badge"/>
+                <div style={styles.listContainer}>
+                    {userList}
+                </div>
+            </div>
         )
-    } else {
+    } else if (!badgeTime && voteCount !== 6) {
+        return (
+            <div style={styles.container}>
+                <div style={styles.title}>뱃지에 어울리는 플레이어를 선택해주세요!</div>
+                <img style={styles.badge} src={Badge} alt="Badge"/>
+                <div>
+                    {userList}
+                </div>
+            </div>
+        )
+    }
+    // 투표가 완료되면 제일 많이 투표된 인원 포커스 효과
+    else if (!badgeTime && voteCount === 6) {
 
-        if (badgeTime && voteCount !== 6) {
-            return (
+        return (
+            <>
+
                 <div style={styles.container}>
-                    <BadgeTimeComponent/>
-                    <div style={styles.title}>뱃지에 어울리는 플레이어를 선택해주세요!</div>
+                    <div style={styles.title}>{gameUser[maxIndex].nickname}님이 선정되었습니다!</div>
                     <img style={styles.badge} src={Badge} alt="Badge"/>
-                    <div style={styles.listContainer}>
-                        {userList}
+                    <div style={{position: 'relative',}}>
+                        {temp_list}
                     </div>
                 </div>
-            )
-        } else if (!badgeTime && voteCount !== 6) {
-            return (
-                <div style={styles.container}>
-                    <div style={styles.title}>뱃지에 어울리는 플레이어를 선택해주세요!</div>
-                    <img style={styles.badge} src={Badge} alt="Badge"/>
-                    <div>
-                        {userList}
-                    </div>
-                </div>
-            )
-        }
-        // 투표가 완료되면 제일 많이 투표된 인원 포커스 효과
-        else if (!badgeTime && voteCount === 6) {
-
-            return (
-                <>
-
-                    <div style={styles.container}>
-                        <div style={styles.title}>{gameUser[maxIndex].nickname}님이 선정되었습니다!</div>
-                        <img style={styles.badge} src={Badge} alt="Badge"/>
-                        <div style={{position: 'relative',}}>
-                            {temp_list}
-                        </div>
-                    </div>
-                </>
-            )
-        }
+            </>
+        )
     }
 }
 
