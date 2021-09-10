@@ -9,7 +9,8 @@
     margin: 0 auto;
 }
 .quizBox {
-    width: 422px;
+    max-width: fit-content;
+    white-space: normal;
     height: 146px;
     background: #0C8247;
     border-radius: 15px;
@@ -39,7 +40,7 @@
     background: #08552E;
 }
 .input{
-    width: 190px;
+    max-width: fit-content;
     height: 35px;
     background: #08552E;
     border: 1px solid #000000;
@@ -55,18 +56,19 @@
 
 }
 .footer{
-    margin: 74px auto ;
+    margin: 30px auto ;
     display: grid;
     grid-template-columns: repeat(6,1fr);
     grid-column-gap: 20.41px;
     grid-row-gap: 11px;
 }
 
-.footer > .inputword {
-    background-color: green;
+.footer > .playerBox {
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
 }
 
-.footer > div{
+.footer > .playerBox > .playerInfo{
     color: #FFFFFF;
     width: 105.17px;
     height: 159.8px;
@@ -75,4 +77,16 @@
 
 }
 
+.footer > .playerBox > .inputword {
+    position: relative;
+    text-align: center;
+}
+
+.footer > .playerBox > .inputword > h3 {
+    color: #FFFFFF;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
