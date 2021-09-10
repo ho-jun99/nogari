@@ -107,8 +107,13 @@
 #mainWrap .Main .character {
   width: 120px;
   height: 123.8px;
+  text-align:center;
   border-radius: 5%;
   background-color: #000000;
+}
+
+#mainWrap .Main .character .character_img {
+  height:100%;
 }
 
 #mainWrap .Main .userName {
