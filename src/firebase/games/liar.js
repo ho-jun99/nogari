@@ -16,3 +16,9 @@ export async function updateUserData(roomNumber,data) {
         players: data
     })
 }
+
+export async function setOrder(roomNumber, bool) {
+    await db.collection("game").doc(roomNumber).update({
+
+    })
+}

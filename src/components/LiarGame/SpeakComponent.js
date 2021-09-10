@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Egg from '../../views/img/계란말이_스탠딩.png'
 import Kimchi from '../../views/img/김치국수 스탠딩.png'
 import Nogari from '../../views/img/노가리_스탠딩1 1.png'
@@ -8,6 +8,7 @@ import Chicken from '../../views/img/치킨_스탠딩.png'
 import GoStopModal from "./goStopModal";
 import {getUserInfo} from "../../firebase/users";
 import {updateUserData} from "../../firebase/games/liar";
+import {setLiarPlayerData} from "../../firebase/game-data";
 
 export default function SpeakComponent(props) {
     // const gameUser = [
@@ -54,18 +55,24 @@ export default function SpeakComponent(props) {
     const roomNumber = localStorage.getItem('roomNumber');
     const myNickname = localStorage.getItem('nickname');
 
+    let point = 0;
+
+
     setTimeout(() => {
         setCount(count - 1);
     }, 1000);
 
     const usersArray = Object.entries(props.users);
-    console.log(usersArray);
+    // console.log(usersArray);
 
     const userList = usersArray.map((user) => {
+        // (user[1].member==props.turn[point])
+        //profile 수정 필요
         const getUser = async () => {
             const userInfo = await getUserInfo(user[1].member);
             setProfile(userInfo.profile);
         }
+
         getUser();
         return (
             <li style={styles.listStyle}>
@@ -78,12 +85,15 @@ export default function SpeakComponent(props) {
         )
     });
 
-
     const [voteModal, setVoteModal] = useState(false);
+
+    const userLength = Object.entries(props.users).length;
+
     const openVoteModal = async() => {
-        props.users[myNickname].liar.order = true;
-        await updateUserData(roomNumber, props.users);
         setVoteModal(true);
+        await setLiarPlayerData(roomNumber, props.turn[point], 'order', false);
+        point++;
+        if(userLength>point) await setLiarPlayerData(roomNumber, props.turn[point], 'order', true);
     }
     const closeVoteModal = () => {
         setVoteModal(false);
@@ -92,6 +102,9 @@ export default function SpeakComponent(props) {
     // goStopModal 으로 부터 받아온 데이터, 게임 진행 여부를 받았고, 다시 LiarGameView에 해당 결과를 반환
     const getFromVoteModal = (data) => {
         props.goStopResult(data);
+    }
+
+    const next = async ()=> {
     }
 
 

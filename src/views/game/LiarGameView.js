@@ -11,11 +11,13 @@ export default function LiarGameView({ match }) {
     //게임 데이터 불러오기
     const [liarGamedata, setLiarGamedata] = useState({});
     const [users, setUsers] = useState([]);
+    const [turn, setTurn] = useState([]);
     const [isStart, setIsStart] = useState(false); // 게임 실행 중 확인 여부 변수
     const [continueGame, setContinueGame] = useState(false);
 
     const changedgamedata = async (gamedata) => {
         setUsers(gamedata.players);
+        setTurn(gamedata.turn);
         setLiarGamedata(gamedata.liar);
 
         const gameUserData = Object.entries(gamedata.players);
@@ -69,6 +71,7 @@ export default function LiarGameView({ match }) {
                             goStopResult={goStop}
                             myGameData={myGameData}
                             users={users}
+                            turn={turn}
                         />
                     </div>
                 </div>
