@@ -9,7 +9,8 @@
     margin: 0 auto;
 }
 .quizBox {
-    width: auto;
+    max-width: fit-content;
+    white-space: normal;
     height: 146px;
     background: #0C8247;
     border-radius: 15px;
@@ -39,7 +40,7 @@
     background: #08552E;
 }
 .input{
-    width: auto;
+    max-width: fit-content;
     height: 35px;
     background: #08552E;
     border: 1px solid #000000;
