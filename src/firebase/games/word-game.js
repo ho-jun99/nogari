@@ -18,8 +18,14 @@ export async function setCategory(roomNumber, category) {
   await db.collection("game").doc(`${roomNumber}`).update({
     wordGame: {
       category: category,
-      count: 0,
     }
   });
+}
+
+
+export async function updateUserData(roomNumber,data) {
+  await db.collection("game").doc(roomNumber).update({
+    players: data
+  })
 }
 

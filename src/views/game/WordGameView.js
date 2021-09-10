@@ -5,15 +5,13 @@ import './css/WordGameView.css';
 import TimeoutModal from './Timeout'
 import {getWordGameCategory, getPlayers} from "../../firebase/games/word-game";
 import StartModal from '../../components/common/gameStart'
-import {updateUserData} from "../../firebase/games/liar";
+import {updateUserData} from "../../firebase/games/word-game";
 import WordGamePlayer from "../../components/WordGame/WordGamePlayer";
 import WordGameTimer from "../../components/WordGame/WordGameTimer";
 import WordGameQuizBox from "../../components/WordGame/WordGameQuizBox";
 
 export default function WordGameView({match}) {
-    const [categoryData, setCategoryData] = useState({});
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [categories, setCategories] = useState([]);
     const [wordGame, setWordGame] = useState([
         {
             quiz: '',
@@ -34,7 +32,8 @@ export default function WordGameView({match}) {
     const roomNumber = localStorage.getItem('roomNumber');
     const myNickname = localStorage.getItem('nickname');
 
-    const totalRound = 2; // 한 카테고리에서 출제될 문제 수 // 현재 firebase data에 카테고리당 6개의 데이터가 들어있어 6개 이하로 설정해야 함.
+    // const totalRound = Object.keys(player).length - 2; // 한 카테고리에서 출제될 문제 수
+    const totalRound = 2; // 한 카테고리에서 출제될 문제 수
 
     // 랜덤하게 추출
     const getRandom = (min, max) => {
@@ -81,7 +80,6 @@ export default function WordGameView({match}) {
     const init = async () => {
         const playerData = await getPlayers(match.params.roomId);
         setPlayer(playerData['players']);
-        console.log(2)
         setSelectedCategory(playerData['wordGame'].category);
         // player[myNickname].wordGame.isCorrected = false;
         // updateUserData(roomNumber, player)
@@ -173,13 +171,11 @@ export default function WordGameView({match}) {
     return (
         <>
             <div className="main_wordgame">
-                {/*{categories.map((cate, index) => <button onClick={() => getCategoryData(cate)}*/}
-                {/*                                         key={index}>{cate}</button>)}*/}
                 <div className="category"
                      style={{fontFamily: "DungGeunMo", fontWeight: "bold", fontSize: "28.4571px", textAlign: "center"}}>
                     카테고리 : {selectedCategory}
                 </div>
-                <WordGameTimer seconds={seconds} setSeconds={setSeconds} totalRound={totalRound} round={round} setRound={setRound} setValue={setValue}/>
+                {!startModalOpen ? <WordGameTimer seconds={seconds} setSeconds={setSeconds} totalRound={totalRound} round={round} setRound={setRound} setValue={setValue}/> : null}
                 <WordGameQuizBox state={state} value={value}/>
                 <div style={{display: "block"}}>
                     <input className="input" type="text" value={value} placeholder={(player !== undefined && player[myNickname].wordGame.isCorrected) ? "이미 정답을 맞추셨습니다!" : "정답을 입력해주세요"}
