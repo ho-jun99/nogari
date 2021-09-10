@@ -4,6 +4,8 @@ import {getGameData} from "./game-data";
 
 export async function setUser(roomNumber) {
     const db = firebase.firestore()
+    const gameData = await getGameData(roomNumber);
+
     const shuffle = (array) => {
         const shuffleArray = [...array];
         shuffleArray.sort( ()=> Math.random() - 0.5 );
