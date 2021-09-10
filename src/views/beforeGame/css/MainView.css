@@ -79,7 +79,7 @@
     }
 }
 .mainwrapper{
-    margin-top: 3%;
+    margin-top: 5%;
     width: 100%;
     height: 100%;
     position: relative;
@@ -91,7 +91,7 @@
     overflow: hidden;
     margin: 0 auto;
     width: 822.22px;
-    height: 587px;
+    height: 740px;
     align-content: center;
     background-image: url("../../main_img/main_background.png");
     background-repeat: no-repeat;
@@ -152,7 +152,7 @@
 }
 .bottles{
     width: 822px;
-    top:-2px;
+    top: 152px;
     position: relative;
     z-index: 1;
     -webkit-animation: slide-top 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
@@ -181,8 +181,8 @@
 .fourth_top{
     -webkit-animation: slide-top 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
     animation: slide-top 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-
 }
+
 .blinking{
     -webkit-animation:blink 0.7s ease-in-out infinite alternate;
     -moz-animation:blink 0.5s ease-in-out infinite alternate;

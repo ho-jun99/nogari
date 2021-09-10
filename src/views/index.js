@@ -9,3 +9,4 @@ export { default as ChangeCharacterView } from './beforeGame/ChangeCharacterView
 export { default as Find } from './beforeGame/Find';
 export { default as LiarCategoryView } from './game/LiarCategoryView';
 export { default as WordGameCategoryView } from './game/WordGameCategoryView';
+export { default as StoryMain } from './Story/StoryMain';

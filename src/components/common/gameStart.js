@@ -1,6 +1,5 @@
 import Modal from 'react-modal'
 import React from 'react';
-import TimeoutModal from "../../views/game/Timeout";
 
 Modal.setAppElement('#root')
 
