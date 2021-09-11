@@ -8,7 +8,7 @@ import Chicken from '../../views/img/치킨_스탠딩.png'
 import GoStopModal from "./goStopModal";
 import {getUserInfo} from "../../firebase/users";
 import {updateUserData} from "../../firebase/games/liar";
-import {setLiarPlayerData} from "../../firebase/game-data";
+import {setLiarPlayerData, updateTurn} from "../../firebase/game-data";
 
 export default function SpeakComponent(props) {
     // const gameUser = [
@@ -69,15 +69,15 @@ export default function SpeakComponent(props) {
         // (user[1].member==props.turn[point])
         //profile 수정 필요
         const getUser = async () => {
-            const userInfo = await getUserInfo(user[1].member);
-            setProfile(userInfo.profile);
+            // const userInfo = await getUserInfo(user[1].member);
+            // setProfile(userInfo.profile);
         }
 
         getUser();
         return (
             <li style={styles.listStyle}>
                 <div style={styles.userContainer}>
-                    <img src='#' alt={profile} style={user[1]['liar'].order ? styles.startUser : styles.stopUser}/>
+                    <img src='#' alt='#' style={user[1]['liar'].order ? styles.startUser : styles.stopUser}/>
                     <div style={styles.nickName}>{user[0]}</div>
                 </div>
             </li>
@@ -91,9 +91,17 @@ export default function SpeakComponent(props) {
 
     const openVoteModal = async() => {
         setVoteModal(true);
-        await setLiarPlayerData(roomNumber, props.turn[point], 'order', false);
-        point++;
-        if(userLength>point) await setLiarPlayerData(roomNumber, props.turn[point], 'order', true);
+        console.log(props.turn[point]);
+        await updateTurn(roomNumber, props.turn[point], props.turn[++point]);
+        console.log(props.turn[point]);
+        // await setLiarPlayerData(roomNumber, props.turn[point], 'order', false);
+        // console.log(props.turn[point]);
+        // point++;
+        // console.log(props.turn[point]);
+        // if(userLength>point) {
+        //     await setLiarPlayerData(roomNumber, props.turn[point], 'order', true);
+        //     console.log("????");
+        // }
     }
     const closeVoteModal = () => {
         setVoteModal(false);

@@ -5,6 +5,11 @@ import {Wheel} from 'react-custom-roulette'
 import {getGameData, getGameRoomData} from "../../firebase/game-data";
 import '../../firebase/firebase-manager';
 import firebase from "../../firebase/firebase-manager";
+import '../../firebase/waiting-room';
+import {getRoomInfo} from "../../firebase/waiting-room";
+import {setUser} from "../../firebase/SetUser";
+import {getUserInfo} from "../../firebase/users";
+import { Chr } from '../../views/beforeGame/Choose_Char';
 
 const db = firebase.firestore();
 const roomId = localStorage.getItem('roomNumber');
@@ -62,6 +67,8 @@ const getRotateDeg = (n, prevN) => {
 
 
 export function AlcoholFieldGrid({match}) {
+    const [userProfile, setUserProfile] = useState([]);
+
     const [players, setPlayers] = useState([ //임시 플레이어 목록
         // {name: '지성', location: 0, order: true},
         // {name: '정민', location: 0, order: false},
@@ -139,6 +146,43 @@ export function AlcoholFieldGrid({match}) {
                 console.log("Error getting document..", error);
             });
     }, []);
+
+
+    //////////////////////////여기서부터 게임 유저 및 프로필 가져오는 코드////////////////////////////
+    // 게임에 참가한 유저들 프로필 이미지, 이름 가져오기
+    const setUserInfo = async (roomInfo) => {
+        // await console.log(roomInfo);
+        let members = [];
+
+        for await (let member of roomInfo.members) {
+            const memberInfo = await getUserInfo(member);
+            if (!memberInfo) continue;
+
+            members.push(memberInfo);
+        }
+        setUserProfile(members);
+        console.log(userProfile);
+    }
+
+    // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
+    useEffect(() => {
+        getRoomInfo(roomId, setUserInfo);
+    }, []);
+
+    const users = userProfile.map((user) => {
+        return (
+            <>
+                <div style={styles.userContainer}>
+                    <img style={styles.userImg} src={Chr[user.profile]} alt="profile"/>
+                    <div style={styles.userName}>{user.nickname}</div>
+                </div>
+
+            </>
+
+
+        )
+    });
+    ///////////////////////////////////////////////////////
 
 
     // 라이브러리 이용한 룰렛 구현
@@ -223,7 +267,7 @@ export function AlcoholFieldGrid({match}) {
                 </div>
             </div>
 
-
+            {users}
             <div style={styles.roulette}>
                 <div style={styles.orderUser}>‘{orderUser}’ 님 차례입니다!</div>
                 <button id="trigger" style={styles.goBtn} onClick={handleSpinClick}>GO!</button>
@@ -341,5 +385,16 @@ const styles = {
     },
     finishImg: {
         position: 'absolute', right: '-18%', bottom: '-18%',
+    },
+    userContainer: {
+        bottom: 0, display: 'inline-block',
+        width: 123.23, height: 188, margin: 10,
+        backgroundColor: '#032213', borderRadius: 3.41, textAlign: 'center',
+    },
+    userImg: {
+        width: 118.23, height: 138, marginTop: 14,
+    },
+    userName: {
+        color: '#FCCE39', fontSize: 11.23,  textAlign: 'center',
     },
 };

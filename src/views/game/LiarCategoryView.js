@@ -4,15 +4,33 @@ import {getWordGameCategory} from "../../firebase/games/word-game";
 import {getWord} from "../../firebase/games/liar";
 import Category from "../../components/common/Category";
 import './css/LiarCategoryView.css'
+import {getGameData, setLiarPlayerData} from "../../firebase/game-data";
+import {getNickname, setUser} from "../../firebase/SetUser";
 
 export default function LiarCategoryView({ match } ) {
     const [isChoice, setIsChoice] = useState(false);
-
+    const [userCount, setUserCount] = useState(0);
+    const [userNickname, setUserNickname] = useState([]);
+    const [category, setCategory] = useState('');
     const history = useHistory();
     const roomId = match.params.roomId;
 
+
+    const init = async () => {
+        const users = await getGameData(roomId);
+        setCategory(users.liar.liarword);
+        const userLength = Object.entries(users.players).length;
+        setUserCount(userLength);
+        setUserNickname(users.turn);
+    }
+    init();
+
+    console.log(userNickname);
+
     const LiarCategoryChoice = () => {
-        history.push(`/rooms/${roomId}/liar`);
+        const random = Math.floor(Math.random()*userCount);
+        if(category) history.push(`/rooms/${roomId}/liar`);
+        setLiarPlayerData(roomId, userNickname[random], 'isliar', true);
     }
     return (
         <>

@@ -91,7 +91,7 @@ export default function NewWaitingRoom({ match, history }) {
 
     // 새로운 참여자가 발생하거나 룸 정보가 바뀔때 실행되는 함수
     const changedRoomInfo = async (roomInfo) => {
-        console.log(roomInfo)
+        console.log("444");
         // const captainInfo = await getUserInfo(roomInfo.captain);
         // setCaptain(captainInfo);
         let members = [];
