@@ -117,13 +117,14 @@ export function AlcoholFieldGrid({match}) {
     const initializeUser = async (userData) => {
         let temp_list = []
         let values = Object.values(userData.players); // players 하위 데이터를 가져옴
+        for (let i = 0; i<values.length; i++) {
+            let userName = Object.keys(userData.players)[i]; // ex) 원성임
+            let userLocation = values[i].alcoholRoulette.location; // 0~19 사이
+            let userOrder = values[i].alcoholRoulette.order; // true or false
 
-        let userName = Object.keys(userData.players)[0]; // ex) 원성임
-        let userLocation = values[0].alcoholRoulette.location; // 0~19 사이
-        let userOrder = values[0].alcoholRoulette.order; // true or false
-
-        temp_list.push({name: userName, location: userLocation, order: userOrder});
-        temp_list[0].order = true; // 리스트의 첫번째 유저 순서를 true로 변경
+            temp_list.push({name: userName, location: userLocation, order: userOrder});
+            temp_list[i].order = true; // 리스트의 첫번째 유저 순서를 true로 변경
+        }
         await setPlayers(temp_list);
 
         // 위 코드는 유저가 1명인 가정 하에 구현한 코드, 여러 인원인 경우엔 for문으로 돌아서 저장하면 될 듯 싶다.
@@ -161,7 +162,6 @@ export function AlcoholFieldGrid({match}) {
             members.push(memberInfo);
         }
         setUserProfile(members);
-        console.log(userProfile);
     }
 
     // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
@@ -257,10 +257,17 @@ export function AlcoholFieldGrid({match}) {
                 <div style={styles.fields}>
                     {fields.map((field) => {
                         const inPlayers = players.filter((i) => i.location === getMapLocation(field))
-
                         return <div className={'AlcoholMarbleGrid'}>
                             <Field content={getMapLocation(field)} hidden={isFieldHidden(field)} className={field}>
-                                {inPlayers.map((i) => <div>{i.name}</div>)}
+                                <div style={{position:'relative'}} >
+                                    {inPlayers.map((i, index) => {
+                                        const user = userProfile.find((u) => u.nickname === i.name);
+                                        return <div style={{position:`absolute`, width:'60px', left:`${index*10}%`, textAlign:'center',}}>
+                                            <img src={Chr[(user && user.profile) ?? 0]} style={{ width:'100%', }} />
+                                            <div>{user.nickname}</div>
+                                        </div>
+                                    })}
+                                </div>
                             </Field>
                         </div>
                     })}
