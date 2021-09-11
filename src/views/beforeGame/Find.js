@@ -68,6 +68,9 @@ export default function Find({history}) {
             liar: {
                 liarword:"",
             },
+            rottenPlates : {
+
+            },
             wordGame: {
                 category: "",
                 isFinished: false,

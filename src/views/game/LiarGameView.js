@@ -22,9 +22,11 @@ export default function LiarGameView({ match }) {
 
         const gameUserData = Object.entries(gamedata.players);
 
-        //제시어 관련
+        //제시어 확인 후 넘어감
         const isNotCheckedUsers = gameUserData.filter(([nickname, userGameData]) => !userGameData.liar.isCheckWord); // isCheckWord가 false인 array만 모아서 저장
         if(isNotCheckedUsers.length == 0) setIsStart(true); //만약 isNotCheckedUsers에 아무것도 없을 경우 발언화면으로 넘어가도록 함
+
+        //라이어
 
     }
     useEffect(() => {

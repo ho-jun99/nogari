@@ -5,6 +5,11 @@ import {Wheel} from 'react-custom-roulette'
 import {getGameData, getGameRoomData} from "../../firebase/game-data";
 import '../../firebase/firebase-manager';
 import firebase from "../../firebase/firebase-manager";
+import '../../firebase/waiting-room';
+import {getRoomInfo} from "../../firebase/waiting-room";
+import {setUser} from "../../firebase/SetUser";
+import {getUserInfo} from "../../firebase/users";
+import { Chr } from '../../views/beforeGame/Choose_Char';
 
 const db = firebase.firestore();
 const roomId = localStorage.getItem('roomNumber');
@@ -62,6 +67,8 @@ const getRotateDeg = (n, prevN) => {
 
 
 export function AlcoholFieldGrid({match}) {
+    const [userProfile, setUserProfile] = useState([]);
+
     const [players, setPlayers] = useState([ //임시 플레이어 목록
         // {name: '지성', location: 0, order: true},
         // {name: '정민', location: 0, order: false},
@@ -110,13 +117,14 @@ export function AlcoholFieldGrid({match}) {
     const initializeUser = async (userData) => {
         let temp_list = []
         let values = Object.values(userData.players); // players 하위 데이터를 가져옴
+        for (let i = 0; i<values.length; i++) {
+            let userName = Object.keys(userData.players)[i]; // ex) 원성임
+            let userLocation = values[i].alcoholRoulette.location; // 0~19 사이
+            let userOrder = values[i].alcoholRoulette.order; // true or false
 
-        let userName = Object.keys(userData.players)[0]; // ex) 원성임
-        let userLocation = values[0].alcoholRoulette.location; // 0~19 사이
-        let userOrder = values[0].alcoholRoulette.order; // true or false
-
-        temp_list.push({name: userName, location: userLocation, order: userOrder});
-        temp_list[0].order = true; // 리스트의 첫번째 유저 순서를 true로 변경
+            temp_list.push({name: userName, location: userLocation, order: userOrder});
+            temp_list[i].order = true; // 리스트의 첫번째 유저 순서를 true로 변경
+        }
         await setPlayers(temp_list);
 
         // 위 코드는 유저가 1명인 가정 하에 구현한 코드, 여러 인원인 경우엔 for문으로 돌아서 저장하면 될 듯 싶다.
@@ -139,6 +147,42 @@ export function AlcoholFieldGrid({match}) {
                 console.log("Error getting document..", error);
             });
     }, []);
+
+
+    //////////////////////////여기서부터 게임 유저 및 프로필 가져오는 코드////////////////////////////
+    // 게임에 참가한 유저들 프로필 이미지, 이름 가져오기
+    const setUserInfo = async (roomInfo) => {
+        // await console.log(roomInfo);
+        let members = [];
+
+        for await (let member of roomInfo.members) {
+            const memberInfo = await getUserInfo(member);
+            if (!memberInfo) continue;
+
+            members.push(memberInfo);
+        }
+        setUserProfile(members);
+    }
+
+    // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
+    useEffect(() => {
+        getRoomInfo(roomId, setUserInfo);
+    }, []);
+
+    const users = userProfile.map((user) => {
+        return (
+            <>
+                <div style={styles.userContainer}>
+                    <img style={styles.userImg} src={Chr[user.profile]} alt="profile"/>
+                    <div style={styles.userName}>{user.nickname}</div>
+                </div>
+
+            </>
+
+
+        )
+    });
+    ///////////////////////////////////////////////////////
 
 
     // 라이브러리 이용한 룰렛 구현
@@ -213,17 +257,24 @@ export function AlcoholFieldGrid({match}) {
                 <div style={styles.fields}>
                     {fields.map((field) => {
                         const inPlayers = players.filter((i) => i.location === getMapLocation(field))
-
                         return <div className={'AlcoholMarbleGrid'}>
                             <Field content={getMapLocation(field)} hidden={isFieldHidden(field)} className={field}>
-                                {inPlayers.map((i) => <div>{i.name}</div>)}
+                                <div style={{position:'relative'}} >
+                                    {inPlayers.map((i, index) => {
+                                        const user = userProfile.find((u) => u.nickname === i.name);
+                                        return <div style={{position:`absolute`, width:'60px', left:`${index*10}%`, textAlign:'center',}}>
+                                            <img src={Chr[(user && user.profile) ?? 0]} style={{ width:'100%', }} />
+                                            <div>{user.nickname}</div>
+                                        </div>
+                                    })}
+                                </div>
                             </Field>
                         </div>
                     })}
                 </div>
             </div>
 
-
+            {users}
             <div style={styles.roulette}>
                 <div style={styles.orderUser}>‘{orderUser}’ 님 차례입니다!</div>
                 <button id="trigger" style={styles.goBtn} onClick={handleSpinClick}>GO!</button>
@@ -341,5 +392,16 @@ const styles = {
     },
     finishImg: {
         position: 'absolute', right: '-18%', bottom: '-18%',
+    },
+    userContainer: {
+        bottom: 0, display: 'inline-block',
+        width: 123.23, height: 188, margin: 10,
+        backgroundColor: '#032213', borderRadius: 3.41, textAlign: 'center',
+    },
+    userImg: {
+        width: 118.23, height: 138, marginTop: 14,
+    },
+    userName: {
+        color: '#FCCE39', fontSize: 11.23,  textAlign: 'center',
     },
 };

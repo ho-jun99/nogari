@@ -3,6 +3,7 @@ import LiarModal from "./liarModal";
 import UserModal from "./userModal";
 import {getWordGameCategory} from "../../firebase/games/word-game";
 import {updateUserData} from "../../firebase/games/liar";
+import {setLiarPlayerData} from "../../firebase/game-data";
 
 export default function SuggestionModal(props) {
 
@@ -28,8 +29,9 @@ export default function SuggestionModal(props) {
         setInterval(async()=> {
             const roomNumber = localStorage.getItem('roomNumber');
             const myNickname = localStorage.getItem('nickname');
-            props.users[myNickname].liar.isCheckWord = true;
-            await updateUserData(roomNumber, props.users);
+            // props.users[myNickname].liar.isCheckWord = true;
+            // await updateUserData(roomNumber, props.users);
+            await setLiarPlayerData(roomNumber, myNickname, 'isCheckWord', true);
         },3000)
 
         if (props.myGameData.liar.isliar) { // 라이어
