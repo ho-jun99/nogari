@@ -19,7 +19,7 @@ function App() {
             <div>
                 <Route exact path="/" component={MainView}/>
                 <Route path="/rooms/:roomId/liar" component={LiarGameView}/>
-                <Route path="/roulette" component={RouletteGameView}/>
+                <Route path="/rooms/:roomId/rottenPlates" component={RouletteGameView}/>
                 <Route path="/rooms/:roomId/word" component={WordGameView}/>
                 <Route path="/Find" component={Find}/>
                 <Route path="/Choose_Char" component={Choose_Char}/>
