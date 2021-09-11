@@ -4,7 +4,6 @@
   display: flex;
   width: 822.22px;
   height: 740px;
-  border: solid blue 2px;
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);

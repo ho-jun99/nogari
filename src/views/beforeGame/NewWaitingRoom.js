@@ -191,24 +191,6 @@ export default function NewWaitingRoom({ match, history }) {
                                 게임을 선택해주세요
                             </div>
                         }
-                            {/* <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
-                    <Modal id="infoModal" isOpen={isInfoOpen} onRequestClose={() => setIsInfoOpen(false)} style={
-                        {
-                            overlay: {
-                                position: 'absolute',
-                                top: '400px',
-                                left: '470px',
-                                right: 0,
-                                bottom: 0,
-                                width: '1000px',
-                                height: '300px',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                zIndex: 99
-                            }
-                        }
-                    }>
-                        {selectedGameRule ? <div>{selectedGameRule}</div> : <div>게임을 먼저 선택해 주세요.</div>}
-                    </Modal> */}
                         </div>
                         {room.isSelected ? <button className="startBtn" onClick={gameStart}>시작하기</button> :
                             <button className="stopBtn" disabled>시작</button>}
