@@ -39,3 +39,29 @@ export async function setLiarPlayerData(roomNumber, nickname, field, fieldValue)
         },
     });
 }
+
+
+export async function updateTurn(roomNumber, nickname, nextNickname){
+    const gameData = await getGameData(roomNumber);
+
+    await firebase.firestore().collection("game").doc(roomNumber).update({
+        ...gameData,
+        players: {
+            ...gameData.players,
+            [nickname]: {
+                ...gameData.players[nickname],
+                liar: {
+                    ...gameData.players[nickname].liar,
+                    'order': false,
+                }
+            },
+            [nextNickname]: {
+                ...gameData.players[nextNickname],
+                liar: {
+                    ...gameData.players[nextNickname].liar,
+                    'order': true,
+                }
+            },
+        },
+    });
+}
