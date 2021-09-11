@@ -108,11 +108,11 @@ export default function NewWaitingRoom({ match, history }) {
         // console.log(memberProps);
         setUsers(members);
 
-        for await (const member of members) {
-            console.log(member);
-            const gameMember = {liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}, alcoholRoulette: {location: 0, order: false}}
-            membersGamedata[member.nickname] = gameMember;
-        }
+        // for await (const member of members) {
+        //     console.log(member);
+        //     const gameMember = {liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}, alcoholRoulette: {location: 0, order: false}}
+        //     membersGamedata[member.nickname] = gameMember;
+        // }
         await setPlayers(match.params.roomId, membersGamedata);
     }
 
