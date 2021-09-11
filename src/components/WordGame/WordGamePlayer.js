@@ -22,10 +22,15 @@ function WordGamePlayer({player, myNickname, roomNumber, updateUserData}) {
                                 <img src={Input_Bubble}/>
                                 <h3>{mem[1].wordGame.inputWord}</h3>
                             </div> :
-                            <div className="inputword">
+                            <div className={mem[1].wordGame.isCorrected ? "inputword-correct" : "inputword"}>
                                 <img src={Input_Bubble}/>
                                 <h3>{mem[1].wordGame.inputWord}</h3>
-                            </div>}
+                            </div>
+                            // <div className="inputword">
+                            // <img src={Input_Bubble}/>
+                            // <h3>{mem[1].wordGame.inputWord}</h3>
+                            // </div>
+                        }
                         <div className="playerInfo">
                             {mem[1].wordGame.isCorrected ? <div><img src={Graduation_Hat}/> {mem[0]}</div> :
                                 <div>{mem[0]}</div>}

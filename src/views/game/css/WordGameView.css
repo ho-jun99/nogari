@@ -3,7 +3,7 @@
     position: relative;
     width: 822px;
     height: 740px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 .boxwrapper{
     margin: 0 auto;
@@ -83,6 +83,21 @@
 }
 
 .footer > .playerBox > .inputword > h3 {
+    color: #FFFFFF;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.footer > .playerBox > .inputword-correct {
+    transform: scale(1.5);
+    transition: transform 0.7s;
+    position: relative;
+    text-align: center;
+}
+
+.footer > .playerBox > .inputword-correct > h3 {
     color: #FFFFFF;
     position: absolute;
     top: 30%;

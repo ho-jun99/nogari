@@ -107,8 +107,10 @@ export default function WordGameView({match}) {
             alert("정답");
             setSeconds(30);
             // 일단은 라운드 2까지 밖에 없으니까 라운드 다 되면 0으로 다시 초기화 해줍니다
-            totalRound !== round ? setRound(round + 1) : setRound(0);
-            setState({value: random[round].quiz, ans: random[round].answer});
+            setTimeout(() => {
+                totalRound !== round ? setRound(round + 1) : setRound(0);
+                setState({value: random[round].quiz, ans: random[round].answer});
+            }, 3000);
         } else {
             alert('오답!');
             player[myNickname].wordGame.isCorrected = false;
