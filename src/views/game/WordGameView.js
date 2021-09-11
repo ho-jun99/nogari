@@ -3,9 +3,9 @@ import Modal from 'react-modal'
 import {useState, useEffect} from "react";
 import './css/WordGameView.css';
 import TimeoutModal from './Timeout'
-import {getWordGameCategory, getPlayers} from "../../firebase/games/word-game";
+import {getWordGameCategory, getPlayersOnTrigger} from "../../firebase/games/word-game";
 import StartModal from '../../components/common/gameStart'
-import {updateUserData} from "../../firebase/games/word-game";
+import {updateUserData, updateGameState} from "../../firebase/games/word-game";
 import WordGamePlayer from "../../components/WordGame/WordGamePlayer";
 import WordGameTimer from "../../components/WordGame/WordGameTimer";
 import WordGameQuizBox from "../../components/WordGame/WordGameQuizBox";
@@ -24,6 +24,7 @@ export default function WordGameView({match}) {
     const [round, setRound] = useState(0);
     const [player, setPlayer] = useState();
     const [totalRound, setTotalRound] = useState(0);
+    const [gameState, setGameState] = useState(false);
 
     const [value, setValue] = useState();
     const [seconds, setSeconds] = useState(30);
@@ -79,11 +80,11 @@ export default function WordGameView({match}) {
         getRandomArray(0, total - 1, totalRound);
     }
 
-    const init = async () => {
-        const playerData = await getPlayers(match.params.roomId);
+    const init = async (playerData) => {
+        // const  = await getPlayers(match.params.roomId);
         setPlayer(playerData['players']);
         setSelectedCategory(playerData['wordGame'].category);
-        // console.log(totalRound);
+        console.log(selectedCategory);
         console.log(Object.keys(playerData['players']));
         setTotalRound(Object.keys(playerData['players']).length - 2);
         console.log(Object.keys(playerData).length);
@@ -91,7 +92,10 @@ export default function WordGameView({match}) {
         // player[myNickname].wordGame.isCorrected = false;
         // updateUserData(roomNumber, player)
     };
+
+
     console.log(totalRound);
+    console.log(selectedCategory);
 
     const setWordGameData = async (categoryName) => {
         const gameData = await getWordGameCategory();
@@ -113,11 +117,12 @@ export default function WordGameView({match}) {
         if (state.ans === value) {
             player[myNickname].wordGame.isCorrected = true;
             alert("정답");
-            setSeconds(30);
             // 일단은 라운드 2까지 밖에 없으니까 라운드 다 되면 0으로 다시 초기화 해줍니다
             setTimeout(() => {
-                totalRound !== round ? setRound(round + 1) : setRound(0);
+                totalRound !== round ? setRound(round + 1) : setGameState(true);
+                updateGameState(roomNumber, 'isFinished', gameState);
                 setState({value: random[round].quiz, ans: random[round].answer});
+                setSeconds(30);
             }, 3000);
         } else {
             alert('오답!');
@@ -126,14 +131,14 @@ export default function WordGameView({match}) {
         setValue('');
         await updateUserData(roomNumber, player);
     }
+    console.log(totalRound, round);
+    console.log(gameState);
 
-    const nextStage = () => {
-        if(totalRound > round) {
-            setRound(round + 1);
-        } else {
 
-        }
-    }
+    useEffect(()=> {
+        updateGameState(roomNumber, 'isFinished', gameState);
+        console.log(gameState);
+    },[gameState])
 
     const openModal = () => {
         setModalOpen(true);
@@ -155,7 +160,8 @@ export default function WordGameView({match}) {
     closeStartModal()
 
     useEffect(() => {
-        init();
+        getPlayersOnTrigger(roomNumber, init);
+        // init();
     }, []);
 
     useEffect(() => {
@@ -193,7 +199,7 @@ export default function WordGameView({match}) {
                      style={{fontFamily: "DungGeunMo", fontWeight: "bold", fontSize: "28.4571px", textAlign: "center"}}>
                     카테고리 : {selectedCategory}
                 </div>
-                {!startModalOpen ? <WordGameTimer seconds={seconds} setSeconds={setSeconds} totalRound={totalRound} round={round} setRound={setRound} setValue={setValue}/> : null}
+                {!startModalOpen ? <WordGameTimer seconds={seconds} setSeconds={setSeconds} totalRound={totalRound} round={round} setRound={setRound} setValue={setValue} setGameState={setGameState}/> : null}
                 <WordGameQuizBox state={state} value={value}/>
                 <div style={{display: "block"}}>
                     <input className="input" type="text" value={value} placeholder={(player !== undefined && player[myNickname].wordGame.isCorrected) ? "이미 정답을 맞추셨습니다!" : "정답을 입력해주세요"}
