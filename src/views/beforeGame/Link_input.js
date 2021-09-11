@@ -45,12 +45,17 @@ const LinkModal = (props) => {
             })
         })
     }
+    const onKeyPress=(e)=>{
+        if(e.key==='Enter'){
+            inRoom()
+        }
+    }
     return(
         <div className={ open ? 'openModal modal' : 'modal' }>
             { open ? (
                 <div className='linkmain'>
                     <button className="close" onClick={close}> &times;</button>
-                    <input placeholder="링크를 입력해주세요" value={value} onChange={e=>setValue(e.target.value)} />
+                    <input onKeyPress={onKeyPress} placeholder="링크를 입력해주세요" value={value} onChange={e=>setValue(e.target.value)} />
                     { value===""
                         ?<button disabled={value===""} className="enter1" >입장</button>
                         :<button className="enter2" onClick={inRoom} >입장</button>
