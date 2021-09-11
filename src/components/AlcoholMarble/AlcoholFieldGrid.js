@@ -2,12 +2,10 @@ import React, {useEffect, useState} from "react";
 import './AlcoholFieldGrid.css';
 import Finish from '../../images/finish.png';
 import {Wheel} from 'react-custom-roulette'
-import {getGameData, getGameRoomData} from "../../firebase/game-data";
 import '../../firebase/firebase-manager';
 import firebase from "../../firebase/firebase-manager";
 import '../../firebase/waiting-room';
 import {getRoomInfo} from "../../firebase/waiting-room";
-import {setUser} from "../../firebase/SetUser";
 import {getUserInfo} from "../../firebase/users";
 import { Chr } from '../../views/beforeGame/Choose_Char';
 
@@ -48,35 +46,10 @@ function isFieldHidden(fieldIndex) {
     return standard.filter((s) => s).length === 4;
 }
 
-// 안쓰는 함수
-const getRotateDeg = (n, prevN) => {
-
-    const deg = [330, 270, 210, 150, 90, 30, -330, -270, -210, -150, -90, -30];
-    if (prevN > n) {
-        console.log(prevN, n);
-        return {
-            transform: `rotate(359deg) rotate(${deg[n + 6]}deg)`,
-        }
-    } else {
-        console.log(prevN, n);
-        return {
-            transform: `rotate(${deg[n]}deg)`,
-        }
-    }
-}
-
-
-export function AlcoholFieldGrid({match}) {
+export function AlcoholFieldGrid() {
     const [userProfile, setUserProfile] = useState([]);
 
-    const [players, setPlayers] = useState([ //임시 플레이어 목록
-        // {name: '지성', location: 0, order: true},
-        // {name: '정민', location: 0, order: false},
-        // {name: '종휘', location: 0, order: false},
-        // {name: '성원', location: 0, order: false},
-        // {name: '재혁', location: 0, order: false},
-        // {name: '호준', location: 0, order: false}
-    ]);
+    const [players, setPlayers] = useState([]);
 
     // 유저 위치를 갱신하는 함수
     // 돌림판 돌린 유저 이름과 해당 유저의 최신 위치를 인자로 받아 파이어스토어에 갱신한다.
@@ -148,7 +121,6 @@ export function AlcoholFieldGrid({match}) {
             });
     }, []);
 
-
     //////////////////////////여기서부터 게임 유저 및 프로필 가져오는 코드////////////////////////////
     // 게임에 참가한 유저들 프로필 이미지, 이름 가져오기
     const setUserInfo = async (roomInfo) => {
@@ -161,7 +133,8 @@ export function AlcoholFieldGrid({match}) {
 
             members.push(memberInfo);
         }
-        setUserProfile(members);
+        setUserProfile(members)
+        console.log(userProfile);
     }
 
     // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
@@ -178,8 +151,6 @@ export function AlcoholFieldGrid({match}) {
                 </div>
 
             </>
-
-
         )
     });
     ///////////////////////////////////////////////////////
@@ -209,47 +180,7 @@ export function AlcoholFieldGrid({match}) {
     // 0~35까지 만들기
     const fields = Array.from(Array(row * column).keys()).map((v) => v);
 
-
-    // 쓰이고 있지 않은 코드들
     const [orderUser, setOrderUser] = useState("");
-
-    const [abc, setABC] = useState(0)
-    const [prevAbc, setPrevABC] = useState(null)
-
-    function getTurn() {
-        const turn = Math.floor(Math.random() * 6); // 0~5
-        setPrevABC(abc);
-        setABC(turn);
-    }
-
-    //////////////////////
-
-
-    // const rotation = keyframes`
-    // from {
-    //   transform: rotate(0deg);
-    // }
-    // to {
-    //   transform: rotate(7045deg);
-    // }
-
-    //`
-
-    // const StyledWrapper = styled.div`
-    //   width: 100px;
-    //   height: 100px;
-    //   background: #00bfb2;
-    //   ${(props) => props.active &&`
-    //    animation: ${rotation} 7s ease-in-out forwards;
-    //   `}
-    //`
-    // const Box = ({children, ...rest}) => {
-    //     return (
-    //         <StyledWrapper {...rest}>
-    //             {children}
-    //         </StyledWrapper>
-    //     );
-    // };
 
     return (
         <div className={'AlcoholMarbleBody'}>
@@ -262,9 +193,10 @@ export function AlcoholFieldGrid({match}) {
                                 <div style={{position:'relative'}} >
                                     {inPlayers.map((i, index) => {
                                         const user = userProfile.find((u) => u.nickname === i.name);
+                                        console.log(user)
                                         return <div style={{position:`absolute`, width:'60px', left:`${index*10}%`, textAlign:'center',}}>
                                             <img src={Chr[(user && user.profile) ?? 0]} style={{ width:'100%', }} />
-                                            <div>{user.nickname}</div>
+                                            <div>{(user && user.nickname)??"guest"}</div>
                                         </div>
                                     })}
                                 </div>
@@ -304,9 +236,6 @@ export function AlcoholFieldGrid({match}) {
 
 
             </div>
-            {/*<div>*/}
-            {/*{StyledWrapper}*/}
-            {/*</div>*/}
         </div>
     );
 }
