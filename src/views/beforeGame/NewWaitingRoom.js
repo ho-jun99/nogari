@@ -128,7 +128,7 @@ export default function NewWaitingRoom({ match, history }) {
         if(data.game === "노가리마블") {history.push(`/rooms/${match.params.roomId}/marble`)}
         else if (data.game === "안주 라이어") {history.push(`/rooms/${match.params.roomId}/liarCategory`)}
         else if (data.game === "중간고사 서바이벌") {history.push(`/rooms/${match.params.roomId}/wordCategory`)}
-        else if (data.game === "상한 안주찾기") {history.push(`/rooms/${match.params.roomId}/roulette`)}
+        else if (data.game === "상한 안주찾기") {history.push(`/rooms/${match.params.roomId}/rottenPlates`)}
 
     }
 
