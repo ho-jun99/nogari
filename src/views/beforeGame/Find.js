@@ -68,6 +68,10 @@ export default function Find({history}) {
             liar: {
                 liarword:"",
             },
+            wordGame: {
+                category: "",
+                isFinished: false,
+            }
         }, {merge:true});
 
         console.log(roomNumber);

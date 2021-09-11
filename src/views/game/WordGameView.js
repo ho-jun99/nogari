@@ -23,6 +23,7 @@ export default function WordGameView({match}) {
     const [state, setState] = useState()
     const [round, setRound] = useState(0);
     const [player, setPlayer] = useState();
+    const [totalRound, setTotalRound] = useState(0);
 
     const [value, setValue] = useState();
     const [seconds, setSeconds] = useState(30);
@@ -33,7 +34,8 @@ export default function WordGameView({match}) {
     const myNickname = localStorage.getItem('nickname');
 
     // const totalRound = Object.keys(player).length - 2; // 한 카테고리에서 출제될 문제 수
-    const totalRound = 2; // 한 카테고리에서 출제될 문제 수
+    // console.log(totalRound);
+    // const totalRound = 2; // 한 카테고리에서 출제될 문제 수
 
     // 랜덤하게 추출
     const getRandom = (min, max) => {
@@ -81,9 +83,15 @@ export default function WordGameView({match}) {
         const playerData = await getPlayers(match.params.roomId);
         setPlayer(playerData['players']);
         setSelectedCategory(playerData['wordGame'].category);
+        // console.log(totalRound);
+        console.log(Object.keys(playerData['players']));
+        setTotalRound(Object.keys(playerData['players']).length - 2);
+        console.log(Object.keys(playerData).length);
+        console.log(totalRound);
         // player[myNickname].wordGame.isCorrected = false;
         // updateUserData(roomNumber, player)
     };
+    console.log(totalRound);
 
     const setWordGameData = async (categoryName) => {
         const gameData = await getWordGameCategory();
@@ -117,6 +125,14 @@ export default function WordGameView({match}) {
         }
         setValue('');
         await updateUserData(roomNumber, player);
+    }
+
+    const nextStage = () => {
+        if(totalRound > round) {
+            setRound(round + 1);
+        } else {
+
+        }
     }
 
     const openModal = () => {
