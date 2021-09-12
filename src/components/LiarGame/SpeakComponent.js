@@ -8,52 +8,16 @@ import Chicken from '../../views/img/치킨_스탠딩.png'
 import GoStopModal from "./goStopModal";
 import {getUserInfo} from "../../firebase/users";
 import {updateUserData} from "../../firebase/games/liar";
-import {setLiarPlayerData, updateTurn} from "../../firebase/game-data";
+import {getGameData, setLiarPlayerData, updateTurn} from "../../firebase/game-data";
+import {getRoomInfo} from "../../firebase/waiting-room";
+import {Chr} from "../../views/beforeGame/Choose_Char";
 
 export default function SpeakComponent(props) {
-    // const gameUser = [
-    //     {
-    //         nickname: "성원이다", // 닉네임
-    //         isLiar: false, // true 이면 해당 유저는 라이어
-    //         order: true, // true 이면 본인 순서
-    //         img: Egg,
-    //     },
-    //     {
-    //         nickname: "성원이다", // 닉네임
-    //         isLiar: true, // true 이면 해당 유저는 라이어
-    //         order: false, // true 이면 본인 순서
-    //         img: Kimchi,
-    //     },
-    //     {
-    //         nickname: "성원이다", // 닉네임
-    //         isLiar: false, // true 이면 해당 유저는 라이어
-    //         order: false, // true 이면 본인 순서
-    //         img: Nogari,
-    //     },
-    //     {
-    //         nickname: "성원이다", // 닉네임
-    //         isLiar: false, // true 이면 해당 유저는 라이어
-    //         order: false, // true 이면 본인 순서
-    //         img: DDuk,
-    //     },
-    //     {
-    //         nickname: "성원이다", // 닉네임
-    //         isLiar: false, // true 이면 해당 유저는 라이어
-    //         order: false, // true 이면 본인 순서
-    //         img: Bing,
-    //     },
-    //     {
-    //         nickname: "성원이다", // 닉네임
-    //         isLiar: false, // true 이면 해당 유저는 라이어
-    //         order: false, // true 이면 본인 순서
-    //         img: Chicken,
-    //     },
-    // ]
+
     const [count, setCount] = useState(20);
-    const [profile, setProfile] = useState("");
+    const [userProfile, setUserProfile] = useState([]);
 
     const roomNumber = localStorage.getItem('roomNumber');
-    const myNickname = localStorage.getItem('nickname');
 
     let point = 0;
 
@@ -62,23 +26,35 @@ export default function SpeakComponent(props) {
         setCount(count - 1);
     }, 1000);
 
-    const usersArray = Object.entries(props.users);
-    // console.log(usersArray);
 
-    const userList = usersArray.map((user) => {
-        // (user[1].member==props.turn[point])
-        //profile 수정 필요
-        const getUser = async () => {
-            // const userInfo = await getUserInfo(user[1].member);
-            // setProfile(userInfo.profile);
+    const setUserInfo = async (roomInfo) => {
+        // await console.log(roomInfo);
+        let members = [];
+
+        for await (let member of roomInfo.members) {
+            const memberInfo = await getUserInfo(member);
+            if (!memberInfo) continue;
+
+            members.push(memberInfo);
         }
+        setUserProfile(members);
+        await setLiarPlayerData(roomNumber, props.turn[0], 'order', true);
+    }
 
-        getUser();
+    // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
+    useEffect(() => {
+        getRoomInfo(roomNumber, setUserInfo);
+    }, []);
+
+
+    const userList = userProfile.map((user) => {
+
+
         return (
             <li style={styles.listStyle}>
                 <div style={styles.userContainer}>
-                    <img src='#' alt='#' style={user[1]['liar'].order ? styles.startUser : styles.stopUser}/>
-                    <div style={styles.nickName}>{user[0]}</div>
+                    <img src={Chr[user.profile]} alt='#' style={props.users[user.nickname].liar.order ? styles.startUser : styles.stopUser}/>
+                    <div style={styles.nickName}>{user.nickname}</div>
                 </div>
             </li>
 
@@ -90,18 +66,15 @@ export default function SpeakComponent(props) {
     const userLength = Object.entries(props.users).length;
 
     const openVoteModal = async() => {
-        setVoteModal(true);
-        console.log(props.turn[point]);
-        await updateTurn(roomNumber, props.turn[point], props.turn[++point]);
-        console.log(props.turn[point]);
-        // await setLiarPlayerData(roomNumber, props.turn[point], 'order', false);
         // console.log(props.turn[point]);
-        // point++;
-        // console.log(props.turn[point]);
-        // if(userLength>point) {
-        //     await setLiarPlayerData(roomNumber, props.turn[point], 'order', true);
-        //     console.log("????");
-        // }
+        // await updateTurn(roomNumber, props.turn[point], props.turn[++point]);
+        await setLiarPlayerData(roomNumber, props.turn[point], 'order', false);
+        point++;
+        if(userLength>point) {
+            await setLiarPlayerData(roomNumber, props.turn[point], 'order', true);
+        }else {
+            setVoteModal(true);
+        }
     }
     const closeVoteModal = () => {
         setVoteModal(false);
@@ -118,7 +91,7 @@ export default function SpeakComponent(props) {
 
     return (
         <div style={styles.container}>
-            <div style={styles.title}>‘{''}’님 차례입니다!!</div>
+            <div style={styles.title}>‘{props.turn[point]}’님 차례입니다!!</div>
             <div style={styles.description}>제한시간 내 발언을 마치고 ‘발언 종료’ 버튼을 눌러주세요!</div>
             <span style={styles.count}>{count}<span style={styles.countText}>초</span></span>
             <button style={styles.stopBtn} onClick={openVoteModal}>발언 종료</button>
@@ -126,7 +99,7 @@ export default function SpeakComponent(props) {
                 {userList}
             </div>
             <GoStopModal open={voteModal} close={closeVoteModal} userList={props.users}
-                         goStopResult={getFromVoteModal}/>
+                         goStopResult={getFromVoteModal} userProfile={userProfile} turn={props.turn}/>
         </div>
     )
 }

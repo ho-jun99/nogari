@@ -67,6 +67,7 @@ export default function Find({history}) {
         await firebase.firestore().collection("game").doc(`${roomNumber}`).set({
             liar: {
                 liarword:"",
+                select:false,
             },
         }, {merge:true});
 

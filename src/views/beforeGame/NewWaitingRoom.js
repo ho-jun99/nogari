@@ -125,6 +125,7 @@ export default function NewWaitingRoom({ match, history }) {
         setGameInfoModal(false);
     }
     const startCallback = (data) => {
+        console.log(data.game);
         if(data.game === "노가리마블") {history.push(`/rooms/${match.params.roomId}/marble`)}
         else if (data.game === "안주 라이어") {history.push(`/rooms/${match.params.roomId}/liarCategory`)}
         else if (data.game === "중간고사 서바이벌") {history.push(`/rooms/${match.params.roomId}/wordCategory`)}
@@ -132,10 +133,10 @@ export default function NewWaitingRoom({ match, history }) {
 
     }
 
-    const gameStart = () => {
+    const gameStart = async () => {
         const roomNumber = localStorage.getItem('roomNumber')
         setUser(roomNumber);
-        getRoomInfo(match.params.roomId, startCallback);
+        await getRoomInfo(match.params.roomId, startCallback);
     }
 
 

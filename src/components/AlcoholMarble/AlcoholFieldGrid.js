@@ -161,7 +161,7 @@ export function AlcoholFieldGrid({match}) {
             members.push(memberInfo);
         }
         setUserProfile(members);
-        console.log(userProfile);
+        console.log(members);
     }
 
     // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
