@@ -25,6 +25,10 @@
   justify-content: center;
 }
 
+.modal {
+  cursor: pointer;
+}
+
 #mainWrap .navi .modal {
   border: none;
   background-color: #E9DDC1;
@@ -40,10 +44,26 @@
   width: 121px;
 }
 
+#mainWrap .navi .modal:nth-child(3):hover{
+  background-color: #000;
+  color: white;
+}
+
+#mainWrap .navi .modal:nth-child(2):hover{
+  background-color: #000;
+  color: white;
+}
+
 #mainWrap .navi .modal:nth-child(1) {
   background-color: #1B9659;
   color: #fcce39;
 }
+
+#mainWrap .navi .modal:nth-child(1):hover{
+  background-color: black;
+  color: white;
+}
+
 
 #mainWrap .Main {
   display: -webkit-box;
@@ -140,6 +160,12 @@
   background-color: #fcce39;
   color: white;
   border: none;
+  cursor: pointer;
+}
+
+#mainWrap .Main .selectGameBtn:hover{
+    background-color: #05391F;
+    color: #fcce39;
 }
 
 #mainWrap .Main .startBtn {
@@ -151,8 +177,19 @@
   background-color: #fcce39;
   color: white;
   border: none;
-  cursor: pointer;
 }
+
+#mainWrap .Main #unactive.startBtn {
+  background-color: rgba(53,53,53,0.5);
+}
+
+#mainWrap .Main #active.startBtn:hover {
+  cursor: pointer;
+  background-color: #05391F;
+  color: #fcce39;
+
+}
+
 
 #mainWrap .Main .selectedGame {
   width: 450px;
@@ -222,6 +259,7 @@
 
 .main-info-btn {
   position: relative;
+  cursor: pointer;
 }
 
 .main-info-btn:before {
@@ -237,6 +275,7 @@
   background-color: #FCCE39;
   border: 2px solid #000000;
 }
+
 
 #menuModal #backBtn {
   text-align: center;

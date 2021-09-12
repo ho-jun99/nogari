@@ -111,7 +111,7 @@ export default function MainView() {
                         }} src={icon} alt='characters'/>}
 
                     {
-                        sec > 260 && <button className='fourth_top'>
+                        sec > 260 && <button className='fourth_top' id="btnPlay">
                             <a onClick={play}>PLAY</a>
                         </button>}
                     {
