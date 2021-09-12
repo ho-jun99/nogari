@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from "react-router";
 import Badge from '../../views/img/뱃지-01.png'
-import Egg from '../../views/img/계란말이_스탠딩.png'
-import Kimchi from '../../views/img/김치국수 스탠딩.png'
-import Nogari from '../../views/img/노가리_스탠딩1 1.png'
-import DDuk from '../../views/img/떡볶이 스탠딩.png'
-import Bing from '../../views/img/빙수_스탠딩.png'
-import Chicken from '../../views/img/치킨_스탠딩.png'
+import {Chr} from "../../views/beforeGame/Choose_Char";
 import BadgeTimeComponent from "./BadgeTimeComponent";
 import '../css/voteBadge.css'
 import CompletionVoteComponent from "./CompletionVoteComponent";
+import {getGameData, setLiarData, setLiarPlayerData} from "../../firebase/game-data";
+import {getRoomInfo} from "../../firebase/waiting-room";
+import {getRoomdata} from "../../firebase/rooms";
+import {getUserInfo} from "../../firebase/users";
 
 
 function VoteBadgeComponent() {
@@ -38,6 +37,23 @@ function VoteBadgeComponent() {
                 setBadgeTime(false);
             }
         }, 1000);
+        const roomId = localStorage.getItem('roomNumber');
+        const exec = async () => {
+            const gameData = await getGameData(roomId);
+            const users = Object.entries(gameData.players)
+                .map(([nickname, userData]) => ({
+                    nickname,
+                    count:0,
+                    member: userData.member,
+                }));
+            let members = [];
+            for (const user of users) {
+                const userProfile = (await getUserInfo(user.member)).profile;
+                members.push({ ...user, img: Chr[userProfile]});
+            }
+            setGameUser(members);
+        };
+        exec();
     }, []);
 
 
@@ -61,40 +77,43 @@ function VoteBadgeComponent() {
         });
     }
 
-
-    // 임시 유저 데이터
-    const [gameUser, setGameUser] = useState([
-        {
+    /**
+     *
+     * [
+     {
             nickname: "임성원", // 닉네임
             count: 0,
             img: Egg,
         },
-        {
+     {
             nickname: "김지성", // 닉네임
             count: 0,
             img: Kimchi,
         },
-        {
+     {
             nickname: "이종휘", // 닉네임
             count: 0,
             img: Nogari,
         },
-        {
+     {
             nickname: "김호준", // 닉네임
             count: 0,
             img: DDuk,
         },
-        {
+     {
             nickname: "박정민", // 닉네임
             count: 0,
             img: Bing,
         },
-        {
+     {
             nickname: "신재혁", // 닉네임
             count: 0,
             img: Chicken,
         },
-    ]);
+     ]
+     */
+    // 임시 유저 데이터
+    const [gameUser, setGameUser] = useState([]);
 
     const userList = gameUser.map((user, index) => {
         return (
