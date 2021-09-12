@@ -12,6 +12,8 @@ import {
     NewWaitingRoom, LiarCategoryView,WordGameCategoryView,
     StoryMain
 } from './views';
+import CompletionVoteComponent from "./components/voteBadge/CompletionVoteComponent";
+import Result from "./components/common/result";
 
 function App() {
     return (
@@ -19,7 +21,7 @@ function App() {
             <div>
                 <Route exact path="/" component={MainView}/>
                 <Route path="/rooms/:roomId/liar" component={LiarGameView}/>
-                <Route path="/roulette" component={RouletteGameView}/>
+                <Route path="/rooms/:roomId/rottenPlates" component={RouletteGameView}/>
                 <Route path="/rooms/:roomId/word" component={WordGameView}/>
                 <Route path="/Find" component={Find}/>
                 <Route path="/Choose_Char" component={Choose_Char}/>
@@ -28,8 +30,9 @@ function App() {
                 <Route exact path="/rooms/:roomId/wordCategory" component={WordGameCategoryView}/>
                 <Route path="/rooms/:roomId/marble" component={AlcoholMarbleView}/>
                 <Route path="/changeCharacter" component={ChangeCharacterView}/>
+                <Route path="/badge" component={CompletionVoteComponent}/>
                 <Route path = "/story" component ={StoryMain}/>
-
+                <Route path = "/result" component ={Result}/>
             </div>
         </div>
     );

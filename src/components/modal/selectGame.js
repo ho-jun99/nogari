@@ -1,9 +1,12 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import GameInfo from "./gameInfo";
 import '../css/selectGame.css'
-import {choiceGame} from "../../firebase/choiceGame";
+import { choiceGame } from "../../firebase/choiceGame";
 
-const SelectGame = (props, {match}) => {
+
+
+
+const SelectGame = (props, { match }) => {
 
     const [gameList, setGameList] = useState([
         {
@@ -40,6 +43,18 @@ const SelectGame = (props, {match}) => {
         },
     ]);
 
+    // const getGameListStyle = (i) => {
+    //     if (gameList[i].isSelected === true) {
+    //         return {
+    //             backgroundColor: '#FCCE39',
+    //         }
+    //     } else {
+    //         return {
+    //             backgroundColor: 'black'
+    //         }
+    //     }
+    // }
+
     const [infoModal, setInfoModal] = useState(false);
     const [gameInfo, setGameInfo] = useState({});
     const infoOpenModal = () => {
@@ -50,28 +65,47 @@ const SelectGame = (props, {match}) => {
         setInfoModal(false);
     }
 
+    const clearSelectedGame = () => {
+        const temp = [...gameList];
+        for (let i = 0; i < gameList.length; i++) {
+            temp[i].isSelected = false;
+        }
+        setGameList(temp);
+    }
+
     // 게임 선택 '나가기' 버튼 클릭 시 팝업창 종료 및 '선택하기' 버튼 비활성화
     // const exitMenu = () => {
     //     props.close();
     //     setIsSelected(false);
     //     setSelectedGame("");
     // }
+
+
+
     const [isSelected, setIsSelected] = useState(false); // 게임 선택 유무
     const [selectedGame, setSelectedGame] = useState(""); // 선택된 게임 이름
-
+    //gameList
     const game_info = gameList.map((idx, index) => (
-        <li tabindex={index} className="gameList" onClick={() => {
-            gameList[index].isSelected = true;
-            for (let i = 0; i < gameList.length; i++) {
-                if (gameList[i].id === idx.id) {
-                    setSelectedGame(gameList[i].gameName);
-                    choiceGame(localStorage.getItem('roomNumber'),gameList[i].gameName);
-                    console.log(localStorage.getItem('roomNumber'));
-                    setGameInfo(gameList[i]);
-                    setIsSelected(true);
-                }
-            }
-        }}>
+        <li li tabindex={index}
+            className={"gameList" + (gameList[index].isSelected ? "active" : '')}
+            onClick={
+                () => {
+                    clearSelectedGame();
+                    const dump = [...gameList];
+                    dump[index].isSelected = true;
+                    setGameList(dump);
+                    gameList[index].isSelected = true;
+                    console.log(gameList);
+                    for (let i = 0; i < gameList.length; i++) {
+                        if (gameList[i].id === idx.id) {
+                            setSelectedGame(gameList[i].gameName);
+                            choiceGame(localStorage.getItem('roomNumber'), gameList[i].gameName);
+                            console.log(localStorage.getItem('roomNumber'));
+                            setGameInfo(gameList[i]);
+                            setIsSelected(true);
+                        }
+                    }
+                }}>
             <div style={styles.contentContainer}>
                 <div className="infoBtn" style={styles.infoIcon} onClick={infoOpenModal}>i</div>
                 <div style={styles.gameName}>{idx.gameName}</div>
@@ -97,7 +131,7 @@ const SelectGame = (props, {match}) => {
                     </div>
                 </div>
             ) : null}
-            <GameInfo open={infoModal} close={infoCloseModal} gameInfo={gameInfo}/>
+            <GameInfo open={infoModal} close={infoCloseModal} gameInfo={gameInfo} />
         </div>
     );
 }

@@ -129,7 +129,7 @@ export default function NewWaitingRoom({ match, history }) {
         if(data.game === "노가리마블") {history.push(`/rooms/${match.params.roomId}/marble`)}
         else if (data.game === "안주 라이어") {history.push(`/rooms/${match.params.roomId}/liarCategory`)}
         else if (data.game === "중간고사 서바이벌") {history.push(`/rooms/${match.params.roomId}/wordCategory`)}
-        else if (data.game === "상한 안주찾기") {history.push(`/rooms/${match.params.roomId}/roulette`)}
+        else if (data.game === "상한 안주찾기") {history.push(`/rooms/${match.params.roomId}/rottenPlates`)}
 
     }
 
@@ -192,24 +192,6 @@ export default function NewWaitingRoom({ match, history }) {
                                 게임을 선택해주세요
                             </div>
                         }
-                            {/* <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
-                    <Modal id="infoModal" isOpen={isInfoOpen} onRequestClose={() => setIsInfoOpen(false)} style={
-                        {
-                            overlay: {
-                                position: 'absolute',
-                                top: '400px',
-                                left: '470px',
-                                right: 0,
-                                bottom: 0,
-                                width: '1000px',
-                                height: '300px',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                zIndex: 99
-                            }
-                        }
-                    }>
-                        {selectedGameRule ? <div>{selectedGameRule}</div> : <div>게임을 먼저 선택해 주세요.</div>}
-                    </Modal> */}
                         </div>
                         {room.isSelected ? <button className="startBtn" onClick={gameStart}>시작하기</button> :
                             <button className="stopBtn" disabled>시작</button>}

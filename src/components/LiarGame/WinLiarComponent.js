@@ -1,17 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
+import VoteBadgeComponent from "../voteBadge/VoteBadgeComponent";
 
 const WinLiarComponent = (props) => {
-    return (
-        <>
-            <div style={styles.title}>라이어 승리 !</div>
-            <img style={styles.imgStyle} src={props.profile} alt=""/>
-            <div style={styles.userName}>{props.name}</div>
-            <div style={styles.btnContainer}>
-                <input style={styles.startBtn} type="button" value="다시하기"/>
-                <input style={styles.stopBtn} type="button" value="끝내기"/>
-            </div>
-        </>
-    )
+    // true가 되면 게임을 종료하고 뱃지 투표 컴포넌트로 이동
+    const [exitGame, setExitGame] = useState(false);
+
+    if (!exitGame) {
+        return (
+            <>
+                <div style={styles.title}>라이어 승리 !</div>
+                <img style={styles.imgStyle} src={props.profile} alt=""/>
+                <div style={styles.userName}>{props.name}</div>
+                <div style={styles.btnContainer}>
+                    <input style={styles.startBtn} type="button" value="다시하기"/>
+                    <input style={styles.stopBtn} type="button" value="끝내기" onClick={() => {setExitGame(true);}}/>
+                </div>
+            </>
+        )
+    }
+    else {
+        return (
+            <>
+                <VoteBadgeComponent/>
+            </>
+        )
+    }
 }
 
 export default WinLiarComponent
