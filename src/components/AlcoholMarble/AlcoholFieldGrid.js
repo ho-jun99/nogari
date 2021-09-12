@@ -209,7 +209,8 @@ export function AlcoholFieldGrid() {
                                     setUserLocation(temp_user_list[i].name, temp_user_list[i].location); // 돌림판 돌린 사용자의 이름, 나온 위치를 해당 함수의 인자로 넘김
                                 }
                             }
-                            setPlayers(temp_user_list);
+                            // 필요없을듯 이거
+                            // setPlayers(temp_user_list);
                         }}
                     />
                 </div>
