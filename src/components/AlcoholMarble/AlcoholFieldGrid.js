@@ -8,9 +8,12 @@ import '../../firebase/waiting-room';
 import {getRoomInfo} from "../../firebase/waiting-room";
 import {getUserInfo} from "../../firebase/users";
 import { Chr } from '../../views/beforeGame/Choose_Char';
+import {setFirstUserOder} from "../../firebase/game-data";
+import {setRoulettePlayerData} from "../../firebase/game-data";
 
 const db = firebase.firestore();
 const roomId = localStorage.getItem('roomNumber');
+let point = 0;
 
 const getMapLocation = (location) => {
     if (location <= 35 && location >= 30) {
@@ -84,26 +87,31 @@ export function AlcoholFieldGrid() {
                 }
             }
         });
+
+        // await setRoulettePlayerData(roomId, point, 'order', false);
+        // ++point;
+        // await setRoulettePlayerData(roomId, point, 'order', true);
     }
 
     // 파이어스토어에서 유저 정보를 받아와 유저 리스트에 저장 => 그러면 화면에 뿌려짐
     const initializeUser = async (userData) => {
-        let temp_list = []
-        let values = Object.values(userData.players); // players 하위 데이터를 가져옴
-        for (let i = 0; i<values.length; i++) {
-            let userName = Object.keys(userData.players)[i]; // ex) 원성임
-            let userLocation = values[i].alcoholRoulette.location; // 0~19 사이
-            let userOrder = values[i].alcoholRoulette.order; // true or false
 
-            temp_list.push({name: userName, location: userLocation, order: userOrder});
-            temp_list[i].order = true; // 리스트의 첫번째 유저 순서를 true로 변경
-        }
-        await setPlayers(temp_list);
+        // 유저 정보 불러오기 전 파이어스토어에서 첫 번째 유저의 order를 true로 변경하기
+        // 그리고 끝나면 players 라는 useState 변수에 디비에서 불러온 유저 정보를 저장시킴
+        setFirstUserOder(roomId).then(() => {
+            let temp_list = []
+            let values = Object.values(userData.players); // players 하위 데이터를 가져옴
+            for (let i = 0; i<values.length; i++) {
+                let userName = Object.keys(userData.players)[i]; // ex) 원성임
+                let userLocation = values[i].alcoholRoulette.location; // 0~19 사이
+                let userOrder = values[i].alcoholRoulette.order; // true or false
 
-        // 위 코드는 유저가 1명인 가정 하에 구현한 코드, 여러 인원인 경우엔 for문으로 돌아서 저장하면 될 듯 싶다.
+                temp_list.push({name: userName, location: userLocation, order: userOrder});
+            }
+            setPlayers(temp_list);
+        });
     }
 
-    // doc() 안의 인자는 동적으로 주어야 할 것 같은데 roomId 가져오는 방법을 모르겠음
     // 해당 방의 필드 정보들을 가져와서 initializeUser 함수에 넘겨줌
     useEffect(async () => {
         let docRef = db.collection("game").doc(roomId); // roomId
@@ -134,7 +142,6 @@ export function AlcoholFieldGrid() {
             members.push(memberInfo);
         }
         setUserProfile(members)
-        console.log(userProfile);
     }
 
     // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
@@ -193,7 +200,6 @@ export function AlcoholFieldGrid() {
                                 <div style={{position:'relative'}} >
                                     {inPlayers.map((i, index) => {
                                         const user = userProfile.find((u) => u.nickname === i.name);
-                                        console.log(user)
                                         return <div style={{position:`absolute`, width:'60px', left:`${index*10}%`, textAlign:'center',}}>
                                             <img src={Chr[(user && user.profile) ?? 0]} style={{ width:'100%', }} />
                                             <div>{(user && user.nickname)??"guest"}</div>
@@ -220,13 +226,12 @@ export function AlcoholFieldGrid() {
                         perpendicularText={true}
                         onStopSpinning={() => {
                             setMustSpin(false)
-                            console.log(data[prizeNumber].option)
+                            // console.log(data[prizeNumber].option)
                             let temp_user_list = [...players];
                             for (let i = 0; i < temp_user_list.length; i++) {
                                 if (temp_user_list[i].order === true) {
                                     temp_user_list[i].location = (temp_user_list[i].location + parseInt(data[prizeNumber].option)) % 20;
                                     setUserLocation(temp_user_list[i].name, temp_user_list[i].location); // 돌림판 돌린 사용자의 이름, 나온 위치를 해당 함수의 인자로 넘김
-                                    temp_user_list[i].order = false;
                                 }
                             }
                             setPlayers(temp_user_list);
