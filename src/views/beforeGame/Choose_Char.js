@@ -12,6 +12,7 @@ import CheezeBall from '../img/치즈볼_스탠딩.png'
 import CaramelPop from '../img/카라멜팝곤_스탠딩.png'
 import {Link} from "react-router-dom";
 import * as members from "../../firebase/users";
+import {updateLastConnection} from '../../firebase/users'
 
 
 const title = {
@@ -87,6 +88,7 @@ export default function Choose_Char({ history }) {
         }
         else {
             const userId = await members.createUser(nickname, character);
+            await updateLastConnection(userId);
             localStorage.setItem('myId', userId);
             localStorage.setItem('nickname', nickname);
             localStorage.setItem('character', character);

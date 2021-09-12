@@ -30,6 +30,10 @@ export default function MainView() {
     const play = () => {
         history.push("/choose_char")
     }
+
+    const story = () => {
+        history.push("/story")
+    }
     return (
         <>
             <div className="mainwrapper">
@@ -111,7 +115,7 @@ export default function MainView() {
                             <a onClick={play}>PLAY</a>
                         </button>}
                     {
-                        sec > 290 && <p className='blinking'>노가리 이야기 보러가기 &#9654;</p>}
+                        sec > 290 && <p className='blinking' onClick={story}>노가리 이야기 보러가기 &#9654;</p>}
                 </div>
             </div>
         </>

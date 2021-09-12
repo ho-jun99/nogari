@@ -6,7 +6,6 @@ import CopyLink from '../../components/modal/copylink'
 import SelectGame from "../../components/modal/selectGame";
 import { getRoomInfo } from "../../firebase/waiting-room";
 import { getUserInfo } from '../../firebase/users';
-import firebase from "firebase";
 import { setPlayers } from "../../firebase/game-data";
 import RankMenu from '../../components/modal/RankMenu';
 import MainGameModal from "../../components/modal/mainGameInfo";
@@ -15,7 +14,11 @@ import Roulette from '../img/상한안주.png';
 import Liar from '../img/안주라이어.png';
 import Marble from '../img/노가리마블.png';
 import Midterm from '../img/중간고사.png';
-import GameInfo from "../../components/modal/gameInfo";
+//import GameInfo from "../../components/modal/gameInfo";
+
+import {setUser} from '../../firebase/SetUser'
+
+import { Chr } from './Choose_Char';
 
 Modal.setAppElement('#root');
 export default function NewWaitingRoom({ match, history }) {
@@ -88,7 +91,7 @@ export default function NewWaitingRoom({ match, history }) {
 
     // 새로운 참여자가 발생하거나 룸 정보가 바뀔때 실행되는 함수
     const changedRoomInfo = async (roomInfo) => {
-        console.log(roomInfo)
+        console.log("444");
         // const captainInfo = await getUserInfo(roomInfo.captain);
         // setCaptain(captainInfo);
         let members = [];
@@ -98,16 +101,16 @@ export default function NewWaitingRoom({ match, history }) {
             const memberInfo = await getUserInfo(member); //user컬렉션의 문서 가져오기
             if (!memberInfo) continue;
             members.push(memberInfo);
-            const gameMember = {member, liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false, inputWord: ""}}
+            const gameMember = {member, liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false, inputWord: ""}, alcoholRoulette: {location: 0, order: false}}
             membersGamedata[memberInfo.nickname] = gameMember;
         }
-        const memberProps = members.map((member) => member.nickname);
+        // const memberProps = members.map((member) => member.nickname);
         // console.log(memberProps);
-        setUsers(memberProps);
+        setUsers(members);
 
         // for await (const member of members) {
         //     console.log(member);
-        //     const gameMember = {liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}}
+        //     const gameMember = {liar: {isCheckWord: false, isliar: false, order:false, count:0}, wordGame : {isCorrected: false}, alcoholRoulette: {location: 0, order: false}}
         //     membersGamedata[member.nickname] = gameMember;
         // }
         await setPlayers(match.params.roomId, membersGamedata);
@@ -125,11 +128,13 @@ export default function NewWaitingRoom({ match, history }) {
         if(data.game === "노가리마블") {history.push(`/rooms/${match.params.roomId}/marble`)}
         else if (data.game === "안주 라이어") {history.push(`/rooms/${match.params.roomId}/liarCategory`)}
         else if (data.game === "중간고사 서바이벌") {history.push(`/rooms/${match.params.roomId}/wordCategory`)}
-        else if (data.game === "상한 안주찾기") {history.push(`/rooms/${match.params.roomId}/roulette`)}
+        else if (data.game === "상한 안주찾기") {history.push(`/rooms/${match.params.roomId}/rottenPlates`)}
 
     }
 
     const gameStart = () => {
+        const roomNumber = localStorage.getItem('roomNumber')
+        setUser(roomNumber);
         getRoomInfo(match.params.roomId, startCallback);
     }
 
@@ -158,8 +163,8 @@ export default function NewWaitingRoom({ match, history }) {
                             users.filter((item, index) => index < 3)
                                 .map((item, index) => {
                                     return <div key={index}>
-                                        <div className="character"></div>
-                                        <div className="userName">{item}</div>
+                                        <div className="character"><img src={Chr[item.profile]} className="character_img" alt=""/></div>
+                                        <div className="userName">{item.nickname}</div>
                                     </div>;
                                 })
                         }
@@ -186,24 +191,6 @@ export default function NewWaitingRoom({ match, history }) {
                                 게임을 선택해주세요
                             </div>
                         }
-                            {/* <div className="infoBtn" onClick={isInfoOpenFun}>i</div>
-                    <Modal id="infoModal" isOpen={isInfoOpen} onRequestClose={() => setIsInfoOpen(false)} style={
-                        {
-                            overlay: {
-                                position: 'absolute',
-                                top: '400px',
-                                left: '470px',
-                                right: 0,
-                                bottom: 0,
-                                width: '1000px',
-                                height: '300px',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                zIndex: 99
-                            }
-                        }
-                    }>
-                        {selectedGameRule ? <div>{selectedGameRule}</div> : <div>게임을 먼저 선택해 주세요.</div>}
-                    </Modal> */}
                         </div>
                         {room.isSelected ? <button className="startBtn" onClick={gameStart}>시작하기</button> :
                             <button className="stopBtn" disabled>시작</button>}
@@ -214,8 +201,8 @@ export default function NewWaitingRoom({ match, history }) {
                             users.filter((item, index) => index >= 3)
                                 .map((item, index) => {
                                     return <div key={index}>
-                                        <div className="character"></div>
-                                        <div className="userName">{item}</div>
+                                        <div className="character"><img src={Chr[item.profile]} className="character_img" alt=""/></div>
+                                        <div className="userName">{item.nickname}</div>
                                     </div>;
                                 })
                         }
