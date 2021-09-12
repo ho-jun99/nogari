@@ -12,6 +12,7 @@ import {
     NewWaitingRoom, LiarCategoryView,WordGameCategoryView,
     StoryMain
 } from './views';
+import Result from "./components/common/result";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/rooms/:roomId/marble" component={AlcoholMarbleView}/>
                 <Route path="/changeCharacter" component={ChangeCharacterView}/>
                 <Route path = "/story" component ={StoryMain}/>
+                <Route path = "/result" component ={Result}/>
 
             </div>
         </div>
