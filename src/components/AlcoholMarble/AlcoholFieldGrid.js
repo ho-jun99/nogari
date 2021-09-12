@@ -8,7 +8,7 @@ import '../../firebase/waiting-room';
 import {getRoomInfo} from "../../firebase/waiting-room";
 import {getUserInfo} from "../../firebase/users";
 import { Chr } from '../../views/beforeGame/Choose_Char';
-import {setFirstUserOder} from "../../firebase/game-data";
+import {setFirstUserOder, updateLocationAndOrder, updateRoulettePlayersOrder} from "../../firebase/game-data";
 import {setRoulettePlayerData} from "../../firebase/game-data";
 
 const db = firebase.firestore();
@@ -59,38 +59,13 @@ export function AlcoholFieldGrid() {
     const setUserLocation = async (userName, location) => {
 
         // 필드 데이터 받아오는 부분
-        const gameData = await db.collection('game').doc(roomId).get().then((doc) => {
-            return doc.data()
-        });
+        await updateLocationAndOrder(roomId, userName, point+1, location);
         // console.log(gameData);
 
         // 해당 유저의 위치를 최신화 하여 파이어스토어에 저장하는 부분
-        await db.collection("game").doc(roomId).update({
-            ...gameData,
-            liar: {
-                ...gameData.liar,
-            },
-            players: {
-                ...gameData.players,
-                [userName]: { // [userName] 이와 같이 해야 key 값이 파라미터에서 넘어온 대로 저장. userName: 으로 하면 키 값이 userName 스트링 자체로 바뀜
-                    ...gameData.players[userName],
-                    alcoholRoulette: {
-                        ...gameData.players[userName].alcoholRoulette,
-                        location: location // value는 파라미터 넘어온 그대로 사용 가능
-                    },
-                    liar: {
-                        ...gameData.players[userName].liar,
-                    },
-                    wordGame: {
-                        ...gameData.players[userName].wordGame,
-                    }
-                }
-            }
-        });
 
-        // await setRoulettePlayerData(roomId, point, 'order', false);
-        // ++point;
-        // await setRoulettePlayerData(roomId, point, 'order', true);
+
+        // await updateRoulettePlayersOrder(roomId, point, point+1);
     }
 
     // 파이어스토어에서 유저 정보를 받아와 유저 리스트에 저장 => 그러면 화면에 뿌려짐

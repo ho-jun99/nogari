@@ -105,3 +105,72 @@ export async function setRoulettePlayerData(roomNumber, point, field, fieldValue
         },
     });
 }
+
+
+export async function updateLocationAndOrder(roomNumber, userName, nextPoint, location) {
+    const gameData = await getGameData(roomNumber);
+    const userLength = gameData.turn.length;
+    const nextName = gameData.turn[nextPoint % userLength];
+
+    const userData = Object.entries(gameData.players).map(([nickname, data]) => ({
+        [nickname]: {
+            ...data,
+            alcoholRoulette: {
+                ...data.alcoholRoulette,
+                order: false,
+            },
+        }
+    })).reduce((x, y) => ({ ...x, ...y }));
+    await firebase.firestore().collection("game").doc(roomNumber).update({
+        ...gameData,
+        players: {
+            ...userData,
+            [userName]: { // [userName] 이와 같이 해야 key 값이 파라미터에서 넘어온 대로 저장. userName: 으로 하면 키 값이 userName 스트링 자체로 바뀜
+                ...gameData.players[userName],
+                alcoholRoulette: {
+                    ...gameData.players[userName].alcoholRoulette,
+                    location: location, // value는 파라미터 넘어온 그대로 사용 가능
+                    order: false,
+                }
+            },
+            [nextName]: {
+                ...gameData.players[nextName],
+                alcoholRoulette: {
+                    ...gameData.players[nextName].alcoholRoulette,
+                    order: true,
+                }
+            },
+        }
+    });
+}
+
+export async function updateRoulettePlayersOrder(roomNumber, point, nextPoint) {
+    const gameData = await getGameData(roomNumber);
+    let userLength = gameData.turn.length;
+    let name = gameData.turn[point % userLength];
+    const nextName = gameData.turn[nextPoint % userLength];
+
+    const userData = Object.entries(gameData.players).map(([nickname, data]) => ({
+        [nickname]: {
+            ...data,
+            alcoholRoulette: {
+                ...data.alcoholRoulette,
+                order: false,
+            },
+        }
+    })).reduce((x, y) => ({ ...x, ...y }));
+
+    await firebase.firestore().collection("game").doc(roomNumber).update({
+        ...gameData,
+        players: {
+            ...userData,
+            [nextName]: {
+                ...gameData.players[nextName],
+                alcoholRoulette: {
+                    ...gameData.players[nextName].alcoholRoulette,
+                    order: true,
+                }
+            },
+        },
+    });
+}
