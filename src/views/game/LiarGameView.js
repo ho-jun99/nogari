@@ -3,7 +3,7 @@ import '../../components/css/liarGame.css'
 import SuggestionModal from "../../components/LiarGame/suggestionModal";
 import SpeakComponent from "../../components/LiarGame/SpeakComponent";
 import SelectLiarComponent from "../../components/LiarGame/SelectLiarComponent";
-import {getGameRoomData} from "../../firebase/game-data";
+import {getGameRoomData, setLiarPlayerData} from "../../firebase/game-data";
 import {getRoomdata} from "../../firebase/rooms";
 
 export default function LiarGameView({ match }) {
@@ -20,11 +20,22 @@ export default function LiarGameView({ match }) {
         setTurn(gamedata.turn);
         setLiarGamedata(gamedata.liar);
 
+        console.log(turn[0]);
+
         const gameUserData = Object.entries(gamedata.players);
+
+        // const callback = async () => {
+        //     await setLiarPlayerData(match.params.roomId, turn[0], 'order', true);
+        // }
 
         //제시어 확인 후 넘어감
         const isNotCheckedUsers = gameUserData.filter(([nickname, userGameData]) => !userGameData.liar.isCheckWord); // isCheckWord가 false인 array만 모아서 저장
-        if(isNotCheckedUsers.length == 0) setIsStart(true); //만약 isNotCheckedUsers에 아무것도 없을 경우 발언화면으로 넘어가도록 함
+        if(isNotCheckedUsers.length == 0) {
+            setIsStart(true);
+            // callback();
+            console.log("!");
+        }
+         //만약 isNotCheckedUsers에 아무것도 없을 경우 발언화면으로 넘어가도록 함
 
         //라이어
 
@@ -46,7 +57,7 @@ export default function LiarGameView({ match }) {
     const word = liarGamedata.liarword;
 
     //프론트
-    const startGame = () => { // 게임이 시작되면 발언하는 화면으로 이동
+    const startGame = async () => { // 게임이 시작되면 발언하는 화면으로 이동
         setIsStart(true);
     }
     const goStop = (result) => { // true 이면, 투표 화면으로 이동. false 인 경우 첫 사용자부터 다시 발언 재개
