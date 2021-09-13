@@ -4,6 +4,7 @@ import Users from './Users';
 import '../css/RottenPlatesGame.css';
 import UnPassModal from './UnPassModal';
 import {getUserTurn} from '../../firebase/get-turn'
+import {getGameData} from "../../firebase/game-data";
 import {setRoulettePlayerData} from "../../firebase/game-data";
 
 export const TableContext = createContext();
@@ -67,11 +68,22 @@ const RottenPlatesGame = memo((props) => {
     },1000);
   }
 
-  useEffect(()=>{
-    const ServerUsers = getUserTurn(roomNumber);
-    setUserlist(ServerUsers)
-    console.log(userlist)
-  }, [])
+  const [turn, setTurn] = useState({});
+
+  const gamedata = async () => {
+    const gameData = await getGameData(roomNumber);
+    setTurn(gameData.turn);
+  }
+
+  gamedata();
+  console.log(turn);
+
+
+  // useEffect(()=>{
+  //   const ServerUsers = getUserTurn(roomNumber);
+  //   setUserlist(ServerUsers)
+  //   console.log(userlist);
+  // }, [])
 
   const [userlist,setUserlist] = useState();
 

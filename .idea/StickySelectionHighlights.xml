@@ -8,6 +8,11 @@
             <PaintGroupHighlightMap />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/components/RottenPlatesGame/Cell.js">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/components/RottenPlatesGame/RottenPlatesGame.js">
           <value>
             <PaintGroupHighlightMap />
@@ -44,6 +49,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/firebase/games/word-game.js">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/firebase/get-turn.js">
           <value>
             <PaintGroupHighlightMap />
           </value>
