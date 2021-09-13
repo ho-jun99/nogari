@@ -397,7 +397,8 @@
   height: 19.94px; */
     width: 35px;
     height: 35px;
-  background-color: #FCCE39;
+  /* background-color: #FCCE39; */
+  background-repeat: no-repeat;
   color: #000000;
   text-align: center;
   font-weight: bold;
@@ -522,7 +523,8 @@
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightBadgeContainer .rightBadges .rightBadge {
-  background-color: #000000;
+  /* background-color: #000000; */
+  background-repeat: no-repeat;
   border-radius: 50%;
   /* width: 12.77px;
   height: 12.77px; */
