@@ -30,7 +30,7 @@ const getCellItemStyle = (status, penalty) => {
   }
 }
 
-const Cell = memo(( props, {cellId,cellIndex,cellPenalty} ) => {
+const Cell = memo((props, { cellId, cellIndex, cellPenalty, cellStatus} ) => {
   const {table,setTable,halted,setHalted,gameStatus,setGameStatus,curUser,setCurUser,selectPlate,setSelectPlate} = useContext(TableContext);
 
   const onClickCell = async (e) => {
@@ -97,8 +97,8 @@ const Cell = memo(( props, {cellId,cellIndex,cellPenalty} ) => {
 
   return (
     <>
-      <div style = {getCellStyle(table[cellIndex].status)} className="cell" onClick={onClickCell}>
-        <div className= "cellItem" style= {getCellItemStyle(table[cellIndex].status,cellPenalty)}></div>
+      <div style={getCellStyle(cellStatus)} className="cell" onClick={onClickCell}>
+        <div className="cellItem" style={getCellItemStyle(cellStatus,cellPenalty)}></div>
         <div className= "Plate"></div>
       </div>
     </>

@@ -8,7 +8,7 @@ const Table = memo(() => {
   return (
     <>
       <div className="platesContainer">
-        {table.map( (item,index) => {return <Cell cellIndex={index} cellPenalty={item.penalty} cellId={item.id}></Cell> })}
+        {table.map( (item,index) => {return <Cell cellIndex={index} cellPenalty={item.penalty} cellId={item.id} cellStatus={item.status}></Cell> })}
       </div>
     </>
   )
