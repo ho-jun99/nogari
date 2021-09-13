@@ -3,6 +3,8 @@ import Table from './Table';
 import Users from './Users';
 import '../css/RottenPlatesGame.css';
 import UnPassModal from './UnPassModal';
+import {getUserTurn} from '../../firebase/get-turn'
+import {setRoulettePlayerData} from "../../firebase/game-data";
 
 export const TableContext = createContext();
 
@@ -10,6 +12,7 @@ export const CODE = {
   NORMAL : -1,
   CLICKED : 1,
 }
+
 export const INIT = "INIT";
 export const GAME_START = "GAME_START";
 export const OTHER_TURN = "OTHER_TURN";
@@ -30,6 +33,7 @@ const userColor = () => {
     // fontSize: "24px",
   }
 }
+const roomNumber = localStorage.getItem('roomNumber')
 
 const SeverPenaltyList = [
       {id: 0, penalty : "pass", status : -1},{id: 1, penalty : "pass", status : -1},{id: 2, penalty : "pass", status : -1},{id: 3, penalty : "pass", status : -1},{id: 4, penalty : "pass", status : -1},
@@ -39,43 +43,32 @@ const SeverPenaltyList = [
       {id: 18, penalty : "게임18", status : -1},{id: 19, penalty : "게임19", status : -1},{id: 20, penalty : "게임20", status : -1}
     ];
 
-const ServerUsers = [
-  {id : 0, userName : "user0",status : -1},{id : 1, userName : "user1",status : -1},{id : 2, userName : "user2",status : -1},{id : 3, userName : "user3",status : -1},
-  {id : 4, userName : "user4",status : -1},{id : 5, userName : "user5",status : -1},
-]
+const ServerUsers = getUserTurn(roomNumber);
 
-const RottenPlatesGame = memo(() => {
+const RottenPlatesGame = memo((props) => {
   const [table,setTable] = useState(SeverPenaltyList);
   const [message,setMessage] = useState("벌칙룰렛 게임입니다.");
   const [gameStatus,setGameStatus] = useState(INIT);
   const [halted,setHalted] = useState(true);
   const [curUser,setCurUser] = useState(-1);
+
   const [userlist,setUserlist] = useState(ServerUsers);
+
   const [selectedPlate,setSelectPlate] = useState({isPass : true, id : -1 ,penalty : "default"});
   const [sec,setSec] = useState(15);
-  const [timeout,setTimeout] = useState(false);
-  const [owner,setOwner] = useState(true); //방장 여부
+  //const [owner,setOwner] = useState(true); //방장 여부
 
   const timer = useRef();
   const setTimer = useRef();
 
   const initData = {
-    table,
-    setTable,
-    message,
-    setMessage,
-    gameStatus,
-    setGameStatus,
-    halted,
-    setHalted,
-    curUser,
-    setCurUser,
-    userlist,
-    setUserlist,
-    selectedPlate,
-    setSelectPlate,
-    owner,
-    setOwner,
+    table, setTable,
+    message, setMessage,
+    gameStatus, setGameStatus,
+    halted, setHalted,
+    curUser, setCurUser,
+    userlist, setUserlist,
+    selectedPlate, setSelectPlate
   }
 
   const myTimer = () => {
@@ -95,51 +88,41 @@ const RottenPlatesGame = memo(() => {
 
   useEffect(()=>{
     if(sec<=0){
-      clearInterval(setTimer.current);
+      setGameStatus(UNPASS);
     }
   },[sec]);
 
-  // 테스트를 위해 만든 버튼 (순서)
-  const onClickNextBtn = () => { 
-    
-    if (gameStatus === INIT) {
-      setHalted(true);
-      setTable(shuffle(table));
-      setCurUser((prev)=>prev+1);
-      setGameStatus(GAME_START);
+  // // 테스트를 위해 만든 버튼 (순서)
+  // const onClickNextBtn = () => {
+  //   if (gameStatus === INIT) {
+  //     setHalted(true);
+  //     setTable(shuffle(table));
+  //     setCurUser((prev)=>prev+1);
+  //     setGameStatus(GAME_START);
+  //
+  //   } else if(gameStatus === GAME_START) {
+  //
+  //     setCurUser((prev)=>prev+1);
+  //     setHalted(true);
+  //     setGameStatus(OTHER_TURN);
 
-
-    } else if(gameStatus === GAME_START) {
-
-      setCurUser((prev)=>prev+1);
-      setHalted(true);
-      setGameStatus(OTHER_TURN);
-
-
-
-    } else if(gameStatus === OTHER_TURN) {
-        if(curUser === 1) { // 1번 user 차례 다음은 2번(MY_TURN) user 차례. 
-          setCurUser((prev)=>prev+1);
-          setGameStatus(MY_TRUN);
-          setHalted(false);
-          return;
-        }
-        if (curUser === 5 ) {
-          setGameStatus(END_GAME);
-          setHalted(true);
-          return;
-        }
-        setCurUser((prev)=> prev+1);
-        setHalted(true);
-        setGameStatus(OTHER_TURN);
-      }
-  }
-
-  const onClickStartBtn = () => {
-
-  }
-
-
+  //   } else if(gameStatus === OTHER_TURN) {
+  //       if(curUser === 1) { // 1번 user 차례 다음은 2번(MY_TURN) user 차례.
+  //         setCurUser((prev)=>prev+1);
+  //         setGameStatus(MY_TRUN);
+  //         setHalted(false);
+  //         return;
+  //       }
+  //       if (curUser === 5 ) {
+  //         setGameStatus(END_GAME);
+  //         setHalted(true);
+  //         return;
+  //       }
+  //       setCurUser((prev)=> prev+1);
+  //       setHalted(true);
+  //       setGameStatus(OTHER_TURN);
+  //     }
+  // }
 
   return(
     <div className="MainContainer">
@@ -151,7 +134,6 @@ const RottenPlatesGame = memo(() => {
           <div className="timerMessage"> {sec} 초 남았습니다.</div> 
         </div>
         : null}
-        <button onClick={onClickNextBtn} className="nextBtn">Next_Status</button>
         {/* <button onClick={onClickStartBtn} className="startBtn">START</button> */}
         <Table/>
         <Users/>
@@ -159,9 +141,6 @@ const RottenPlatesGame = memo(() => {
       </TableContext.Provider>
     </div>
   )
-
-
-
 })
 
 
