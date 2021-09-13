@@ -1,14 +1,12 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB4S8bwplLBO2akKgUWHKtkUjwfwAPhUeE",
-  authDomain: "nogari-2e614.firebaseapp.com",
-  databaseURL: "https://nogari-2e614-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "nogari-2e614",
-  storageBucket: "nogari-2e614.appspot.com",
-  messagingSenderId: "678673807435",
-  appId: "1:678673807435:web:89d6aed9102c1fb610f5ce",
-  measurementId: "G-S131ML6MYE"
+  apiKey: "AIzaSyARCJa4kFKCWDSqnqsjDl9NXiwHXaWbi5A",
+  authDomain: "skilful-tiger-325916.firebaseapp.com",
+  projectId: "skilful-tiger-325916",
+  storageBucket: "skilful-tiger-325916.appspot.com",
+  messagingSenderId: "990599483882",
+  appId: "1:990599483882:web:2e3ef5a3da9342ced66293"
 };
 
 firebase.initializeApp(firebaseConfig);

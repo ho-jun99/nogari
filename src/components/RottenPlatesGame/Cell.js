@@ -31,7 +31,7 @@ const getCellItemStyle = (status, penalty) => {
 }
 
 const Cell = memo((props, { cellId, cellIndex, cellPenalty, cellStatus} ) => {
-  const {table,setTable,halted,setHalted,gameStatus,setGameStatus,curUser,setCurUser,selectPlate,setSelectPlate} = useContext(TableContext);
+  const {table,setTable,halted,setHalted,gameStatus,setGameStatus,curUser,setCurUser,selectPlate,setSelectPlate, turn, setTurn} = useContext(TableContext);
 
   const onClickCell = async (e) => {
     if (halted) {
@@ -81,17 +81,17 @@ const Cell = memo((props, { cellId, cellIndex, cellPenalty, cellStatus} ) => {
 
   let [point, setPoint] = useState(0)
   const roomNumber = localStorage.getItem('roomNumber')
-  const ServerUsers = getUserTurn(roomNumber);
+  const ServerUsers = Object.entries(turn);
 
   const clickedPlates = async() => { //접시 눌렸을 때
     onClickCell();
     setSelectPlate(true);
-    await setRoulettePlayerData(roomNumber, props.turn[point], 'order', false);
+    await setRoulettePlayerData(roomNumber, turn[point], 'order', false);
     setPoint(point++);
     if(ServerUsers.length > point) {
-      await setRoulettePlayerData(roomNumber, props.turn[point], 'order', true);
+      await setRoulettePlayerData(roomNumber, turn[point], 'order', true);
     } else {
-      setPoint(0)
+      setPoint(0);
     }
   }
 

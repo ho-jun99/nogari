@@ -99,7 +99,7 @@ const RottenPlatesGame = memo((props) => {
     halted, setHalted,
     curUser, setCurUser,
     userlist, setUserlist,
-    selectedPlate, setSelectPlate
+    selectedPlate, setSelectPlate, turn, setTurn
   }
 
   useEffect(()=>{
