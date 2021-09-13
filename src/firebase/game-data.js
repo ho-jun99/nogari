@@ -2,11 +2,21 @@ import firebase from './firebase-manager';
 
 
 export async function getGameData(roomNumber) {
-    console.log(roomNumber);
+    //console.log(roomNumber);
     const game = await firebase.firestore().collection('game').doc(roomNumber).get();
     return game.data();
 }
 
+export async function setPlates(roomNumber, plate){
+    const gameData = await getGameData(roomNumber)
+
+    await firebase.firestore().collection("game").doc(roomNumber).update({
+        ...gameData,
+        rottenPlates: {
+            plate
+        },
+    });
+}
 
 export async function getGameRoomData(roomNumber, callback) {
     await firebase.firestore().collection('game').doc(roomNumber).onSnapshot((doc)=> {
@@ -15,7 +25,7 @@ export async function getGameRoomData(roomNumber, callback) {
 }
 
 export async function setPlayers(roomNumber, players) {
-    console.log(players);
+    //console.log(players);
     await firebase.firestore().collection("game").doc(roomNumber).update({
         players
     });
@@ -39,7 +49,7 @@ export async function setLiarPlayerData(roomNumber, nickname, field, fieldValue)
     });
 }
 
-export async function setRoulettePlayerData(roomNumber, nickname, field, fieldValue){
+export async function setRoulettePlayerData(roomNumber, nickname){
     const gameData = await getGameData(roomNumber)
 
     await firebase.firestore().collection("game").doc(roomNumber).update({
@@ -49,8 +59,8 @@ export async function setRoulettePlayerData(roomNumber, nickname, field, fieldVa
             [nickname]: {
                 ...gameData.players[nickname],
                 rottenPlates: {
-                    ...gameData.players[nickname].rottenPlates,
-                    [field]: fieldValue,
+                    //...gameData.players[nickname].rottenPlates,
+                    'order' : true,
                 }
             },
         },
@@ -89,6 +99,28 @@ export async function updateTurn(roomNumber, nickname, nextNickname){
                 ...gameData.players[nextNickname],
                 liar: {
                     ...gameData.players[nextNickname].liar,
+                    'order': true,
+                }
+            },
+        },
+    });
+}
+export async function updateRouletteTurn(roomNumber, nickname, nextNickname){
+    const gameData = await getGameData(roomNumber);
+
+    await firebase.firestore().collection("game").doc(roomNumber).update({
+        ...gameData,
+        players: {
+            ...gameData.players,
+            [nickname]: {
+                ...gameData.players[nickname],
+                rottenPlates: {
+                    'order': false,
+                }
+            },
+            [nextNickname]: {
+                ...gameData.players[nextNickname],
+                rottenPlates: {
                     'order': true,
                 }
             },

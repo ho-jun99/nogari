@@ -4,7 +4,7 @@ import Users from './Users';
 import '../css/RottenPlatesGame.css';
 import UnPassModal from './UnPassModal';
 import {getUserTurn} from '../../firebase/get-turn'
-import {getGameData, setLiarPlayerData} from "../../firebase/game-data";
+import {getGameData, setPlates} from "../../firebase/game-data";
 import {setRoulettePlayerData} from "../../firebase/game-data";
 import {Chr} from "../../views/beforeGame/Choose_Char";
 import React from "react";
@@ -76,12 +76,15 @@ const RottenPlatesGame = memo((props) => {
 
   const gamedata = async () => {
     const gameData = await getGameData(roomNumber);
-    console.log(gameData)
+    //console.log(gameData.turn)
     setTurn(gameData.turn);
   }
 
-  gamedata();
-  console.log(turn);
+  useEffect(()=>{
+    gamedata();
+    console.log(turn)
+    //console.log(turn);
+  },[])
 
 
   // useEffect(()=>{
@@ -131,8 +134,13 @@ const RottenPlatesGame = memo((props) => {
   }
 
   // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
-  useEffect(() => {
+  useEffect(async () => {
     getRoomInfo(roomNumber, setUserInfo);
+    //console.log(turn[0])
+    //await setRoulettePlayerData(roomNumber, turn[0], 'order', true);
+    const plateList = shuffle(table);
+    setPlates(roomNumber, plateList);
+
   }, []);
 
   const userList = userProfile.map((user) => {
