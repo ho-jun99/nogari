@@ -8,6 +8,13 @@ import '../../firebase/waiting-room';
 import {getRoomInfo} from "../../firebase/waiting-room";
 import {getUserInfo} from "../../firebase/users";
 import { Chr } from '../../views/beforeGame/Choose_Char';
+import {
+    getGameData, getGameRoomData,
+    setFirstUserOder,
+    updateLocationAndOrder,
+    updateRoulettePlayersOrder
+} from "../../firebase/game-data";
+import {setRoulettePlayerData} from "../../firebase/game-data";
 
 const db = firebase.firestore();
 const roomId = localStorage.getItem('roomNumber');
@@ -47,63 +54,41 @@ function isFieldHidden(fieldIndex) {
 }
 
 export function AlcoholFieldGrid() {
+    // 라이브러리 이용한 룰렛 구현
+    const [mustSpin, setMustSpin] = useState(false);
+    const [prizeNumber, setPrizeNumber] = useState(0);
     const [userProfile, setUserProfile] = useState([]);
 
     const [players, setPlayers] = useState([]);
 
     // 유저 위치를 갱신하는 함수
     // 돌림판 돌린 유저 이름과 해당 유저의 최신 위치를 인자로 받아 파이어스토어에 갱신한다.
-    const setUserLocation = async (userName, location) => {
-
-        // 필드 데이터 받아오는 부분
-        const gameData = await db.collection('game').doc(roomId).get().then((doc) => {
-            return doc.data()
-        });
-        // console.log(gameData);
-
-        // 해당 유저의 위치를 최신화 하여 파이어스토어에 저장하는 부분
-        await db.collection("game").doc(roomId).update({
-            ...gameData,
-            liar: {
-                ...gameData.liar,
-            },
-            players: {
-                ...gameData.players,
-                [userName]: { // [userName] 이와 같이 해야 key 값이 파라미터에서 넘어온 대로 저장. userName: 으로 하면 키 값이 userName 스트링 자체로 바뀜
-                    ...gameData.players[userName],
-                    alcoholRoulette: {
-                        ...gameData.players[userName].alcoholRoulette,
-                        location: location // value는 파라미터 넘어온 그대로 사용 가능
-                    },
-                    liar: {
-                        ...gameData.players[userName].liar,
-                    },
-                    wordGame: {
-                        ...gameData.players[userName].wordGame,
-                    }
-                }
-            }
-        });
-    }
+    // const setUserLocation = async (userName, location) => {
+    //     // setPoint(point+1);
+    //     updateLocationAndOrder(roomId, userName, point, location);
+    //
+    //     // await updateRoulettePlayersOrder(roomId, point, point+1);
+    // }
 
     // 파이어스토어에서 유저 정보를 받아와 유저 리스트에 저장 => 그러면 화면에 뿌려짐
     const initializeUser = async (userData) => {
-        let temp_list = []
-        let values = Object.values(userData.players); // players 하위 데이터를 가져옴
-        for (let i = 0; i<values.length; i++) {
-            let userName = Object.keys(userData.players)[i]; // ex) 원성임
-            let userLocation = values[i].alcoholRoulette.location; // 0~19 사이
-            let userOrder = values[i].alcoholRoulette.order; // true or false
 
-            temp_list.push({name: userName, location: userLocation, order: userOrder});
-            temp_list[i].order = true; // 리스트의 첫번째 유저 순서를 true로 변경
-        }
-        await setPlayers(temp_list);
+        // 유저 정보 불러오기 전 파이어스토어에서 첫 번째 유저의 order를 true로 변경하기
+        // 그리고 끝나면 players 라는 useState 변수에 디비에서 불러온 유저 정보를 저장시킴
+        setFirstUserOder(roomId).then(() => {
+            let temp_list = []
+            let values = Object.values(userData.players); // players 하위 데이터를 가져옴
+            for (let i = 0; i<values.length; i++) {
+                let userName = Object.keys(userData.players)[i]; // ex) 원성임
+                let userLocation = values[i].alcoholRoulette.location; // 0~19 사이
+                let userOrder = values[i].alcoholRoulette.order; // true or false
 
-        // 위 코드는 유저가 1명인 가정 하에 구현한 코드, 여러 인원인 경우엔 for문으로 돌아서 저장하면 될 듯 싶다.
+                temp_list.push({name: userName, location: userLocation, order: userOrder});
+            }
+            setPlayers(temp_list);
+        });
     }
 
-    // doc() 안의 인자는 동적으로 주어야 할 것 같은데 roomId 가져오는 방법을 모르겠음
     // 해당 방의 필드 정보들을 가져와서 initializeUser 함수에 넘겨줌
     useEffect(async () => {
         let docRef = db.collection("game").doc(roomId); // roomId
@@ -134,7 +119,6 @@ export function AlcoholFieldGrid() {
             members.push(memberInfo);
         }
         setUserProfile(members)
-        console.log(userProfile);
     }
 
     // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
@@ -152,13 +136,8 @@ export function AlcoholFieldGrid() {
 
             </>
         )
-    });
+    }, []);
     ///////////////////////////////////////////////////////
-
-
-    // 라이브러리 이용한 룰렛 구현
-    const [mustSpin, setMustSpin] = useState(false);
-    const [prizeNumber, setPrizeNumber] = useState(0);
 
     const handleSpinClick = () => {
         const newPrizeNumber = Math.floor(Math.random() * data.length)
@@ -182,6 +161,26 @@ export function AlcoholFieldGrid() {
 
     const [orderUser, setOrderUser] = useState("");
 
+
+    const changedgamedata = async (gamedata) => {
+        let temp = []
+        let values = Object.entries(gamedata.players); // players 하위 데이터를 가져옴
+        for (let i = 0; i<values.length; i++) {
+            let userName = values[i][0]; // ex) 원성임
+            let userLocation = values[i][1].alcoholRoulette.location; // 0~19 사이
+            let userOrder = values[i][1].alcoholRoulette.order; // true or false
+
+            if (userOrder) {setOrderUser(userName);}
+
+            temp.push({name: userName, location: userLocation, order: userOrder});
+        }
+        setPlayers(temp);
+
+    }
+    useEffect(() => {
+        getGameRoomData(roomId, changedgamedata);
+    }, []);
+
     return (
         <div className={'AlcoholMarbleBody'}>
             <div className={'AlcoholMarbleMain'}>
@@ -193,7 +192,6 @@ export function AlcoholFieldGrid() {
                                 <div style={{position:'relative'}} >
                                     {inPlayers.map((i, index) => {
                                         const user = userProfile.find((u) => u.nickname === i.name);
-                                        console.log(user)
                                         return <div style={{position:`absolute`, width:'60px', left:`${index*10}%`, textAlign:'center',}}>
                                             <img src={Chr[(user && user.profile) ?? 0]} style={{ width:'100%', }} />
                                             <div>{(user && user.nickname)??"guest"}</div>
@@ -218,18 +216,21 @@ export function AlcoholFieldGrid() {
                         data={data}
                         fontSize={40}
                         perpendicularText={true}
-                        onStopSpinning={() => {
+                        onStopSpinning={async () => {
                             setMustSpin(false)
-                            console.log(data[prizeNumber].option)
-                            let temp_user_list = [...players];
-                            for (let i = 0; i < temp_user_list.length; i++) {
-                                if (temp_user_list[i].order === true) {
-                                    temp_user_list[i].location = (temp_user_list[i].location + parseInt(data[prizeNumber].option)) % 20;
-                                    setUserLocation(temp_user_list[i].name, temp_user_list[i].location); // 돌림판 돌린 사용자의 이름, 나온 위치를 해당 함수의 인자로 넘김
-                                    temp_user_list[i].order = false;
+                            // console.log(data[prizeNumber].option)
+                            // let temp_user_list = [...players];
+                            const gameData = await getGameData(roomId);
+                            const userData = await Object.entries(gameData.players);
+                            for(let i=0; i< userData.length; i++) {
+                                let name = userData[i][0];
+                                let isOrder = userData[i][1].alcoholRoulette.order;
+                                let location = (userData[i][1].alcoholRoulette.location + parseInt(data[prizeNumber].option)) % 20;
+
+                                if (isOrder) {
+                                    await updateLocationAndOrder(roomId, name, location);
                                 }
                             }
-                            setPlayers(temp_user_list);
                         }}
                     />
                 </div>
@@ -297,16 +298,16 @@ const styles = {
         borderRadius: '50%',
         border: '6px solid #287F39',
         backgroundColor: '#FFF',
-        top: '60%', left: '50%', transform: 'translate(-49%,-50%)',
+        top: '50%', left: '50%', transform: 'translate(-49%,-50%)',
     },
     circle: {
         position: 'absolute',
         transform: 'scale(0.5)',
-        top: '-40%',
+        top: '-50%',
         left: '-50%',
     },
     orderUser: {
-        width: 424,
+        width: 344,
         height: 70,
         backgroundColor: '#0C8247',
         color: '#FCCE39',
@@ -316,11 +317,12 @@ const styles = {
         borderRadius: 15,
         zIndex: 1,
         position: 'absolute',
-        top: '-30%',
-        left: '-47%',
+        top: '-40%',
+        left: '-29%',
+        border: '1px solid black',
     },
     finishImg: {
-        position: 'absolute', right: '-18%', bottom: '-18%',
+        position: 'absolute', right: '-20%', bottom: '-12%',
     },
     userContainer: {
         bottom: 0, display: 'inline-block',

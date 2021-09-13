@@ -1,7 +1,7 @@
 import React from 'react';
 import {AlcoholFieldGrid} from "../../components/AlcoholMarble/AlcoholFieldGrid";
 
-import MarbleField from '../../images/marbleField.png';
+import MarbleField from '../../images/background.png';
 import MarbleBG from '../../images/background.png'
 
 export default function AlcoholMarbleView() {

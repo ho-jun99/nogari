@@ -53,9 +53,13 @@ export default function NewWaitingRoom({ match, history }) {
         setRoomState('exitModalOpen', isOpen);
     }
     const linkCopyModal = (isOpen) => {
-        setRoomState('linkCopyModalOpen', isOpen)
+        setRoomState('linkCopyModalOpen', isOpen);
         if (isOpen) {
-            navigator.clipboard.writeText(window.location.href);
+            const fullHref = window.location.href;
+            const arr = fullHref.split("/");
+            const copyRoomId = arr[4];
+            console.log(copyRoomId);
+            navigator.clipboard.writeText(copyRoomId);
         }
     }
 
@@ -193,8 +197,8 @@ export default function NewWaitingRoom({ match, history }) {
                             </div>
                         }
                         </div>
-                        {room.isSelected ? <button className="startBtn" onClick={gameStart}>시작하기</button> :
-                            <button className="stopBtn" disabled>시작</button>}
+                        {selectedGameInfo[0].selectedGameName !== '' ? <button id="active" className="startBtn" onClick={gameStart}>시작하기</button> :
+                            <button id="unactive" className="startBtn" disabled>시작하기</button>}
                     </div>
 
                     <div className="char2">
