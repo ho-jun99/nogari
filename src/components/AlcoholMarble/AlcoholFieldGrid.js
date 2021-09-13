@@ -136,7 +136,7 @@ export function AlcoholFieldGrid() {
 
             </>
         )
-    });
+    }, []);
     ///////////////////////////////////////////////////////
 
     const handleSpinClick = () => {

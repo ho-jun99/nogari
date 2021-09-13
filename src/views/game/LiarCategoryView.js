@@ -31,7 +31,7 @@ export default function LiarCategoryView({ match } ) {
         getGameRoomData(match.params.roomId, changedgamedata);
         console.log(liar.select);
         if(liar.select) history.push(`/rooms/${roomId}/liar`);
-    })
+    }, [])
 
     const LiarCategoryChoice = () => {
         const random = Math.floor(Math.random()*userCount);
