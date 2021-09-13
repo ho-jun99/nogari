@@ -67,6 +67,7 @@ export default function Find({history}) {
         await firebase.firestore().collection("game").doc(`${roomNumber}`).set({
             liar: {
                 liarword:"",
+                select:false,
             },
             rottenPlates : {
 
@@ -169,15 +170,15 @@ export default function Find({history}) {
                         <div className="NameBox">
                             <a style={{
                                 position:"absolute",
-                                paddingTop:"10px",
-                                paddingLeft:"18px",
+                                paddingTop:"13px",
+                                paddingLeft:"21px",
                                 fontFamily: "DungGeunMo",
-                                fontSize: "12px",
+                                fontSize: "14px",
                                 lineHeight: "19px",
                                 color: " #FCCE39"}}>{Ch_name[userdata?.profile || 1]}</a>
                             <a style={{
                                 position:"absolute",
-                                paddingTop:"20px",
+                                paddingTop:"30px",
                                 paddingLeft:"15px",
                                 fontFamily: "DungGeunMo",
                                 fontSize: "33px",

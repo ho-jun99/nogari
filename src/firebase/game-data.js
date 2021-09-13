@@ -23,7 +23,7 @@ export async function setPlayers(roomNumber, players) {
 
 export async function setLiarPlayerData(roomNumber, nickname, field, fieldValue){
     const gameData = await getGameData(roomNumber);
-    console.log(gameData);
+    console.log("!");
 
     await firebase.firestore().collection("game").doc(roomNumber).update({
         ...gameData,
@@ -37,6 +37,19 @@ export async function setLiarPlayerData(roomNumber, nickname, field, fieldValue)
                 }
             },
         },
+    });
+}
+
+export async function setLiarData(roomNumber, field, fieldValue){
+    const gameData = await getGameData(roomNumber);
+    console.log("!");
+
+    await firebase.firestore().collection("game").doc(roomNumber).update({
+        ...gameData,
+        liar : {
+            ...gameData.liar,
+            [field]: fieldValue,
+        }
     });
 }
 

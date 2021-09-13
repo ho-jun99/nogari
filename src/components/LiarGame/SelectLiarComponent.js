@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useHistory} from "react-router";
 import '../css/selectLiar.css'
 import {getUserInfo} from "../../firebase/users";
@@ -11,33 +11,53 @@ import Chicken from '../../views/img/치킨_스탠딩.png'
 import NominateLiar from "./NominateLiar";
 import {updateUserData} from "../../firebase/games/liar";
 import {setLiarPlayerData} from "../../firebase/game-data";
+import {getRoomInfo} from "../../firebase/waiting-room";
+import {Chr} from "../../views/beforeGame/Choose_Char";
 
 export default function SelectLiarComponent(props) {
     let [allUserSelect, setAllUserSelect] = useState(false);
     let [mostVotedUser, setMostVotedUser] = useState("");
-    let [profile, setProfile] = useState("");
+    const [userProfile, setUserProfile] = useState([]);
+    const [vote, setVote] = useState(true);
     let [userLiar, setUserLiar] = useState(false);
 
     const roomNumber = localStorage.getItem('roomNumber');
     const myNickname = localStorage.getItem('nickname');
 
-    const usersArray = Object.entries(props.users);
+    const setUserInfo = async (roomInfo) => {
+        // await console.log(roomInfo);
+        let members = [];
 
-    let user = usersArray.map((user, index) => {
-        const getUser = async ()=> {
-            const userInfo = await getUserInfo(user[1].member);
-            // console.log(userInfo);
-            // setProfile(userInfo.profile)
+        for await (let member of roomInfo.members) {
+            const memberInfo = await getUserInfo(member);
+            if (!memberInfo) continue;
+
+            members.push(memberInfo);
         }
-        getUser();
+        setUserProfile(members);
+        console.log(userProfile);
+    }
+
+    // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
+    useEffect(() => {
+        getRoomInfo(roomNumber, setUserInfo);
+    }, []);
+
+    let user = userProfile.map((user, index) => {
+
         return (
             <li className="userContainer" key={index} onClick={async () => {
-                await setLiarPlayerData(roomNumber, user[0], 'count', 1);
+                const count = props.users[user.nickname].liar.count
+                console.log("count: ",count);
+                if(vote) {
+                    await setLiarPlayerData(roomNumber, user.nickname, 'count', count+1);
+                    setVote(false);
+                }
 
             }}>
-                {props.users[myNickname].liar.count!=0 ? <div className="voteCount">{props.users[myNickname].liar.count}</div> : <div className="noneCount">{}</div>}
-                <img src='#' alt='#'  className="userImage"/>
-                <span>{user[0]}</span>
+                {props.users[user.nickname].liar.count!=0 ? <div className="voteCount">{props.users[myNickname].liar.count}</div> : <div className="noneCount">{}</div>}
+                <img src={Chr[user.profile]} alt='#'  className="userImage"/>
+                <span>{user.nickname}</span>
             </li>
         )
     });
@@ -58,7 +78,7 @@ export default function SelectLiarComponent(props) {
         //     }
         // }
         setMostVotedUser(user);
-        setProfile(profile);
+        // setProfile(profile);
         // setUserLiar(isLiar);
         setAllUserSelect(true);
     }
@@ -80,7 +100,7 @@ export default function SelectLiarComponent(props) {
     else {
         return (
             <>
-                <NominateLiar name={mostVotedUser} profile={profile} isLiar={userLiar}/>
+                <NominateLiar name={mostVotedUser} profile='#' isLiar={userLiar}/>
             </>
         )
     }

@@ -1,6 +1,22 @@
 import React from 'react'
+import {setLiarPlayerData} from "../../firebase/game-data";
 
 export default function GoStopModal(props) {
+
+    const roomNumber = localStorage.getItem('roomNumber');
+
+    console.log(props.userProfile);
+
+    const userArray = Object.entries(props.userProfile);
+    const userNickname = userArray.map((user)=> user[1].nickname);
+
+    const reset = async () => {
+        for await (const user of userNickname) {
+            await setLiarPlayerData(roomNumber, user, 'order', false);
+        }
+        await setLiarPlayerData(roomNumber, props.turn[0], 'order', true);
+        props.close();
+    }
 
     // SpeakComponent에 발언 재개 여부를 반환
     const sendToSpeakComponent = () => {
@@ -38,7 +54,7 @@ export default function GoStopModal(props) {
                     {/*        <span style={styles.userName}>이름</span></li>*/}
                     {/*</ul>*/}
 
-                    <button style={styles.goBtn}>GO!</button>
+                    <button onClick={reset} style={styles.goBtn}>GO!</button>
                     <button style={styles.stopBtn} onClick={sendToSpeakComponent}>STOP</button>
                 </div>
             ) : null}
