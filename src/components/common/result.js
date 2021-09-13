@@ -1,7 +1,8 @@
 import './result.css'
 import React from 'react'
 import Eggroll from '../../views/img/계란말이_스탠딩.png'
-export default function Result(){
+export default function Result({player}){
+    player !== undefined && console.log(player);
     const user={
         character:Eggroll,
         nickname:'shinba'
@@ -22,8 +23,6 @@ export default function Result(){
                     </button>
                 </div>
             </div>
-
-
         </>
     );
 }

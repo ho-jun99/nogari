@@ -9,6 +9,7 @@ import {updateUserData, updateGameState} from "../../firebase/games/word-game";
 import WordGamePlayer from "../../components/WordGame/WordGamePlayer";
 import WordGameTimer from "../../components/WordGame/WordGameTimer";
 import WordGameQuizBox from "../../components/WordGame/WordGameQuizBox";
+import Result from "../../components/common/result";
 
 export default function WordGameView({match}) {
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -36,51 +37,7 @@ export default function WordGameView({match}) {
     const roomNumber = localStorage.getItem('roomNumber');
     const myNickname = localStorage.getItem('nickname');
 
-    // const totalRound = Object.keys(player).length - 2; // 한 카테고리에서 출제될 문제 수
-    // console.log(totalRound);
-    // const totalRound = 2; // 한 카테고리에서 출제될 문제 수
 
-    // 랜덤하게 추출
-    // const getRandom = (min, max) => {
-    //     return Math.floor((Math.random() * (max - min + 1)) + min);
-    // }
-    //
-    // const getRandomArray = (min, max, count) => {
-    //     if (max - min + 1 < count) return;
-    //
-    //     let randomArr = [];
-    //     while (1) {
-    //         let index = getRandom(min, max);
-    //
-    //         // 중복 여부를 체크
-    //         if (randomArr.indexOf(index) > -1) {
-    //             continue;
-    //         }
-    //
-    //         randomArr.push(index);
-    //
-    //         // 원하는 배열 갯수가 되면 종료
-    //         if (randomArr.length === count + 1) {
-    //             break;
-    //         }
-    //     }
-    //
-    //     // 중복되지 않는 범위 내의 인덱스 array : randomArr ex ) randomArr = [0, 1, 3, 4, 2]
-    //     // wordGame에는 해당 카테고리의 quiz와 answer쌍이 들어있음
-    //     // arr에 wordGame[0], wordGame[1], wordGame[3], ... 넣어줌
-    //     // 이러한 arr를 setRandom
-    //     let arr = [];
-    //     randomArr.map(num => {
-    //         arr.push(wordGame[num])
-    //     });
-    //     setRandom(arr);
-    // }
-    //
-    // // category 버튼 클릭시 문제를 setting하는 부분
-    // const getQuiz = () => {
-    //     let total = wordGame.length;
-    //     getRandomArray(0, total - 1, totalRound);
-    // }
 
     const init = async (playerData) => {
         // const  = await getPlayers(match.params.roomId);
@@ -88,20 +45,11 @@ export default function WordGameView({match}) {
         setSelectedCategory(playerData['wordGame'].category);
         setRandom(playerData['wordGame'].test)
         setTotalRound(Object.keys(playerData['players']).length - 2);
+        setGameState(playerData['wordGame'].isFinished);
         // player[myNickname].wordGame.isCorrected = false;
         // updateUserData(roomNumber, player)
     };
     console.log(random);
-
-    // const setWordGameData = async (categoryName) => {
-    //     const gameData = await getWordGameCategory();
-    //     let arr = [];
-    //     gameData !== undefined && categoryName !== '' && Object.entries(gameData[categoryName]).map((data) => arr.push({
-    //         quiz: data[0],
-    //         answer: data[1]
-    //     }));
-    //     setWordGame(arr);
-    // }
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -141,6 +89,7 @@ export default function WordGameView({match}) {
         }, 3000)
     }
     const [startModalOpen, setStartModalOpen] = useState(true);
+
     const openStartModal=()=>{
         setStartModalOpen(true)
     }
@@ -164,15 +113,6 @@ export default function WordGameView({match}) {
         })
     }, [random])
 
-
-    // useEffect(() => {
-    //     setWordGame([]);
-    //     setWordGameData(selectedCategory);
-    // }, [selectedCategory]);
-
-    // useEffect(() => {
-    //     getQuiz()
-    // }, [wordGame]);
 
     // round가 증가하면 quiz state를 set
     useEffect(() => {
@@ -206,6 +146,7 @@ export default function WordGameView({match}) {
                 <WordGamePlayer player={player} myNickname={myNickname} roomNumber={roomNumber} round={round} updateUserData={updateUserData}/>
             </div>
             <StartModal open={startModalOpen} close={startModalOpen}/>
+            {gameState !== undefined && gameState ? <Result player={player}></Result>: null}
         </>
     );
 }
