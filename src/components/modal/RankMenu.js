@@ -76,15 +76,15 @@ const userList = [
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 5,
-		badges: [0, 11,4,8,],
+		badges: [0, 11,,8,],
 	},
-	// {
-	// 	name: "정나영",
-	// 	nickName: "청춘",
-	// 	charType: "마른 오징어",
-	// 	rank: 6,
-	// 	badges: [0, 1, 2, 3, 4],
-	// },
+	{
+		name: "정나영",
+		nickName: "청춘",
+		charType: "마른 오징어",
+		rank: 6,
+		badges: [0, 1, 2, 3, 4],
+	},
 ]
 
 const RankMenu = memo(({ stateData, isMenuOpenFun }) => {
