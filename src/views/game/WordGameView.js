@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import {useState, useEffect} from "react";
 import './css/WordGameView.css';
 import TimeoutModal from './Timeout'
-import {getWordGameCategory, getPlayersOnTrigger} from "../../firebase/games/word-game";
+import {getPlayersOnTrigger} from "../../firebase/games/word-game";
 import StartModal from '../../components/common/gameStart'
 import {updateUserData, updateGameState} from "../../firebase/games/word-game";
 import WordGamePlayer from "../../components/WordGame/WordGamePlayer";
@@ -27,8 +27,6 @@ export default function WordGameView({match}) {
     const [totalRound, setTotalRound] = useState(0);
     const [gameState, setGameState] = useState(false);
 
-    const [test, setTest] = useState();
-
     const [value, setValue] = useState();
     const [seconds, setSeconds] = useState(30);
 
@@ -37,8 +35,6 @@ export default function WordGameView({match}) {
     const roomNumber = localStorage.getItem('roomNumber');
     const myNickname = localStorage.getItem('nickname');
 
-
-
     const init = async (playerData) => {
         // const  = await getPlayers(match.params.roomId);
         setPlayer(playerData['players']);
@@ -46,10 +42,7 @@ export default function WordGameView({match}) {
         setRandom(playerData['wordGame'].test)
         setTotalRound(Object.keys(playerData['players']).length - 2);
         setGameState(playerData['wordGame'].isFinished);
-        // player[myNickname].wordGame.isCorrected = false;
-        // updateUserData(roomNumber, player)
     };
-    console.log(random);
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -146,7 +139,7 @@ export default function WordGameView({match}) {
                 <WordGamePlayer player={player} myNickname={myNickname} roomNumber={roomNumber} round={round} updateUserData={updateUserData}/>
             </div>
             <StartModal open={startModalOpen} close={startModalOpen}/>
-            {gameState !== undefined && gameState ? <Result player={player}></Result>: null}
+            {gameState !== undefined && gameState ? <Result roomNumber={roomNumber} player={player}></Result>: null}
         </>
     );
 }

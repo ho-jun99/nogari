@@ -59,6 +59,9 @@ export default function Category(props) {
             playerData !== undefined && console.log(playerData);
             playerData !== undefined && setPlayer(playerData['players']);
             console.log(playerData['players']);
+            // Object.keys(playerData['players']).map((mem) => {
+            //     playerData['players'][mem]['wordGame'].isCorrected
+            // })
             console.log(player);
             setCategories(category);
             setCategoryData(gameData);
@@ -76,7 +79,6 @@ export default function Category(props) {
     },[player])
 
 
-    random !== undefined && console.log(random)
     const getCategoryData = (categoryName) => {
         props.setIsChoice(true);
         const random = Math.floor(Math.random() * 4); //단어 랜덤 선택 위한 index
@@ -98,7 +100,6 @@ export default function Category(props) {
     }
 
 
-    console.log(wordGame);
     useEffect(() => {
         getRandomArray(0, wordGame.length - 1, totalRound);
     },[wordGame])

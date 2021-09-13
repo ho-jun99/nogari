@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router";
-import {getWordGameCategory} from "../../firebase/games/word-game";
-import {getWord} from "../../firebase/games/liar";
 import Category from "../../components/common/Category";
 import './css/WordGameCategoryView.css'
 
