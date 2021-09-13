@@ -76,7 +76,7 @@ const userList = [
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 5,
-		badges: [0, 9,10,8,],
+		badges: [0, 11,4,8,],
 	},
 	// {
 	// 	name: "정나영",
