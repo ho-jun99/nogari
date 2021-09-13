@@ -122,10 +122,10 @@ export async function updateLocationAndOrder(roomNumber, userName, location) {
     const userLength = gameData.turn.length;
     let nextUserIndex = 0;
 
-    const userData = await Object.keys(gameData.players);
+    const userData = await Object.values(gameData.turn);
     for (let i=0; i < userData.length; i++) {
         if (userName === userData[i]) {
-            nextUserIndex = i;
+            nextUserIndex = i+1;
         }
     }
     const nextName = await gameData.turn[nextUserIndex % userLength];

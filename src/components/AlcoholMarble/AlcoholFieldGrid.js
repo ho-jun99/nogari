@@ -54,7 +54,9 @@ function isFieldHidden(fieldIndex) {
 }
 
 export function AlcoholFieldGrid() {
-    const [point, setPoint] = useState(0);
+    // 라이브러리 이용한 룰렛 구현
+    const [mustSpin, setMustSpin] = useState(false);
+    const [prizeNumber, setPrizeNumber] = useState(0);
     const [userProfile, setUserProfile] = useState([]);
 
     const [players, setPlayers] = useState([]);
@@ -137,11 +139,6 @@ export function AlcoholFieldGrid() {
     });
     ///////////////////////////////////////////////////////
 
-
-    // 라이브러리 이용한 룰렛 구현
-    const [mustSpin, setMustSpin] = useState(false);
-    const [prizeNumber, setPrizeNumber] = useState(0);
-
     const handleSpinClick = () => {
         const newPrizeNumber = Math.floor(Math.random() * data.length)
         setPrizeNumber(newPrizeNumber)
@@ -163,6 +160,26 @@ export function AlcoholFieldGrid() {
     const fields = Array.from(Array(row * column).keys()).map((v) => v);
 
     const [orderUser, setOrderUser] = useState("");
+
+
+    const changedgamedata = async (gamedata) => {
+        let temp = []
+        let values = Object.entries(gamedata.players); // players 하위 데이터를 가져옴
+        for (let i = 0; i<values.length; i++) {
+            let userName = values[i][0]; // ex) 원성임
+            let userLocation = values[i][1].alcoholRoulette.location; // 0~19 사이
+            let userOrder = values[i][1].alcoholRoulette.order; // true or false
+
+            if (userOrder) {setOrderUser(userName);}
+
+            temp.push({name: userName, location: userLocation, order: userOrder});
+        }
+        setPlayers(temp);
+
+    }
+    useEffect(() => {
+        getGameRoomData(roomId, changedgamedata);
+    }, []);
 
     return (
         <div className={'AlcoholMarbleBody'}>
@@ -212,8 +229,6 @@ export function AlcoholFieldGrid() {
 
                                 if (isOrder) {
                                     await updateLocationAndOrder(roomId, name, location);
-                                    console.log(name);
-                                    console.log(location);
                                 }
                             }
                         }}
@@ -283,16 +298,16 @@ const styles = {
         borderRadius: '50%',
         border: '6px solid #287F39',
         backgroundColor: '#FFF',
-        top: '60%', left: '50%', transform: 'translate(-49%,-50%)',
+        top: '50%', left: '50%', transform: 'translate(-49%,-50%)',
     },
     circle: {
         position: 'absolute',
         transform: 'scale(0.5)',
-        top: '-40%',
+        top: '-50%',
         left: '-50%',
     },
     orderUser: {
-        width: 424,
+        width: 344,
         height: 70,
         backgroundColor: '#0C8247',
         color: '#FCCE39',
@@ -302,11 +317,12 @@ const styles = {
         borderRadius: 15,
         zIndex: 1,
         position: 'absolute',
-        top: '-30%',
-        left: '-47%',
+        top: '-40%',
+        left: '-29%',
+        border: '1px solid black',
     },
     finishImg: {
-        position: 'absolute', right: '-18%', bottom: '-18%',
+        position: 'absolute', right: '-20%', bottom: '-12%',
     },
     userContainer: {
         bottom: 0, display: 'inline-block',
