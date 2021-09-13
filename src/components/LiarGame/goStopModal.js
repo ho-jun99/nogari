@@ -1,8 +1,10 @@
-import React from 'react'
+import React,{useState,useRef, useEffect,memo} from 'react'
 import {setLiarPlayerData} from "../../firebase/game-data";
 
-export default function GoStopModal(props) {
+const GoStopModal = memo((props) => {
 
+    const [sec,setSec] = useState(30);
+    const goStopTimer = useRef();
     const roomNumber = localStorage.getItem('roomNumber');
 
     console.log(props.userProfile);
@@ -18,6 +20,20 @@ export default function GoStopModal(props) {
         props.close();
     }
 
+
+    useEffect(()=>{
+        console.log(props.isOpen);
+        if(sec<=0){
+        }else if (props.isOpen){
+            goStopTimer.current = setTimeout(() => {
+                setSec((prev) => prev - 1);
+            }, 1000)
+        }
+        return()=>{
+            clearTimeout(goStopTimer);
+        }
+    },[sec,props.isOpen])
+
     // SpeakComponent에 발언 재개 여부를 반환
     const sendToSpeakComponent = () => {
         props.goStopResult(true);
@@ -32,7 +48,7 @@ export default function GoStopModal(props) {
                     <div style={styles.title1}>게임 종료 투표가 시작됩니다!</div>
                     <div style={styles.title2}>게임을 재개하려면 GO, 끝내시려면 STOP 눌러주세요.</div>
                     <div style={styles.remainTime}>남은 시간</div>
-                    <div style={styles.timer}>30<span style={styles.timerText}>초</span></div>
+                    <div style={styles.timer}>{sec}<span style={styles.timerText}>초</span></div>
                     {/*<ul style={styles.listContainer}>*/}
                     {/*    <li style={styles.listStyle}>*/}
                     {/*        <div style={styles.circle}>GO</div>*/}
@@ -60,7 +76,7 @@ export default function GoStopModal(props) {
             ) : null}
         </div>
     )
-}
+})
 
 const styles = {
     container: {
@@ -106,3 +122,5 @@ const styles = {
         fontSize: 32,
     },
 }
+
+export default GoStopModal;

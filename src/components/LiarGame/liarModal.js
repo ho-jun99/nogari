@@ -1,7 +1,26 @@
-import React from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 
 export default function LiarModal(props) {
     const {open, close} = props;
+    const [sec, setSec] = useState(3);
+    const userTimer = useRef();
+
+    useEffect(() => {
+        console.log(props.isOpen);
+        if (sec <= 0) {
+
+        } else if (props.isOpen) {
+            userTimer.current = setTimeout(() => {
+                setSec((prev) => prev - 1);
+            }, 1000)
+        }
+        return () => {
+            clearTimeout(userTimer);
+        }
+    }, [sec, props.isOpen])
+
+
+
     return (
         <div>
             {open ? (
@@ -9,7 +28,7 @@ export default function LiarModal(props) {
                     <div style={styles.headerTitle}>당신은</div>
                     <div style={styles.title}>라·이·어</div>
                     <div style={styles.content}>정체를 숨기고 제시어를 알아내세요!</div>
-                    <div style={styles.userCount}>3</div>
+                    <div style={styles.userCount}>{sec}</div>
                     <span style={styles.description}>다른 플레이어들이 제시어를 확인할 때까지 잠시 기다려주세요.</span>
                 </div>
             ) : null}

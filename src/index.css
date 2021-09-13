@@ -13,7 +13,14 @@ body * {
 }
 
 body {
-  background-image: url("./images/back.png");
+  /* background-repeat: no-repeat; */
+  background-size: contain;
+  width: auto;
+  height: 100vh;
+  height: 100vw;
+  background-position: center center;
+  background-image: url("./images/combineUpDown.jpg");
+
 }
 
 
