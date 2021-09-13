@@ -393,8 +393,10 @@
 
 #menuModal .menuWraper .menuRankContainer .menuRankLeft .LeftBadgeContainer .LeftBadges .LeftBadge {
   border-radius: 50%;
-  width: 19.94px;
-  height: 19.94px;
+  /* width: 19.94px;
+  height: 19.94px; */
+    width: 35px;
+    height: 35px;
   background-color: #FCCE39;
   color: #000000;
   text-align: center;
@@ -516,13 +518,16 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+
 }
 
 #menuModal .menuWraper .menuRankContainer .menuRankRight .menuRankRightWrapper .menuRangkRightContainer .rightBadgeContainer .rightBadges .rightBadge {
   background-color: #000000;
   border-radius: 50%;
-  width: 12.77px;
-  height: 12.77px;
+  /* width: 12.77px;
+  height: 12.77px; */
+  width: 20px;
+  height: 20px;
   text-align: center;
   font-weight: bold;
   margin-top: 5px;
