@@ -26,6 +26,8 @@ export default function WordGameView({match}) {
     const [totalRound, setTotalRound] = useState(0);
     const [gameState, setGameState] = useState(false);
 
+    const [test, setTest] = useState();
+
     const [value, setValue] = useState();
     const [seconds, setSeconds] = useState(30);
 
@@ -39,73 +41,67 @@ export default function WordGameView({match}) {
     // const totalRound = 2; // 한 카테고리에서 출제될 문제 수
 
     // 랜덤하게 추출
-    const getRandom = (min, max) => {
-        return Math.floor((Math.random() * (max - min + 1)) + min);
-    }
-
-    const getRandomArray = (min, max, count) => {
-        if (max - min + 1 < count) return;
-
-        let randomArr = [];
-        while (1) {
-            let index = getRandom(min, max);
-
-            // 중복 여부를 체크
-            if (randomArr.indexOf(index) > -1) {
-                continue;
-            }
-
-            randomArr.push(index);
-
-            // 원하는 배열 갯수가 되면 종료
-            if (randomArr.length === count + 1) {
-                break;
-            }
-        }
-
-        // 중복되지 않는 범위 내의 인덱스 array : randomArr ex ) randomArr = [0, 1, 3, 4, 2]
-        // wordGame에는 해당 카테고리의 quiz와 answer쌍이 들어있음
-        // arr에 wordGame[0], wordGame[1], wordGame[3], ... 넣어줌
-        // 이러한 arr를 setRandom
-        let arr = [];
-        randomArr.map(num => {
-            arr.push(wordGame[num])
-        });
-        setRandom(arr);
-    }
-
-    // category 버튼 클릭시 문제를 setting하는 부분
-    const getQuiz = () => {
-        let total = wordGame.length;
-        getRandomArray(0, total - 1, totalRound);
-    }
+    // const getRandom = (min, max) => {
+    //     return Math.floor((Math.random() * (max - min + 1)) + min);
+    // }
+    //
+    // const getRandomArray = (min, max, count) => {
+    //     if (max - min + 1 < count) return;
+    //
+    //     let randomArr = [];
+    //     while (1) {
+    //         let index = getRandom(min, max);
+    //
+    //         // 중복 여부를 체크
+    //         if (randomArr.indexOf(index) > -1) {
+    //             continue;
+    //         }
+    //
+    //         randomArr.push(index);
+    //
+    //         // 원하는 배열 갯수가 되면 종료
+    //         if (randomArr.length === count + 1) {
+    //             break;
+    //         }
+    //     }
+    //
+    //     // 중복되지 않는 범위 내의 인덱스 array : randomArr ex ) randomArr = [0, 1, 3, 4, 2]
+    //     // wordGame에는 해당 카테고리의 quiz와 answer쌍이 들어있음
+    //     // arr에 wordGame[0], wordGame[1], wordGame[3], ... 넣어줌
+    //     // 이러한 arr를 setRandom
+    //     let arr = [];
+    //     randomArr.map(num => {
+    //         arr.push(wordGame[num])
+    //     });
+    //     setRandom(arr);
+    // }
+    //
+    // // category 버튼 클릭시 문제를 setting하는 부분
+    // const getQuiz = () => {
+    //     let total = wordGame.length;
+    //     getRandomArray(0, total - 1, totalRound);
+    // }
 
     const init = async (playerData) => {
         // const  = await getPlayers(match.params.roomId);
         setPlayer(playerData['players']);
         setSelectedCategory(playerData['wordGame'].category);
-        console.log(selectedCategory);
-        console.log(Object.keys(playerData['players']));
+        setRandom(playerData['wordGame'].test)
         setTotalRound(Object.keys(playerData['players']).length - 2);
-        console.log(Object.keys(playerData).length);
-        console.log(totalRound);
         // player[myNickname].wordGame.isCorrected = false;
         // updateUserData(roomNumber, player)
     };
+    console.log(random);
 
-
-    console.log(totalRound);
-    console.log(selectedCategory);
-
-    const setWordGameData = async (categoryName) => {
-        const gameData = await getWordGameCategory();
-        let arr = [];
-        gameData !== undefined && categoryName !== '' && Object.entries(gameData[categoryName]).map((data) => arr.push({
-            quiz: data[0],
-            answer: data[1]
-        }));
-        setWordGame(arr);
-    }
+    // const setWordGameData = async (categoryName) => {
+    //     const gameData = await getWordGameCategory();
+    //     let arr = [];
+    //     gameData !== undefined && categoryName !== '' && Object.entries(gameData[categoryName]).map((data) => arr.push({
+    //         quiz: data[0],
+    //         answer: data[1]
+    //     }));
+    //     setWordGame(arr);
+    // }
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -131,13 +127,9 @@ export default function WordGameView({match}) {
         setValue('');
         await updateUserData(roomNumber, player);
     }
-    console.log(totalRound, round);
-    console.log(gameState);
-
 
     useEffect(()=> {
         updateGameState(roomNumber, 'isFinished', gameState);
-        console.log(gameState);
     },[gameState])
 
     const openModal = () => {
@@ -165,7 +157,6 @@ export default function WordGameView({match}) {
     }, []);
 
     useEffect(() => {
-        random[0] !== undefined && console.log(random)
         random[0] !== undefined && setState({
             //isSubmitted: false,
             value: random[round].quiz,
@@ -174,14 +165,14 @@ export default function WordGameView({match}) {
     }, [random])
 
 
-    useEffect(() => {
-        setWordGame([]);
-        setWordGameData(selectedCategory);
-    }, [selectedCategory]);
+    // useEffect(() => {
+    //     setWordGame([]);
+    //     setWordGameData(selectedCategory);
+    // }, [selectedCategory]);
 
-    useEffect(() => {
-        getQuiz()
-    }, [wordGame]);
+    // useEffect(() => {
+    //     getQuiz()
+    // }, [wordGame]);
 
     // round가 증가하면 quiz state를 set
     useEffect(() => {
@@ -212,7 +203,7 @@ export default function WordGameView({match}) {
                         !seconds && <TimeoutModal open={openModal} close={closeModal}>Timeout</TimeoutModal>
                     }
                 </div>
-                <WordGamePlayer player={player} myNickname={myNickname} roomNumber={roomNumber} updateUserData={updateUserData}/>
+                <WordGamePlayer player={player} myNickname={myNickname} roomNumber={roomNumber} round={round} updateUserData={updateUserData}/>
             </div>
             <StartModal open={startModalOpen} close={startModalOpen}/>
         </>

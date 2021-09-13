@@ -3,14 +3,14 @@ import '../css/WordGamePlayer.scss'
 import Graduation_Hat from '../../views/img/졸업모자.png'
 import Input_Bubble from '../../views/img/말풍선.png'
 
-function WordGamePlayer({player, myNickname, roomNumber, updateUserData}) {
+function WordGamePlayer({player, myNickname, roomNumber, updateUserData, round}) {
     useEffect(() => {
         if (player !== undefined) {
             player[myNickname].wordGame.isCorrected = false;
             player[myNickname].wordGame.inputWord = "";
             updateUserData(roomNumber, player);
         }
-    }, [player])
+    }, [])
 
     return (
         <>
