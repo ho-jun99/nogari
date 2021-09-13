@@ -9,6 +9,7 @@ export default function SuggestionModal(props) {
 
     const [defaultWord, setDefaultWord] = useState('');
     const [liarModal, setLiarModal] = useState(false);
+    const [userModal, setUserModal] = useState(false);
 
     const liarOpenModal = () => {
         setLiarModal(true);
@@ -17,7 +18,7 @@ export default function SuggestionModal(props) {
         setLiarModal(false);
     }
 
-    const [userModal, setUserModal] = useState(false);
+    
     const userOpenModal = () => {
         setUserModal(true);
     }
@@ -47,8 +48,8 @@ export default function SuggestionModal(props) {
             <div style={styles.title}>제시어 확인</div>
             <div style={styles.content}>제시어 확인 버튼을 클릭해서 역할을 확인해주세요.</div>
             <button style={styles.btn} onClick={confirmLiar}>제시어 확인하기</button>
-            <LiarModal open={liarModal} close={liarCloseModal}/>
-            <UserModal open={userModal} close={userCloseModal} word={props.word}/>
+            <LiarModal open={liarModal} isOpen={liarModal} close={liarCloseModal}/>
+            <UserModal open={userModal} close={userCloseModal} isOpen={userModal} word={props.word}/>
         </div>
     )
 }
