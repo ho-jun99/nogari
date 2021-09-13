@@ -4,8 +4,12 @@ import Users from './Users';
 import '../css/RottenPlatesGame.css';
 import UnPassModal from './UnPassModal';
 import {getUserTurn} from '../../firebase/get-turn'
-import {getGameData} from "../../firebase/game-data";
+import {getGameData, setLiarPlayerData} from "../../firebase/game-data";
 import {setRoulettePlayerData} from "../../firebase/game-data";
+import {Chr} from "../../views/beforeGame/Choose_Char";
+import React from "react";
+import {getUserInfo} from "../../firebase/users";
+import {getRoomInfo} from "../../firebase/waiting-room";
 
 export const TableContext = createContext();
 
@@ -72,6 +76,7 @@ const RottenPlatesGame = memo((props) => {
 
   const gamedata = async () => {
     const gameData = await getGameData(roomNumber);
+    console.log(gameData)
     setTurn(gameData.turn);
   }
 
@@ -109,6 +114,39 @@ const RottenPlatesGame = memo((props) => {
       setGameStatus(UNPASS);
     }
   },[sec]);
+
+  const [userProfile, setUserProfile] = useState([]);
+
+  const setUserInfo = async (roomInfo) => {
+    // await console.log(roomInfo);
+    let members = [];
+
+    for await (let member of roomInfo.members) {
+      const memberInfo = await getUserInfo(member);
+      if (!memberInfo) continue;
+
+      members.push(memberInfo);
+    }
+    setUserProfile(members)
+  }
+
+  // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
+  useEffect(() => {
+    getRoomInfo(roomNumber, setUserInfo);
+  }, []);
+
+  const userList = userProfile.map((user) => {
+
+    return (
+        <li style={styles.listStyle}>
+          <div style={styles.userContainer}>
+            <img src={Chr[user.profile]} alt='#' style={props.users[user.nickname].liar.order ? styles.startUser : styles.stopUser}/>
+            <div style={styles.nickName}>{user.nickname}</div>
+          </div>
+        </li>
+
+    )
+  });
 
   // // 테스트를 위해 만든 버튼 (순서)
   // const onClickNextBtn = () => {
@@ -154,12 +192,32 @@ const RottenPlatesGame = memo((props) => {
         : null}
         {/* <button onClick={onClickStartBtn} className="startBtn">START</button> */}
         <Table/>
-        {/*<Users/>*/}
+        {userList}
         {gameStatus === UNPASS && <UnPassModal/>}
       </TableContext.Provider>
     </div>
   )
 })
+
+const styles = {
+  startUser: {
+    width: 100, height: 100, border: '1px solid red',
+  },
+  stopUser: {
+    width: 100, height: 100,
+  },
+  listStyle: {
+    listStyleType: 'none', display: 'inline-block', border: '1px solid black', borderRadius: 5,
+    width: 144, boxSizing: 'border-box', height: 218, padding: 10, margin: '86px 8px 0 0',
+    backgroundColor: '#032213', color: '#FCCE39'
+  },
+  userContainer: {
+    marginTop: 34,
+  },
+  nickName: {
+    marginTop: 8,
+  },
+}
 
 
 
