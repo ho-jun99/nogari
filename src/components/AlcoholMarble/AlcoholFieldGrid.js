@@ -8,12 +8,16 @@ import '../../firebase/waiting-room';
 import {getRoomInfo} from "../../firebase/waiting-room";
 import {getUserInfo} from "../../firebase/users";
 import { Chr } from '../../views/beforeGame/Choose_Char';
-import {setFirstUserOder, updateLocationAndOrder, updateRoulettePlayersOrder} from "../../firebase/game-data";
+import {
+    getGameData, getGameRoomData,
+    setFirstUserOder,
+    updateLocationAndOrder,
+    updateRoulettePlayersOrder
+} from "../../firebase/game-data";
 import {setRoulettePlayerData} from "../../firebase/game-data";
 
 const db = firebase.firestore();
 const roomId = localStorage.getItem('roomNumber');
-let point = 0;
 
 const getMapLocation = (location) => {
     if (location <= 35 && location >= 30) {
@@ -50,23 +54,19 @@ function isFieldHidden(fieldIndex) {
 }
 
 export function AlcoholFieldGrid() {
+    const [point, setPoint] = useState(0);
     const [userProfile, setUserProfile] = useState([]);
 
     const [players, setPlayers] = useState([]);
 
     // 유저 위치를 갱신하는 함수
     // 돌림판 돌린 유저 이름과 해당 유저의 최신 위치를 인자로 받아 파이어스토어에 갱신한다.
-    const setUserLocation = async (userName, location) => {
-
-        // 필드 데이터 받아오는 부분
-        await updateLocationAndOrder(roomId, userName, point+1, location);
-        // console.log(gameData);
-
-        // 해당 유저의 위치를 최신화 하여 파이어스토어에 저장하는 부분
-
-
-        // await updateRoulettePlayersOrder(roomId, point, point+1);
-    }
+    // const setUserLocation = async (userName, location) => {
+    //     // setPoint(point+1);
+    //     updateLocationAndOrder(roomId, userName, point, location);
+    //
+    //     // await updateRoulettePlayersOrder(roomId, point, point+1);
+    // }
 
     // 파이어스토어에서 유저 정보를 받아와 유저 리스트에 저장 => 그러면 화면에 뿌려짐
     const initializeUser = async (userData) => {
@@ -199,18 +199,23 @@ export function AlcoholFieldGrid() {
                         data={data}
                         fontSize={40}
                         perpendicularText={true}
-                        onStopSpinning={() => {
+                        onStopSpinning={async () => {
                             setMustSpin(false)
                             // console.log(data[prizeNumber].option)
-                            let temp_user_list = [...players];
-                            for (let i = 0; i < temp_user_list.length; i++) {
-                                if (temp_user_list[i].order === true) {
-                                    temp_user_list[i].location = (temp_user_list[i].location + parseInt(data[prizeNumber].option)) % 20;
-                                    setUserLocation(temp_user_list[i].name, temp_user_list[i].location); // 돌림판 돌린 사용자의 이름, 나온 위치를 해당 함수의 인자로 넘김
+                            // let temp_user_list = [...players];
+                            const gameData = await getGameData(roomId);
+                            const userData = await Object.entries(gameData.players);
+                            for(let i=0; i< userData.length; i++) {
+                                let name = userData[i][0];
+                                let isOrder = userData[i][1].alcoholRoulette.order;
+                                let location = (userData[i][1].alcoholRoulette.location + parseInt(data[prizeNumber].option)) % 20;
+
+                                if (isOrder) {
+                                    await updateLocationAndOrder(roomId, name, location);
+                                    console.log(name);
+                                    console.log(location);
                                 }
                             }
-                            // 필요없을듯 이거
-                            // setPlayers(temp_user_list);
                         }}
                     />
                 </div>
