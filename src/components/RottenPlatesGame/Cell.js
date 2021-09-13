@@ -1,12 +1,12 @@
-import react, {useContext,memo} from 'react';
+import react, {useContext, memo, useState} from 'react';
 import {TableContext,CODE, OTHER_TURN, PASS, UNPASS} from './RottenPlatesGame';
 import no from './PlatesGameImage/no.png';
 import pass from './PlatesGameImage/pass.png';
+import {setRoulettePlayerData} from "../../firebase/game-data";
+import {getUserTurn} from "../../firebase/get-turn";
 
 
 const getCellStyle = (code) => {
-
-
   if (code === CODE.NORMAL) {
     return {
     }
@@ -30,11 +30,10 @@ const getCellItemStyle = (status, penalty) => {
   }
 }
 
-
-const Cell = memo(( {cellId,cellIndex,cellPenalty} ) => {
+const Cell = memo(( props, {cellId,cellIndex,cellPenalty} ) => {
   const {table,setTable,halted,setHalted,gameStatus,setGameStatus,curUser,setCurUser,selectPlate,setSelectPlate} = useContext(TableContext);
 
-  const onClickCell = (e) => {
+  const onClickCell = async (e) => {
     if (halted) {
       return;
     }
@@ -50,6 +49,14 @@ const Cell = memo(( {cellId,cellIndex,cellPenalty} ) => {
         setHalted(true);
         setGameStatus(OTHER_TURN);
 
+        // await setRoulettePlayerData(roomNumber, props.turn[point], 'order', false);
+        // setPoint(point++);
+        // if(ServerUsers.length > point) {
+        //   await setRoulettePlayerData(roomNumber, props.turn[point], 'order', true);
+        // } else {
+        //   setPoint(0)
+        // }
+
       } else {
         const temp = [...table];
         temp[cellIndex].status = CODE.CLICKED;
@@ -59,9 +66,33 @@ const Cell = memo(( {cellId,cellIndex,cellPenalty} ) => {
         setSelectPlate({ispass: false, cellId : cellId, cellPenalty : cellPenalty});
         setHalted(true);
         setGameStatus(UNPASS);
+
+        // await setRoulettePlayerData(roomNumber, props.turn[point], 'order', false);
+        // setPoint(point++);
+        // if(ServerUsers.length > point) {
+        //   await setRoulettePlayerData(roomNumber, props.turn[point], 'order', true);
+        // } else {
+        //   setPoint(0)
+        // }
       }
     }
     console.log("cellID : ", cellId, "cellIndex : ", cellIndex, "status : ", table[cellIndex].status, "cellPenalty : ", cellPenalty);
+  }
+
+  let [point, setPoint] = useState(0)
+  const roomNumber = localStorage.getItem('roomNumber')
+  const ServerUsers = getUserTurn(roomNumber);
+
+  const clickedPlates = async() => { //접시 눌렸을 때
+    onClickCell();
+    setSelectPlate(true);
+    await setRoulettePlayerData(roomNumber, props.turn[point], 'order', false);
+    setPoint(point++);
+    if(ServerUsers.length > point) {
+      await setRoulettePlayerData(roomNumber, props.turn[point], 'order', true);
+    } else {
+      setPoint(0)
+    }
   }
 
   return (

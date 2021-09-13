@@ -78,3 +78,22 @@ export async function updateTurn(roomNumber, nickname, nextNickname){
         },
     });
 }
+
+export async function setRoulettePlayerData(roomNumber, nickname, field, fieldValue){
+    const gameData = await getGameData(roomNumber);
+    console.log(gameData);
+
+    await firebase.firestore().collection("game").doc(roomNumber).update({
+        ...gameData,
+        players: {
+            ...gameData.players,
+            [nickname]: {
+                ...gameData.players[nickname],
+                rottenPlates: {
+                    ...gameData.players[nickname].rottenPlates,
+                    [field]: fieldValue,
+                }
+            },
+        },
+    });
+}
