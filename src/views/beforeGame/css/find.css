@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     position: relative;
+    
 }
 
 .find_main{
@@ -27,6 +28,7 @@
     margin-top: 13px;
     border-radius: 8.4px;
     color: white;
+    cursor: pointer;
 }
 .make:hover{
     background: #0C8247;

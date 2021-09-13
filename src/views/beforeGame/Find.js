@@ -123,7 +123,6 @@ export default function Find({history}) {
                                 letterSpacing: "0.01em",
                                 color: "#FCCE39"}}>{userdata.nickname}</a>
                         </div>
-
                     </div>
                     <LinkModal open={modalOpen} close={closeModal}/>
                 </div>

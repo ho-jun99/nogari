@@ -173,7 +173,6 @@ export default function Choose_Char({ history }) {
                                 <button className="category_button" onClick={()=>{setIdx(0)}}/>
                                 <button className="category_button" onClick={()=>{setIdx(1)}}/>
                                 <button className="category_button" style={{backgroundColor:"black"}} onClick={()=>{setIdx(2)}}/>
-
                             </div>
                         }
                     </div>
@@ -190,7 +189,6 @@ export default function Choose_Char({ history }) {
                         { nickname===""
                             ?<button disabled={nickname===""} className="complete_button2">캐릭터 생성 완료</button>
                             :<button className="complete_button1" onClick={createID}>캐릭터 생성 완료</button>
-
                         }
                     </div>
                 </div>

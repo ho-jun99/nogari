@@ -183,10 +183,25 @@
     animation: slide-top 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 }
 
+#btnPlay.fourth_top{
+    cursor: pointer;
+}
+
+#btnPlay.fourth_top:hover {
+    background-color: black;
+}
+
+
 .blinking{
     -webkit-animation:blink 0.7s ease-in-out infinite alternate;
     -moz-animation:blink 0.5s ease-in-out infinite alternate;
     animation:blink 0.5s ease-in-out infinite alternate;
+    cursor: pointer;
+}
+
+.blinking:hover {
+    color: #FCCE39;
+    font-weight: bold;
 }
 @-webkit-keyframes blink{ 0% {opacity:0;} 100% {opacity:1;} }
 @-moz-keyframes blink{ 0% {opacity:0;} 100% {opacity:1;} }

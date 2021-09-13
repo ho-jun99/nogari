@@ -21,7 +21,13 @@
     color: #FCCE39;
     font-size: 15px;
     border: 0;
+    cursor: pointer;
 }
+
+.close:hover{
+    color: black;
+}
+
 .linkmain > input{
     font-size: 20px;
     margin-top: 44px;
@@ -55,8 +61,8 @@
     margin-bottom: 23px;
     width: 40px;
     height: 15px;
-    color: #FCCE39;
-    background: #21AB66;
+    color: black;
+    background: gray;
     border-radius: 2.5px;
     font-family: DungGeunMo;
     font-style: normal;
@@ -64,6 +70,8 @@
     font-size: 9.5px;
     line-height: 9px;
 }
+
+
 .enter2{
     position: relative;
     margin-top: 28px;
@@ -78,4 +86,10 @@
     font-weight: normal;
     font-size: 9.5px;
     line-height: 9px;
+    cursor: pointer;
+}
+
+.enter2:hover{
+    background: black;
+    color: #FCCE39;
 }
