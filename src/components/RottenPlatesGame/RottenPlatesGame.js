@@ -38,12 +38,11 @@ const roomNumber = localStorage.getItem('roomNumber')
 const SeverPenaltyList = [
       {id: 0, penalty : "pass", status : -1},{id: 1, penalty : "pass", status : -1},{id: 2, penalty : "pass", status : -1},{id: 3, penalty : "pass", status : -1},{id: 4, penalty : "pass", status : -1},
       {id: 5, penalty : "pass", status : -1},{id: 6, penalty : "pass", status : -1},{id: 7, penalty : "pass", status : -1},{id: 8, penalty : "pass", status : -1},{id: 9, penalty : "pass", status : -1},
-      {id: 10, penalty : "게임10", status : -1},{id: 11, penalty : "게임11", status : -1},{id: 12, penalty : "게임12", status : -1},{id: 13, penalty : "게임13", status : -1},
-      {id: 14, penalty : "게임14", status : -1},{id: 15, penalty : "게임15", status : -1},{id: 16, penalty : "게임16", status : -1},{id: 17, penalty : "게임17", status : -1},
-      {id: 18, penalty : "게임18", status : -1},{id: 19, penalty : "게임19", status : -1},{id: 20, penalty : "게임20", status : -1}
+      {id: 10, penalty : "pass", status : -1},{id: 11, penalty : "pass", status : -1},{id: 12, penalty : "pass", status : -1},{id: 13, penalty : "pass", status : -1},
+      {id: 14, penalty : "pass", status : -1},{id: 15, penalty : "pass", status : -1},{id: 16, penalty : "pass", status : -1},{id: 17, penalty : "pass", status : -1},
+      {id: 18, penalty : "unpass", status : -1},{id: 19, penalty : "unpass", status : -1},{id: 20, penalty : "unpass", status : -1}
     ];
 
-const ServerUsers = getUserTurn(roomNumber);
 
 const RottenPlatesGame = memo((props) => {
   const [table,setTable] = useState(SeverPenaltyList);
@@ -52,14 +51,29 @@ const RottenPlatesGame = memo((props) => {
   const [halted,setHalted] = useState(true);
   const [curUser,setCurUser] = useState(-1);
 
-  const [userlist,setUserlist] = useState(ServerUsers);
-
   const [selectedPlate,setSelectPlate] = useState({isPass : true, id : -1 ,penalty : "default"});
   const [sec,setSec] = useState(15);
   //const [owner,setOwner] = useState(true); //방장 여부
 
   const timer = useRef();
   const setTimer = useRef();
+
+
+  const myTimer = () => {
+    clearInterval(setTimer.current);
+    setSec(15);
+    setTimer.current = setInterval(()=>{
+      setSec((prev)=> prev-1);
+    },1000);
+  }
+
+  useEffect(()=>{
+    const ServerUsers = getUserTurn(roomNumber);
+    setUserlist(ServerUsers)
+    console.log(userlist)
+  }, [])
+
+  const [userlist,setUserlist] = useState();
 
   const initData = {
     table, setTable,
@@ -69,14 +83,6 @@ const RottenPlatesGame = memo((props) => {
     curUser, setCurUser,
     userlist, setUserlist,
     selectedPlate, setSelectPlate
-  }
-
-  const myTimer = () => {
-    clearInterval(setTimer.current);
-    setSec(15);
-    setTimer.current = setInterval(()=>{
-      setSec((prev)=> prev-1);
-    },1000);
   }
 
   useEffect(()=>{
@@ -127,7 +133,7 @@ const RottenPlatesGame = memo((props) => {
   return(
     <div className="MainContainer">
       <TableContext.Provider value={initData}>
-        {(gameStatus === OTHER_TURN ) || (gameStatus === MY_TRUN) || (gameStatus === GAME_START) ? <div className="message"> <span style={userColor()}>{ServerUsers[curUser].userName}</span> 차례입니다. 접시를 선택해주세요</div> : <div className="message">썩은접시 찾기</div> }
+        {(gameStatus === OTHER_TURN ) || (gameStatus === MY_TRUN) || (gameStatus === GAME_START) ? <div className="message"> <span style={userColor()}>{userlist[curUser].userName}</span> 차례입니다. 접시를 선택해주세요</div> : <div className="message">썩은접시 찾기</div> }
         {gameStatus !== INIT ?
         <div className="timerContainer">
           {sec <= 5 ? <div className="timerImage" style={{visibility : "visible"}}>{sec}</div> : <div className="timerImage">{sec}</div>}
@@ -136,7 +142,7 @@ const RottenPlatesGame = memo((props) => {
         : null}
         {/* <button onClick={onClickStartBtn} className="startBtn">START</button> */}
         <Table/>
-        <Users/>
+        {/*<Users/>*/}
         {gameStatus === UNPASS && <UnPassModal/>}
       </TableContext.Provider>
     </div>
