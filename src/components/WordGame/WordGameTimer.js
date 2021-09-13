@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 
-function WordGameTimer({seconds, setSeconds, round, setRound, setValue, totalRound}) {
+function WordGameTimer({seconds, setSeconds, round, setRound, setValue, totalRound, setGameState}) {
     useEffect(() => {
         const countdown = setTimeout(() => {
             if (parseInt(seconds) > 0) {
@@ -9,7 +9,7 @@ function WordGameTimer({seconds, setSeconds, round, setRound, setValue, totalRou
                 setTimeout(() => {
                     setSeconds(30);
                 }, 3000)
-                totalRound !== round ? setRound(round + 1) : setRound(0);
+                totalRound !== round ? setRound(round + 1) : setGameState(true);
                 // setState({value: random[round].quiz, ans: random[round].answer});
                 setValue('');
             }

@@ -13,11 +13,33 @@ export async function getPlayers(roomId) {
   return players.data();
 }
 
+export async function getPlayersOnTrigger(roomId, callback) {
+  db.collection("game").doc(roomId).onSnapshot((doc) => {
+    callback(doc.data());
+  });
+}
+
+
+
+export async function updateGameState(roomNumber, state, stateValue) {
+  const room = await getPlayers(roomNumber);
+  if (room) {
+    await db.collection("game").doc(`${roomNumber}`).update({
+      wordGame: {
+        ...room.wordGame,
+        [state]: stateValue,
+      }
+    });
+  }
+}
+
+
 export async function setCategory(roomNumber, category) {
   console.log(roomNumber);
   await db.collection("game").doc(`${roomNumber}`).update({
     wordGame: {
       category: category,
+      isFinished: false,
     }
   });
 }
