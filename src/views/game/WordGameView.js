@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal'
+import {useHistory} from "react-router";
 import {useState, useEffect} from "react";
 import './css/WordGameView.css';
 import TimeoutModal from './Timeout'
@@ -12,6 +13,7 @@ import WordGameQuizBox from "../../components/WordGame/WordGameQuizBox";
 import Result from "../../components/common/result";
 
 export default function WordGameView({match}) {
+    const history = useHistory();
     const [selectedCategory, setSelectedCategory] = useState('');
     const [wordGame, setWordGame] = useState([
         {
@@ -35,12 +37,22 @@ export default function WordGameView({match}) {
     const roomNumber = localStorage.getItem('roomNumber');
     const myNickname = localStorage.getItem('nickname');
 
+    const gameOver = () => {
+        if(gameState === true) {
+            history.push(`/result`);
+        }
+    }
+
     const init = async (playerData) => {
         // const  = await getPlayers(match.params.roomId);
         setPlayer(playerData['players']);
         setSelectedCategory(playerData['wordGame'].category);
         setRandom(playerData['wordGame'].test)
-        setTotalRound(Object.keys(playerData['players']).length - 2);
+        if (Object.keys(playerData['players']).length === 1) {
+            setTotalRound(1)}
+            else {
+                setTotalRound(Object.keys(playerData['players']).length - 2);
+        }
         setGameState(playerData['wordGame'].isFinished);
     };
 
@@ -52,14 +64,19 @@ export default function WordGameView({match}) {
     const handleSearch = async () => {
         player[myNickname].wordGame.inputWord = value;
         if (state.ans === value) {
-            player[myNickname].wordGame.isCorrected = true;
+            player[myNickname].wordGame.isCorrected = false;
             alert("정답");
             // 일단은 라운드 2까지 밖에 없으니까 라운드 다 되면 0으로 다시 초기화 해줍니다
             setTimeout(() => {
-                totalRound !== round ? setRound(round + 1) : setGameState(true);
-                updateGameState(roomNumber, 'isFinished', gameState);
-                setState({value: random[round].quiz, ans: random[round].answer});
-                setSeconds(30);
+                if(totalRound !== round) {
+                    setRound(round + 1);
+                    updateGameState(roomNumber, 'isFinished', gameState);
+                    setState({value: random[round].quiz, ans: random[round].answer});
+                    setSeconds(30);
+                }
+                else {
+                    setGameState(true);
+                }
             }, 3000);
         } else {
             alert('오답!');
@@ -71,6 +88,7 @@ export default function WordGameView({match}) {
 
     useEffect(()=> {
         updateGameState(roomNumber, 'isFinished', gameState);
+        gameOver();
     },[gameState])
 
     const openModal = () => {
@@ -99,12 +117,14 @@ export default function WordGameView({match}) {
     }, []);
 
     useEffect(() => {
-        random[0] !== undefined && setState({
+        random !== [] && random[0] !== undefined && setState({
             //isSubmitted: false,
             value: random[round].quiz,
             ans: random[round].answer
         })
     }, [random])
+
+    console.log(random)
 
 
     // round가 증가하면 quiz state를 set
@@ -139,7 +159,6 @@ export default function WordGameView({match}) {
                 <WordGamePlayer player={player} myNickname={myNickname} roomNumber={roomNumber} round={round} updateUserData={updateUserData}/>
             </div>
             <StartModal open={startModalOpen} close={startModalOpen}/>
-            {gameState !== undefined && gameState ? <Result roomNumber={roomNumber} player={player}></Result>: null}
         </>
     );
 }

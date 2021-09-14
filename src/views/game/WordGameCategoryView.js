@@ -10,7 +10,6 @@ export default function WordGameCategoryView({ match } ) {
     const roomId = match.params.roomId;
 
     const WordGameCategoryChoice = () => {
-
         history.push(`/rooms/${roomId}/word`);
     }
     return (
