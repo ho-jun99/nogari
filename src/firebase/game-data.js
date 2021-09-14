@@ -163,16 +163,16 @@ export async function updateLocationAndOrder(roomNumber, userName, location) {
                 alcoholRoulette: {
                     ...gameData.players[userName].alcoholRoulette,
                     location: location, // value는 파라미터 넘어온 그대로 사용 가능
-                    order: false,
-                }
-            },
-            [nextName]: {
-                ...gameData.players[nextName],
-                alcoholRoulette: {
-                    ...gameData.players[nextName].alcoholRoulette,
                     order: true,
                 }
             },
+            // [nextName]: {
+            //     ...gameData.players[nextName],
+            //     alcoholRoulette: {
+            //         ...gameData.players[nextName].alcoholRoulette,
+            //         order: true,
+            //     }
+            // },
         }
     });
 }
