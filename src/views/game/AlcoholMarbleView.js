@@ -4,13 +4,14 @@ import {AlcoholFieldGrid} from "../../components/AlcoholMarble/AlcoholFieldGrid"
 import MarbleField from '../../images/background.png';
 import MarbleBG from '../../images/background.png'
 
-export default function AlcoholMarbleView() {
+export default function AlcoholMarbleView({match}) {
+    const roomNumber = match.params.roomId;
     return (
         <>
             <div style={styles.marbleBg}>
                 <div style={styles.rouletteBgParent}>
                     <div style={styles.rouletteBg}>
-                        <AlcoholFieldGrid/>
+                        <AlcoholFieldGrid roomId={roomNumber}/>
                     </div>
                 </div>
             </div>
