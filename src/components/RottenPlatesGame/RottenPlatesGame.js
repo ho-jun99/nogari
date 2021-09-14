@@ -51,6 +51,7 @@ const SeverPenaltyList = [
 
 const RottenPlatesGame = memo((props) => {
   const [table,setTable] = useState(SeverPenaltyList);
+  //console.log(table)
   const [message,setMessage] = useState("벌칙룰렛 게임입니다.");
   const [gameStatus,setGameStatus] = useState(INIT);
   const [halted,setHalted] = useState(false);
