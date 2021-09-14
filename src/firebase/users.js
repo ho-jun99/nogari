@@ -9,7 +9,10 @@ export async function getUserInfo(userId) {
     }catch (e) {
         return null;
     }
+}
 
+export async function userInfo(userId) {
+    const res = await db.collection('users').doc(userId).get();
 }
 
 export function updateLastConnection(userID) {

@@ -53,7 +53,7 @@ const RottenPlatesGame = memo((props) => {
   const [table,setTable] = useState(SeverPenaltyList);
   const [message,setMessage] = useState("벌칙룰렛 게임입니다.");
   const [gameStatus,setGameStatus] = useState(INIT);
-  const [halted,setHalted] = useState(true);
+  const [halted,setHalted] = useState(false);
   const [curUser,setCurUser] = useState(-1);
 
   const [selectedPlate,setSelectPlate] = useState({isPass : true, id : -1 ,penalty : "default"});
@@ -102,7 +102,7 @@ const RottenPlatesGame = memo((props) => {
     halted, setHalted,
     curUser, setCurUser,
     userlist, setUserlist,
-    selectedPlate, setSelectPlate, turn, setTurn
+    selectedPlate, setSelectPlate, turn, setTurn, SeverPenaltyList
   }
 
   useEffect(()=>{
@@ -156,6 +156,7 @@ const RottenPlatesGame = memo((props) => {
     )
   });
 
+
   // // 테스트를 위해 만든 버튼 (순서)
   // const onClickNextBtn = () => {
   //   if (gameStatus === INIT) {
@@ -201,7 +202,7 @@ const RottenPlatesGame = memo((props) => {
         {/* <button onClick={onClickStartBtn} className="startBtn">START</button> */}
         <Table/>
         {userList}
-        {gameStatus === UNPASS && <UnPassModal/>}
+        {gameStatus === UNPASS && <UnPassModal userProfile={userProfile}/>}
       </TableContext.Provider>
     </div>
   )

@@ -33,7 +33,7 @@ const getCellItemStyle = (status, penalty) => {
 }
 
 const Cell = memo((props, { cellId, cellIndex, cellPenalty, cellStatus} ) => {
-  const {table,setTable,halted,setHalted,gameStatus,setGameStatus,curUser,setCurUser,selectPlate,setSelectPlate, turn, setTurn} = useContext(TableContext);
+  const {table,setTable,halted,setHalted,gameStatus,setGameStatus,curUser,setCurUser,selectPlate,setSelectPlate, turn, setTurn, SeverPenaltyList} = useContext(TableContext);
   const onClickCell = async (e) => {
     if (halted) {
       return;
@@ -116,6 +116,9 @@ const Cell = memo((props, { cellId, cellIndex, cellPenalty, cellStatus} ) => {
       setPoint(0);
     }
   }
+
+
+
 
   return (
     <>
