@@ -13,12 +13,10 @@ body * {
 }
 
 body {
-  /* background-repeat: no-repeat; */
-  background-size: contain;
-  width: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* position: fixed; */
   height: 100vh;
-  height: 100vw;
-  background-position: center center;
   background-image: url("./images/combineUpDown.jpg");
 
 }
