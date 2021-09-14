@@ -81,6 +81,7 @@ export async function updateTurn(roomNumber, nickname, nextNickname) {
 
 // 주루마블 관련 파이어스토어 업데이트 함수
 export async function setFirstUserOder(roomId) {
+
     const gameData = await getGameData(roomId);
     const userData = Object.entries(gameData.players);
     let flag = false;
@@ -92,7 +93,7 @@ export async function setFirstUserOder(roomId) {
     }
 
     if (!flag) {
-        let firstTurn = gameData.turn[0];
+        let firstTurn = await gameData.turn[0];
         await firebase.firestore().collection("game").doc(roomId).update({
             ...gameData,
             players: {

@@ -17,7 +17,7 @@ import {
 import {setRoulettePlayerData} from "../../firebase/game-data";
 
 const db = firebase.firestore();
-const roomId = localStorage.getItem('roomNumber');
+// const roomId = localStorage.getItem('roomNumber');
 
 const getMapLocation = (location) => {
     if (location <= 35 && location >= 30) {
@@ -53,7 +53,7 @@ function isFieldHidden(fieldIndex) {
     return standard.filter((s) => s).length === 4;
 }
 
-export function AlcoholFieldGrid() {
+export function AlcoholFieldGrid(props) {
     // 라이브러리 이용한 룰렛 구현
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
@@ -75,7 +75,7 @@ export function AlcoholFieldGrid() {
 
         // 유저 정보 불러오기 전 파이어스토어에서 첫 번째 유저의 order를 true로 변경하기
         // 그리고 끝나면 players 라는 useState 변수에 디비에서 불러온 유저 정보를 저장시킴
-        setFirstUserOder(roomId).then(() => {
+        setFirstUserOder(props.roomId).then(() => {
             let temp_list = []
             let values = Object.values(userData.players); // players 하위 데이터를 가져옴
             for (let i = 0; i<values.length; i++) {
@@ -91,7 +91,7 @@ export function AlcoholFieldGrid() {
 
     // 해당 방의 필드 정보들을 가져와서 initializeUser 함수에 넘겨줌
     useEffect(async () => {
-        let docRef = db.collection("game").doc(roomId); // roomId
+        let docRef = db.collection("game").doc(props.roomId); // roomId
 
         await docRef.get().then((doc) => {
             if (doc.exists) {
@@ -123,7 +123,7 @@ export function AlcoholFieldGrid() {
 
     // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
     useEffect(() => {
-        getRoomInfo(roomId, setUserInfo);
+        getRoomInfo(props.roomId, setUserInfo);
     }, []);
 
     const users = userProfile.map((user) => {
@@ -178,7 +178,7 @@ export function AlcoholFieldGrid() {
 
     }
     useEffect(() => {
-        getGameRoomData(roomId, changedgamedata);
+        getGameRoomData(props.roomId, changedgamedata);
     }, []);
 
     return (
@@ -220,7 +220,7 @@ export function AlcoholFieldGrid() {
                             setMustSpin(false)
                             // console.log(data[prizeNumber].option)
                             // let temp_user_list = [...players];
-                            const gameData = await getGameData(roomId);
+                            const gameData = await getGameData(props.roomId);
                             const userData = await Object.entries(gameData.players);
                             for(let i=0; i< userData.length; i++) {
                                 let name = userData[i][0];
@@ -228,7 +228,7 @@ export function AlcoholFieldGrid() {
                                 let location = (userData[i][1].alcoholRoulette.location + parseInt(data[prizeNumber].option)) % 20;
 
                                 if (isOrder) {
-                                    await updateLocationAndOrder(roomId, name, location);
+                                    await updateLocationAndOrder(props.roomId, name, location);
                                 }
                             }
                         }}

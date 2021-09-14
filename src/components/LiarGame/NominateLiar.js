@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Circle from './images/yellowCircle.png'
 import SuccessComponent from "./SuccessComponent";
 import FailComponent from "./FailComponent";
+import {Chr} from "../../views/beforeGame/Choose_Char";
 
 const NominateLiar = (props) => {
     const [liarIsYou, setLiarIsYou] = useState(false);
@@ -22,8 +23,8 @@ const NominateLiar = (props) => {
             <div style={styles.container}>
                 <div style={styles.title}>라이어는 바로 너!!</div>
                 <div style={styles.innerContainer}>
-                    <img src={props.profile} style={styles.imgStyle} alt="profile"/>
-                    <div style={styles.nameStyle}>{props.name}</div>
+                    <img src={Chr[props.name.profile]} style={styles.imgStyle} alt="profile"/>
+                    <div style={styles.nameStyle}>{props.name.nickname}</div>
                 </div>
                 <img src={Circle} style={styles.circle} alt="yellowcircle"/>
             </div>
@@ -31,17 +32,17 @@ const NominateLiar = (props) => {
     }
     // 5초 지나고 지목 성공 여부 컴포넌트로 이동
     else {
-        if (props.isLiar) {
+        if (true) {
             return (
                 <>
-                    <SuccessComponent profile={props.profile} name={props.name}/>
+                    <SuccessComponent profile={Chr[props.name.profile]} name={props.name.nickname}/>
                 </>
             )
         }
         else {
             return (
                 <>
-                    <FailComponent profile={props.profile} name={props.name}/>
+                    <FailComponent profile={Chr[props.name.profile]} name={props.name.nickname}/>
                 </>
             )
         }
