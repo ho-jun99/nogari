@@ -52,6 +52,10 @@ export default function Result(props){
 
     }
 
+    const click2 = () => {
+        history.push(`/rooms/${localStorage.getItem('roomNumber')}`);
+    }
+
 
 if(!exitGame) {
     return(
@@ -61,7 +65,7 @@ if(!exitGame) {
                 <img src={Chr[localStorage.getItem('character')]} style={style.char}/>
                 <span style={style.Nick}>{localStorage.getItem('nickName')}</span>
                 <div style={style.BtWrapper}>
-                    <button className='RetryButton'>
+                    <button className='RetryButton' onClick={click2}>
                         다시 하기
                     </button>
                     <button onClick={click} className='FinishButton'>
