@@ -11,6 +11,7 @@ import WordGamePlayer from "../../components/WordGame/WordGamePlayer";
 import WordGameTimer from "../../components/WordGame/WordGameTimer";
 import WordGameQuizBox from "../../components/WordGame/WordGameQuizBox";
 import Result from "../../components/common/result";
+import VoteBadgeComponent from "../../components/voteBadge/VoteBadgeComponent";
 
 export default function WordGameView({match}) {
     const history = useHistory();
@@ -39,7 +40,7 @@ export default function WordGameView({match}) {
 
     const gameOver = () => {
         if(gameState === true) {
-            history.push(`/result`);
+            history.push('/result');
         }
     }
 
@@ -65,7 +66,7 @@ export default function WordGameView({match}) {
         player[myNickname].wordGame.inputWord = value;
         if (state.ans === value) {
             player[myNickname].wordGame.isCorrected = false;
-            alert("정답");
+            alert("정답 (3초 후 다음문제가 출제됩니다)");
             // 일단은 라운드 2까지 밖에 없으니까 라운드 다 되면 0으로 다시 초기화 해줍니다
             setTimeout(() => {
                 if(totalRound !== round) {
@@ -136,29 +137,30 @@ export default function WordGameView({match}) {
         }
     }, [round])
 
-    return (
-        <>
-            <div className="main_wordgame">
-                <div className="category"
-                     style={{fontFamily: "DungGeunMo", fontWeight: "bold", fontSize: "28.4571px", textAlign: "center"}}>
-                    카테고리 : {selectedCategory}
+        return (
+            <>
+                <div className="main_wordgame">
+                    <div className="category"
+                         style={{fontFamily: "DungGeunMo", fontWeight: "bold", fontSize: "28.4571px", textAlign: "center"}}>
+                        카테고리 : {selectedCategory}
+                    </div>
+                    {!startModalOpen ? <WordGameTimer seconds={seconds} setSeconds={setSeconds} totalRound={totalRound} round={round} setRound={setRound} setValue={setValue} setGameState={setGameState}/> : null}
+                    <WordGameQuizBox state={state} value={value}/>
+                    <div style={{display: "block"}}>
+                        <input className="input" type="text" value={value} placeholder={(player !== undefined && player[myNickname].wordGame.isCorrected) ? "이미 정답을 맞추셨습니다!" : "정답을 입력해주세요"}
+                               onKeyPress={handleKeyPress}
+                               onChange={e => setValue(e.target.value)}
+                               disabled={player !== undefined && player[myNickname].wordGame.isCorrected}/>
+                    </div>
+                    <div>
+                        {
+                            !seconds && <TimeoutModal open={openModal} close={closeModal}>Timeout</TimeoutModal>
+                        }
+                    </div>
+                    <WordGamePlayer player={player} myNickname={myNickname} roomNumber={roomNumber} round={round} updateUserData={updateUserData}/>
                 </div>
-                {!startModalOpen ? <WordGameTimer seconds={seconds} setSeconds={setSeconds} totalRound={totalRound} round={round} setRound={setRound} setValue={setValue} setGameState={setGameState}/> : null}
-                <WordGameQuizBox state={state} value={value}/>
-                <div style={{display: "block"}}>
-                    <input className="input" type="text" value={value} placeholder={(player !== undefined && player[myNickname].wordGame.isCorrected) ? "이미 정답을 맞추셨습니다!" : "정답을 입력해주세요"}
-                           onKeyPress={handleKeyPress}
-                           onChange={e => setValue(e.target.value)}
-                           disabled={player !== undefined && player[myNickname].wordGame.isCorrected}/>
-                </div>
-                <div>
-                    {
-                        !seconds && <TimeoutModal open={openModal} close={closeModal}>Timeout</TimeoutModal>
-                    }
-                </div>
-                <WordGamePlayer player={player} myNickname={myNickname} roomNumber={roomNumber} round={round} updateUserData={updateUserData}/>
-            </div>
-            <StartModal open={startModalOpen} close={startModalOpen}/>
-        </>
-    );
+                <StartModal open={startModalOpen} close={startModalOpen}/>
+            </>
+        );
+
 }

@@ -1,11 +1,22 @@
 import './result.css'
 import React, {useEffect, useState} from 'react'
 import Eggroll from '../../views/img/계란말이_스탠딩.png'
+import {Chr} from "../../views/beforeGame/Choose_Char";
+import {useHistory} from "react-router";
 import {getUserInfo} from "../../firebase/users";
 import {getRoomInfo} from "../../firebase/waiting-room";
+import {useLocation} from "react-router";
+import VoteBadgeComponent from "../voteBadge/VoteBadgeComponent";
+import {load} from "dotenv";
 
-export default function Result({player, roomNumber}){
+export default function Result(props){
 
+    const [exitGame, setExitGame] = useState(false);
+
+    const location = useLocation();
+
+
+    const history = useHistory();
     // const [fail, setFail] = useState({
     //     character:"",
     //     nickname:""
@@ -34,30 +45,37 @@ export default function Result({player, roomNumber}){
     // }, []);
     // player !== undefined && console.log(player);
 
-    const user={
-        character:Eggroll,
-        nickname:'shinba'
+    const click=()=>{
+        setExitGame(true);
+        // const setExitGame = location.state.setExitGame;
+        // setExitGame(true);
+
     }
 
 
-
+if(!exitGame) {
     return(
         <>
             <div style={style.main}>
-                <span style={style.title}> 낙제 </span>
-                <img src={user.character} style={style.char}/>
-                <span style={style.Nick}>{user.nickname}</span>
+                <span style={style.title}> 성공 </span>
+                <img src={Chr[localStorage.getItem('character')]} style={style.char}/>
+                <span style={style.Nick}>{localStorage.getItem('nickName')}</span>
                 <div style={style.BtWrapper}>
                     <button className='RetryButton'>
                         다시 하기
                     </button>
-                    <button className='FinishButton'>
+                    <button onClick={click} className='FinishButton'>
                         끝내기
                     </button>
                 </div>
             </div>
         </>
     );
+}else {
+    return <>
+        <VoteBadgeComponent/>
+    </>
+}
 }
 const style={
     main:{

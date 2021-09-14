@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {useHistory} from "react-router";
 import './AlcoholFieldGrid.css';
 import Finish from '../../images/finish.png';
 import {Wheel} from 'react-custom-roulette'
@@ -15,6 +16,7 @@ import {
     updateRoulettePlayersOrder
 } from "../../firebase/game-data";
 import {setRoulettePlayerData} from "../../firebase/game-data";
+import VoteBadgeComponent from "../voteBadge/VoteBadgeComponent";
 
 const db = firebase.firestore();
 // const roomId = localStorage.getItem('roomNumber');
@@ -55,6 +57,8 @@ function isFieldHidden(fieldIndex) {
 
 export function AlcoholFieldGrid(props) {
     // 라이브러리 이용한 룰렛 구현
+
+    const history = useHistory();
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
     const [userProfile, setUserProfile] = useState([]);
@@ -181,6 +185,12 @@ export function AlcoholFieldGrid(props) {
         getGameRoomData(props.roomId, changedgamedata);
     }, []);
 
+    const click = () => {
+        history.push(`/rooms/${localStorage.getItem('roomNumber')}`);
+    }
+
+
+
     return (
         <div className={'AlcoholMarbleBody'}>
             <div className={'AlcoholMarbleMain'}>
@@ -208,7 +218,7 @@ export function AlcoholFieldGrid(props) {
             <div style={styles.roulette}>
                 <div style={styles.orderUser}>‘{orderUser}’ 님 차례입니다!</div>
                 <button id="trigger" style={styles.goBtn} onClick={handleSpinClick}>GO!</button>
-                <img src={Finish} alt="" style={styles.finishImg}/>
+                <img src={Finish} alt="" style={styles.finishImg} onClick={click}/>
                 <div style={styles.circle}>
                     <Wheel
                         mustStartSpinning={mustSpin}

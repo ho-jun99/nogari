@@ -14,6 +14,7 @@ import {
 } from './views';
 import CompletionVoteComponent from "./components/voteBadge/CompletionVoteComponent";
 import Result from "./components/common/result";
+import VoteBadgeComponent from "./components/voteBadge/VoteBadgeComponent";
 
 function App() {
     return (

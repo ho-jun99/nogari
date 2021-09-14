@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import Effect from '../../images/effect.png'
+import {Chr} from "../../views/beforeGame/Choose_Char";
 import {useHistory} from "react-router";
 
-const CompletionVoteComponent = (props) => {
+const CompletionVoteComponent = () => {
 
     const [back, setBack] = useState();
     const roomId = localStorage.getItem('roomNumber');
@@ -17,14 +18,15 @@ const CompletionVoteComponent = (props) => {
 
     if(back) history.push(`/rooms/${roomId}`);
 
-    const user = props.location.state.user;
-    const images = props.location.state.img;
+    const user = localStorage.getItem('nickName');
+    const images = localStorage.getItem('character');
+
     return (
         <div style={{position: 'relative'}}>
             <img style={styles.effect} src={Effect} alt=""/>
             <div style={styles.title}><span style={{color: '#FCCE39'}}>‘{user}’</span>님이 선정되었습니다!!</div>
             <div style={styles.container}>
-                <div><img style={styles.imgStyle} src={images} alt=""/></div>
+                <div><img style={styles.imgStyle} src={Chr[images]} alt=""/></div>
                 <div style={styles.user}>{user}</div>
             </div>
             <div style={styles.description}>잠시후 자동으로 대기실로 이동됩니다...</div>

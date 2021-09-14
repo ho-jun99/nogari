@@ -1,9 +1,16 @@
 import React, {useState} from 'react'
 import VoteBadgeComponent from "../voteBadge/VoteBadgeComponent";
+import {useHistory} from "react-router";
 
 const WinLiarComponent = (props) => {
     // true가 되면 게임을 종료하고 뱃지 투표 컴포넌트로 이동
     const [exitGame, setExitGame] = useState(false);
+
+    const history = useHistory();
+
+    const click = () => {
+        history.push(`/rooms/${localStorage.getItem('roomNumber')}`);
+    }
 
     if (!exitGame) {
         return (
@@ -12,7 +19,7 @@ const WinLiarComponent = (props) => {
                 <img style={styles.imgStyle} src={props.profile} alt=""/>
                 <div style={styles.userName}>{props.name}</div>
                 <div style={styles.btnContainer}>
-                    <input style={styles.startBtn} type="button" value="다시하기"/>
+                    <input style={styles.startBtn} type="button" onClick={click} value="다시하기"/>
                     <input style={styles.stopBtn} type="button" value="끝내기" onClick={() => {setExitGame(true);}}/>
                 </div>
             </>

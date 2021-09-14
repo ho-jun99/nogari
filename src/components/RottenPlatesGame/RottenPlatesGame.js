@@ -59,6 +59,7 @@ const RottenPlatesGame = memo(() => {
   const [selectedPlate,setSelectPlate] = useState({isPass : true, id : -1 ,penalty : "default"});
   const [sec,setSec] = useState(15);
   const [owner,setOwner] = useState(true); //방장 여부
+  const [isEndClicked, setIsEndClicked] = useState(false);
 
   const timer = useRef();
   const setTimer = useRef();
@@ -191,7 +192,7 @@ const RottenPlatesGame = memo(() => {
         <Table/>
         {/*<Users/>*/}
         {users}
-        {gameStatus === UNPASS && <UnPassModal/>}
+        {gameStatus === UNPASS && <UnPassModal isEndClicked={isEndClicked} setIsEndClicked={setIsEndClicked} />}
       </TableContext.Provider>
     </div>
   )

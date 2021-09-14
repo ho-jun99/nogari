@@ -117,7 +117,6 @@ export default function LiarGameView({ match }) {
 						/>
 					</div>
 				</div>
-				<input type="button" value="누르면 게임 실행됨" onClick={startGame} className="tempBtn" />
 			</>
 		);
 	}

@@ -8,6 +8,7 @@ import DDuk from '../../views/img/떡볶이 스탠딩.png'
 import Bing from '../../views/img/빙수_스탠딩.png'
 import Chicken from '../../views/img/치킨_스탠딩.png'
 import BadgeTimeComponent from "./BadgeTimeComponent";
+import {Chr} from "../../views/beforeGame/Choose_Char";
 import '../css/voteBadge.css'
 import CompletionVoteComponent from "./CompletionVoteComponent";
 
@@ -55,45 +56,20 @@ function VoteBadgeComponent() {
         }, 3000);
     }
     if(lastPage) {
-        history.push({
-            pathname: '/badge',
-            state: {user:maxUser, img: maxImg}
-        });
+        history.push('/badge');
     }
+
+    const nickname = localStorage.getItem('nickname');
+    const char = localStorage.getItem('character');
 
 
     // 임시 유저 데이터
     const [gameUser, setGameUser] = useState([
         {
-            nickname: "임성원", // 닉네임
+            nickname, // 닉네임
             count: 0,
-            img: Egg,
-        },
-        {
-            nickname: "김지성", // 닉네임
-            count: 0,
-            img: Kimchi,
-        },
-        {
-            nickname: "이종휘", // 닉네임
-            count: 0,
-            img: Nogari,
-        },
-        {
-            nickname: "김호준", // 닉네임
-            count: 0,
-            img: DDuk,
-        },
-        {
-            nickname: "박정민", // 닉네임
-            count: 0,
-            img: Bing,
-        },
-        {
-            nickname: "신재혁", // 닉네임
-            count: 0,
-            img: Chicken,
-        },
+            img: Chr[char],
+        }
     ]);
 
     const userList = gameUser.map((user, index) => {
@@ -159,13 +135,13 @@ function VoteBadgeComponent() {
         )
     }
     // 투표가 완료되면 제일 많이 투표된 인원 포커스 효과
-    else if (!badgeTime && voteCount === 6) {
+    else if (!badgeTime && voteCount === 1) {
 
         return (
             <>
 
                 <div style={styles.container}>
-                    <div style={styles.title}>{gameUser[maxIndex].nickname}님이 선정되었습니다!</div>
+                    <div style={styles.title}>{localStorage.getItem('nickname')}님이 선정되었습니다!</div>
                     <img style={styles.badge} src={Badge} alt="Badge"/>
                     <div style={{position: 'relative',}}>
                         {temp_list}
@@ -181,6 +157,7 @@ export default VoteBadgeComponent;
 
 const styles = {
     container: {
+        textAlign: "center",
         position: 'relative',
         width: '100%', height: '100%',
     },
