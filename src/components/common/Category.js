@@ -8,44 +8,6 @@ export default function Category(props) {
     const [categoryData, setCategoryData] = useState({});
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [player, setPlayer] = useState();
-    const [totalRound, setTotalRound] = useState(0);
-    // 랜덤하게 추출
-    const getRandom = (min, max) => {
-        return Math.floor((Math.random() * (max - min + 1)) + min);
-    }
-
-    const getRandomArray = (min, max, count) => {
-        if (max - min + 1 < count) return;
-
-        let randomArr = [];
-        while (1) {
-            let index = getRandom(min, max);
-
-            // 중복 여부를 체크
-            if (randomArr.indexOf(index) > -1) {
-                continue;
-            }
-
-            randomArr.push(index);
-
-            // 원하는 배열 갯수가 되면 종료
-            if(randomArr.length === 1 && count === 2) {
-                break;
-            }
-            else if (randomArr.length === count + 1) {
-                break;
-            }
-        }
-        let arr = [];
-        randomArr.map(num => {
-            arr.push(wordGame[num])
-        });
-        console.log(arr);
-        setRandom(arr);
-    }
-
-
     useEffect(() => {
         const init = async () => {
             const gameData = await getWordGameCategory();
@@ -57,18 +19,6 @@ export default function Category(props) {
         init();
     }, []);
 
-    useEffect(()=> {
-        player !== undefined && console.log(player);
-        if (player !== undefined) {
-            if (Object.keys(player).length === 1) {
-                setTotalRound(1);
-            }
-            else {
-                setTotalRound(Object.keys(player).length - 2);
-            }
-        }
-        totalRound !== undefined && console.log(totalRound);
-    },[player])
 
 
     const getCategoryData = (categoryName) => {
@@ -79,31 +29,6 @@ export default function Category(props) {
         setWord(props.roomId, wordData[random]); //랜덤 선택된 단어 (라이어게임 전용)
         setCategory(props.roomId, categoryName);
     };
-
-    const setWordGameData = async (categoryName) => {
-        const gameData = await getWordGameCategory();
-        let arr = [];
-        gameData !== undefined && categoryName !== '' && Object.entries(gameData[categoryName]).map((data) => arr.push({
-            quiz: data[0],
-            answer: data[1]
-        }));
-        setWordGame(arr);
-    }
-
-
-    useEffect(() => {
-        if (totalRound === 0) {
-            getRandomArray(0, wordGame.length - 1, 2);
-            console.log("dd")
-        } else {
-            getRandomArray(0, wordGame.length - 1, totalRound);
-        }
-    },[wordGame])
-
-    useEffect(() => {
-        updateGameState(props.roomId, 'test', random);
-    },[random])
-
 
     // 카테고리 버튼을 누르면 data를 get
     // const getCategoryData = (categoryName) => {
