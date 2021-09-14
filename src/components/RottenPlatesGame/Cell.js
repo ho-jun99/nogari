@@ -4,6 +4,7 @@ import no from './PlatesGameImage/no.png';
 import pass from './PlatesGameImage/pass.png';
 
 
+
 const getCellStyle = (code) => {
 
 
@@ -13,7 +14,6 @@ const getCellStyle = (code) => {
   } else if (code === CODE.CLICKED) {
     return {
       pointerEvents : 'none',
-      opacity : '0.5',
     }
   }
 }
@@ -38,7 +38,7 @@ const Cell = memo(( {cellId,cellIndex,cellPenalty} ) => {
     if (halted) {
       return;
     }
-    alert(`Result :  ${cellId} / ${cellPenalty}`);
+    //alert(`Result :  ${cellId} / ${cellPenalty}`);
     if(table[cellIndex].status === CODE.NORMAL) {
       if (table[cellIndex].penalty === "pass") {
         const temp = [...table];
@@ -47,7 +47,7 @@ const Cell = memo(( {cellId,cellIndex,cellPenalty} ) => {
         setGameStatus(OTHER_TURN);
         setCurUser((prev) => prev + 1);
         setSelectPlate({ispass: true, cellId : cellId, cellPenalty : cellPenalty});
-        setHalted(true);
+        //setHalted(true);
         setGameStatus(OTHER_TURN);
 
       } else {
@@ -57,7 +57,7 @@ const Cell = memo(( {cellId,cellIndex,cellPenalty} ) => {
         setGameStatus(OTHER_TURN);
         setCurUser((prev) => prev + 1);
         setSelectPlate({ispass: false, cellId : cellId, cellPenalty : cellPenalty});
-        setHalted(true);
+        //setHalted(true);
         setGameStatus(UNPASS);
       }
     }
