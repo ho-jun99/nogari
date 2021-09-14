@@ -41,28 +41,28 @@ const userList = [
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 0,
-		badges: [0, 1, 2, 3, 4],
+		badges: [0, 1, 2, 3, 4,11,5,6],
 	},
 	{
 		name: "임성원",
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 1,
-		badges: [0, 1, 2,],
+		badges: [0, 1, 2,6,2],
 	},
 	{
 		name: "이종휘",
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 2,
-		badges: [0, 3, 4],
+		badges: [0, 3,13,13],
 	},
 	{
 		name: "김지성",
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 3,
-		badges: [0, 1, 3, 4],
+		badges: [13,13,13,13],
 	},
 	{
 		name: "신재혁",
@@ -76,15 +76,15 @@ const userList = [
 		nickName: "청춘",
 		charType: "마른 오징어",
 		rank: 5,
-		badges: [0, 1,1,1,],
+		badges: [0, 11,,8,],
 	},
-	// {
-	// 	name: "정나영",
-	// 	nickName: "청춘",
-	// 	charType: "마른 오징어",
-	// 	rank: 6,
-	// 	badges: [0, 1, 2, 3, 4],
-	// },
+	{
+		name: "정나영",
+		nickName: "청춘",
+		charType: "마른 오징어",
+		rank: 6,
+		badges: [0, 1, 2, 3, 4],
+	},
 ]
 
 const RankMenu = memo(({ stateData, isMenuOpenFun }) => {

@@ -13,10 +13,12 @@ import {updateUserData} from "../../firebase/games/liar";
 import {setLiarPlayerData} from "../../firebase/game-data";
 import {getRoomInfo} from "../../firebase/waiting-room";
 import {Chr} from "../../views/beforeGame/Choose_Char";
+import firebase from "../../firebase/firebase-manager";
+import {getGameData} from "../../firebase/game-data";
 
 export default function SelectLiarComponent(props) {
     let [allUserSelect, setAllUserSelect] = useState(false);
-    let [mostVotedUser, setMostVotedUser] = useState("");
+    let [mostVotedUser, setMostVotedUser] = useState({});
     const [userProfile, setUserProfile] = useState([]);
     const [vote, setVote] = useState(true);
     let [userLiar, setUserLiar] = useState(false);
@@ -62,7 +64,7 @@ export default function SelectLiarComponent(props) {
         )
     });
 
-    const nominate = () => {
+    const nominate = async () => {
         // const temp_list = [...userList];
         // let maxCount = temp_list[0].count;
         // let user = temp_list[0].nickname;
@@ -77,6 +79,24 @@ export default function SelectLiarComponent(props) {
         //         isLiar = temp_list[i].isLiar;
         //     }
         // }
+
+        // const gameData = await getGameData(roomNumber);
+        // console.log(gameData);
+
+        const gameData = await getGameData(roomNumber);
+        const userData = await Object.entries(gameData.players);
+
+        let maxCount = userData[0][1].liar.count; // 첫번째 유저의 count 값
+        let max_user = userData[0][1].member; // 첫번재 유저의 userId 값
+        for (let i=1; i < userData.length; i++) {
+            if (maxCount < userData[i][1].liar.count) {
+                maxCount = userData[i][1].liar.count;
+                max_user = userData[i][1].member;
+            }
+        }
+        const user = await getUserInfo(max_user);
+
+
         setMostVotedUser(user);
         // setProfile(profile);
         // setUserLiar(isLiar);
