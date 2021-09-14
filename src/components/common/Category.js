@@ -37,7 +37,10 @@ export default function Category(props) {
             randomArr.push(index);
 
             // 원하는 배열 갯수가 되면 종료
-            if (randomArr.length === count + 1) {
+            if(randomArr.length === 1 && count === 2) {
+                break;
+            }
+            else if (randomArr.length === count + 1) {
                 break;
             }
         }
@@ -72,9 +75,15 @@ export default function Category(props) {
     }, []);
 
     useEffect(()=> {
-
         player !== undefined && console.log(player);
-        player !== undefined && setTotalRound(Object.keys(player).length - 2);
+        if (player !== undefined) {
+            if (Object.keys(player).length === 1) {
+                setTotalRound(1);
+            }
+            else {
+                setTotalRound(Object.keys(player).length - 2);
+            }
+        }
         totalRound !== undefined && console.log(totalRound);
     },[player])
 
@@ -101,7 +110,12 @@ export default function Category(props) {
 
 
     useEffect(() => {
-        getRandomArray(0, wordGame.length - 1, totalRound);
+        if (totalRound === 0) {
+            getRandomArray(0, wordGame.length - 1, 2);
+            console.log("dd")
+        } else {
+            getRandomArray(0, wordGame.length - 1, totalRound);
+        }
     },[wordGame])
 
     useEffect(() => {
