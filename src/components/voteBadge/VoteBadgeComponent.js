@@ -41,7 +41,7 @@ function VoteBadgeComponent() {
     }, []);
 
 
-    if (voteCount === 6) {
+    if (voteCount === 1) {
         let counter = 0;
         let elements = document.getElementById(String(maxIndex));
 

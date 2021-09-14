@@ -95,7 +95,7 @@ export default function SelectLiarComponent(props) {
             }
         }
         const user = await getUserInfo(max_user);
-
+        console.log(user);
 
         setMostVotedUser(user);
         // setProfile(profile);

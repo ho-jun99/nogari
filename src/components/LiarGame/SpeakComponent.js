@@ -20,6 +20,17 @@ const SpeakComponent = memo((props) => {
 	const liarTimer = useRef();
 	let point = 0;
 
+	const openVoteModal = async () => {
+		// console.log(props.turn[point]);
+		// await updateTurn(roomNumber, props.turn[point], props.turn[++point]);
+		await setLiarPlayerData(roomNumber, props.turn[point], 'order', false);
+		point++;
+		if (userLength > point) {
+			await setLiarPlayerData(roomNumber, props.turn[point], 'order', true);
+		} else {
+			setVoteModal(true);
+		}
+	}
 
 
 	const setUserInfo = async (roomInfo) => {
@@ -43,6 +54,7 @@ const SpeakComponent = memo((props) => {
 
 	useEffect(() => {
 		if (count <= 0) {
+			openVoteModal();
 		} else {
 			liarTimer.current = setTimeout(() => {
 				setCount((prev) => prev - 1)
@@ -70,17 +82,6 @@ const SpeakComponent = memo((props) => {
 
 	const userLength = Object.entries(props.users).length;
 
-	const openVoteModal = async () => {
-		// console.log(props.turn[point]);
-		// await updateTurn(roomNumber, props.turn[point], props.turn[++point]);
-		await setLiarPlayerData(roomNumber, props.turn[point], 'order', false);
-		point++;
-		if (userLength > point) {
-			await setLiarPlayerData(roomNumber, props.turn[point], 'order', true);
-		} else {
-			setVoteModal(true);
-		}
-	}
 	const closeVoteModal = () => {
 		setVoteModal(false);
 	}
