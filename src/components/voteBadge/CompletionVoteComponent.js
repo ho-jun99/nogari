@@ -1,10 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Effect from '../../images/effect.png'
+import {useHistory} from "react-router";
 
 const CompletionVoteComponent = (props) => {
 
+    const [back, setBack] = useState();
+    const roomId = localStorage.getItem('roomNumber');
+
+    const history = useHistory();
+
     // 몇 초 뒤에 대기실로 이동하는 건 구현 안했음 일단은 .. 디자인만 완성
 
+    setInterval(() => {
+        setBack(true);
+    }, 3000);
+
+    if(back) history.push(`/rooms/${roomId}`);
 
     const user = props.location.state.user;
     const images = props.location.state.img;

@@ -30,14 +30,14 @@ export default function LiarCategoryView({ match } ) {
     useEffect(()=> {
         getGameRoomData(match.params.roomId, changedgamedata);
         console.log(liar.select);
-        if(liar.select) history.push(`/rooms/${roomId}/liar`);
     }, [])
 
-    const LiarCategoryChoice = () => {
+    const LiarCategoryChoice = async () => {
         const random = Math.floor(Math.random()*userCount);
-        // if(category) history.push(`/rooms/${roomId}/liar`);
-        setLiarPlayerData(roomId, userNickname[random], 'isliar', true);
-        setLiarData(roomId, 'select', true);
+        console.log(random);
+        await setLiarPlayerData(roomId, userNickname[random], 'isliar', true);
+        await setLiarData(roomId, 'select', true);
+        history.push(`/rooms/${roomId}/liar`);
     }
     return (
         <>
