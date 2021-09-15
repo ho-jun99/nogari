@@ -23,6 +23,10 @@ export const END_GAME = "END_GAME";
 export const PASS = "PASS";
 export const UNPASS = "UNPASS";
 
+// export function shuffleTable(table) {
+//    table(shuffle(SeverPenaltyList));
+// }
+
 const shuffle = (myList) => {
   const temp = [...myList];
   temp.sort( ()=> Math.random() - 0.5 );
@@ -50,7 +54,7 @@ const ServerUsers = [
 ]
 
 const RottenPlatesGame = memo(() => {
-  const [table,setTable] = useState(SeverPenaltyList);
+  const [table,setTable] = useState(shuffle(SeverPenaltyList));
   const [message,setMessage] = useState("벌칙룰렛 게임입니다.");
   const [gameStatus,setGameStatus] = useState(INIT);
   const [halted,setHalted] = useState(false);
@@ -81,10 +85,11 @@ const RottenPlatesGame = memo(() => {
     setSelectPlate,
     owner,
     setOwner,
+    SeverPenaltyList
   }
 
   useEffect(()=>{
-    setTable(SeverPenaltyList);
+    setTable(shuffle(SeverPenaltyList));
   }, [])
 
   const myTimer = () => {
@@ -158,6 +163,10 @@ const RottenPlatesGame = memo(() => {
     }
     setUserProfile(members)
   }
+
+  // if (gameStatus === UNPASS) {
+  //   setTable(shuffle(SeverPenaltyList));
+  // }
 
   // 렌더링 시 해당 방의 참가 유저 정보를 가져오는 함수 호출
   useEffect(() => {
