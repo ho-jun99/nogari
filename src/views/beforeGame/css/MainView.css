@@ -114,7 +114,7 @@
 
 }
 
-.main > button{
+.main > .contents >button{
     font-family: DungGeunMo;
     font-size: 65.8237px;
     line-height: 77px;
@@ -134,8 +134,11 @@
     border-radius: 1.36852px;
     z-index: 5;
 }
-.main > button > a{
+.main >.contents> button > a{
     margin: 0 auto;
+}
+.contents{
+    margin-top: 50px;
 }
 .characters{
     position: relative;
@@ -179,6 +182,7 @@
     animation: slide-tl 0.1s linear 0.05s both;
 }
 .fourth_top{
+    /*top: 00px;*/
     -webkit-animation: slide-top 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
     animation: slide-top 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 }

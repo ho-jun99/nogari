@@ -185,7 +185,7 @@ export default function Choose_Char({ history }) {
                 </div>
                 <div className="complete_button_wrapper">
                     <div>
-                        { nickname===""
+                        { nickname==="" && count===0
                             ?<button disabled={nickname===""} className="complete_button2">캐릭터 생성 완료</button>
                             :<button className="complete_button1" onClick={createID}>캐릭터 생성 완료</button>
 
